@@ -1,46 +1,55 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState } from "react";
 import "./App.css";
-import { sessionStore } from "./store/session.store";
+import routes from "./pages/routes";
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import { ProtectedRoute } from "./libs/protectedRoutes";
+import { useSessionStore } from "./store/Session.Store";
+import queryClient from "./libs/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const { session } = sessionStore((state) => ({
-    session: state.session,
-  }));
-  const { setSession } = sessionStore();
+  const isAuth = useSessionStore((state) => state.isAuth);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        <p> session {session ? "on" : "off"}</p>
-        <button
-          onClick={() => {
-            setSession();
-          }}
-        >
-          start sesion
-        </button>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/panel" render={(props) => <AdminLayout {...props} />} /> */}
+          {/* Rutas públicas */}
+          {routes
+            .filter((r) => !r.private_access)
+            .map((r, key) => (
+              <Route key={key} path={r.path} element={<r.component />} />
+            ))}
+
+          {/* Rutas privadas */}
+          <Route path="panel" element={<ProtectedRoute isAllowed={isAuth} />}>
+            {routes
+              .filter((r) => r.private_access)
+              .map((r, key) => (
+                <Route
+                  key={key}
+                  path={r.layout + r.path}
+                  element={<r.component />}
+                />
+              ))}
+            <Route
+              path="/panel/*"
+              element={
+                <Navigate
+                  to="/error-404"
+                  replace
+                  state={{ customParam: "someValue" }}
+                />
+              }
+            />
+          </Route>
+          {/* Ruta de error 404 */}
+          <Route path="*" element={<Navigate to="/error-404" replace />} />
+        </Routes>
+      </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }
 

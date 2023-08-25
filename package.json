@@ -10,11 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.32.0",
+    "@tanstack/react-query-devtools": "^4.32.0",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.3.1",
+    "bootstrap-icons": "^1.10.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
+    "zukeeper": "^1.0.2",
     "zustand": "^4.3.9"
   },
   "devDependencies": {
+    "@types/history": "^5.0.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",
