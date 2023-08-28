@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuthQuery } from "../hooks/useAuthQuery";
+import BarraLateral from "./components/Barra-Lateral/BarraLateral";
 
 export const ProtectedRoute = ({ children, redirectTo = "/" }) => {
   //const session = useSessionStore((state) => state.session);
@@ -17,7 +18,7 @@ export const ProtectedRoute = ({ children, redirectTo = "/" }) => {
 
   return (
     <>
-      <h1>LAYOUT</h1>
+      <BarraLateral/>
       {children ? <>{children}</> : <Outlet />}
     </>
   );
