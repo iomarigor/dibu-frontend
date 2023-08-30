@@ -1,10 +1,10 @@
 import DashboardPage from "./Dashboard.Page";
 const DashboardPageConfig = {
-  path: "/dashboard",
+  path: "",
   private_access: true,
   component: DashboardPage,
   name: "Dashboard",
-  icon: "test",
+  icon: "fa bi-speedometer2",
   layout: "/panel",
 };
 export default DashboardPageConfig;
