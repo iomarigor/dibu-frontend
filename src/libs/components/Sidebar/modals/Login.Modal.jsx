@@ -19,7 +19,14 @@ function LoginModal({ show, handleClose }) {
     });
   };
   return (
-    <Modal show={show} onHide={handleClose} size="sm">
+    <Modal
+      show={show}
+      onHide={handleClose}
+      size="sm"
+      backdrop="static"
+      keyboard={false}
+      centered
+    >
       <form onSubmit={handleSubmit}>
         <Modal.Header closeButton>
           <Modal.Title>Inicio de Sesión</Modal.Title>
