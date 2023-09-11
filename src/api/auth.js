@@ -16,5 +16,12 @@ async function authRequest() {
     throw error;
   }
 }
-
-export { loginRequest, authRequest };
+async function logoutRequest() {
+  try {
+    const res = await axios.get("logout");
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+export { loginRequest, authRequest, logoutRequest };

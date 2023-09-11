@@ -4,7 +4,7 @@ const AnnouncementPageConfig = {
   private_access: true,
   component: AnnouncementPage,
   name: "Convocatoria",
-  icon: "fa bi-megaphone-fill",
+  icon: "fa fa-bullhorn",
   layout: "/panel",
 };
 export default AnnouncementPageConfig;

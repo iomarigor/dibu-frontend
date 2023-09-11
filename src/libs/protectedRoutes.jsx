@@ -18,7 +18,9 @@ export const ProtectedRoute = ({ children, redirectTo = "/" }) => {
   return (
     <>
       {/* <Sidebar /> */}
-      <Sidebar>{children ? <>{children}</> : <Outlet />}</Sidebar>
+      <Sidebar private_access={true}>
+        {children ? <>{children}</> : <Outlet />}
+      </Sidebar>
     </>
   );
 };

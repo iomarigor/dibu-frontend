@@ -1,6 +1,6 @@
 import axios from "axios";
 const env = import.meta.env;
-import { useSessionStore } from "../store/Session.Store";
+import { useSessionStore } from "../store/Session.store";
 const authApi = axios.create({
   baseURL: env.VITE_URL_BACKEND,
   withCredentials: true,

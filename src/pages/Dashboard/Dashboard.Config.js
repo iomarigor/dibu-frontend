@@ -4,7 +4,7 @@ const DashboardPageConfig = {
   private_access: true,
   component: DashboardPage,
   name: "Dashboard",
-  icon: "fa bi-speedometer2",
+  icon: "fa fa-gauge",
   layout: "/panel",
 };
 export default DashboardPageConfig;
