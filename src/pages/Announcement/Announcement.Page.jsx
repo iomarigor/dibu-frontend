@@ -1,10 +1,16 @@
-import React from "react";
-import { Card, Table } from "react-bootstrap";
-
+import React, { useState } from "react";
+import { Card, Table, Button } from "react-bootstrap";
+import AnnouncementModal from "./modals/Announcement.Modal";
 function AnnouncementPage() {
+  const [announcementModal, setAnnouncementModal] = useState(false);
+  const changeAnnouncementModal = () => {
+    setAnnouncementModal(!announcementModal);
+  };
   return (
     <div>
-      {" "}
+      <Button variant="primary" onClick={changeAnnouncementModal}>
+        Launch demo modal
+      </Button>
       <Card>
         <Card.Header>Gestión Convocatoria</Card.Header>
         <Card.Body>
@@ -38,7 +44,11 @@ function AnnouncementPage() {
             </tbody>
           </Table>
         </Card.Body>
-      </Card>{" "}
+      </Card>
+      <AnnouncementModal
+        show={announcementModal}
+        handleClose={changeAnnouncementModal}
+      />
     </div>
   );
 }
