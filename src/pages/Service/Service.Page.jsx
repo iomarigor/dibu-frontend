@@ -1,8 +1,11 @@
 import React from "react";
+import CardServicio from "./Components/Card";
 function ServicePage() {
   return (
     <>
-      <h1>ServicePage</h1>
+      <CardServicio/>
+      <br />
+     
     </>
   );
 }
