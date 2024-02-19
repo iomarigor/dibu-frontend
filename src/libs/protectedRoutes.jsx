@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuthQuery } from "../hooks/useAuthQuery";
-
+import Sidebar from "./components/Sidebar/Sidebar";
 export const ProtectedRoute = ({ children, redirectTo = "/" }) => {
   //const session = useSessionStore((state) => state.session);
   const authQuery = useAuthQuery();
@@ -17,8 +17,10 @@ export const ProtectedRoute = ({ children, redirectTo = "/" }) => {
 
   return (
     <>
-      <h1>LAYOUT</h1>
-      {children ? <>{children}</> : <Outlet />}
+      {/* <Sidebar /> */}
+      <Sidebar private_access={true}>
+        {children ? <>{children}</> : <Outlet />}
+      </Sidebar>
     </>
   );
 };

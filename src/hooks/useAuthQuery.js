@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { loginRequest, authRequest } from "../api/auth";
-import { useSessionStore } from "../store/Session.Store";
+import { loginRequest, authRequest, logoutRequest } from "../api/auth";
+import { useSessionStore } from "../store/Session.store";
 import { useProfileStore } from "../store/profile.Store";
 
 const useLoginQuery = () => {
@@ -33,5 +33,19 @@ const useAuthQuery = () => {
     },
   });
 };
-
-export { useLoginQuery, useAuthQuery };
+const useLogoutQuery = () => {
+  const { setSession } = useSessionStore((state) => state);
+  const { setProfile } = useProfileStore((state) => state);
+  return useMutation(() => logoutRequest(), {
+    onSuccess: (res) => {
+      setSession(null, false);
+      setProfile(null);
+    },
+    onError: (err) => {
+      console.log(err);
+      setSession(null, false);
+      setProfile(null);
+    },
+  });
+};
+export { useLoginQuery, useAuthQuery, useLogoutQuery };
