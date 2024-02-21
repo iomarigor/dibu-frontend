@@ -1,0 +1,57 @@
+<div class="w-screen h-screen flex justify-center items-center flex-col gap-6" style="background: #dcebbf">
+  <div class="flex gap-4 justify-center items-center">
+    <div>
+      <img src="assets/logos/logo.svg" alt="logo dibu">
+    </div>
+    <div>
+      <span class="font-bold text-2xl" style="color: #BF911B">PLATAFORMA DBU</span>
+    </div>
+  </div>
+  <div class="flex rounded-lg px-6 py-4 bg-white gap-6 flex-col">
+    <div class="flex justify-center items-center gap-1 flex-col">
+      <div>
+        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25 0C11.4475 0 0 11.4475 0 25C0 38.5525 11.4475 50 25 50C38.5525 50 50 38.5525 50 25C50 11.4475 38.5525 0 25 0ZM25 12.5C29.3175 12.5 32.5 15.68 32.5 20C32.5 24.32 29.3175 27.5 25 27.5C20.685 27.5 17.5 24.32 17.5 20C17.5 15.68 20.685 12.5 25 12.5ZM12.235 36.93C14.4775 33.63 18.2175 31.43 22.5 31.43H27.5C31.785 31.43 35.5225 33.63 37.765 36.93C34.57 40.35 30.0375 42.5 25 42.5C19.9625 42.5 15.43 40.35 12.235 36.93Z" fill="#102715" fill-opacity="0.65"/>
+        </svg>
+      </div>
+      <div><small class="font-bold">Iniciar Sesión</small></div>
+      <div><small class="font-bold" style="color: #0F75BC">Sistema de Tramite Documentario</small></div>
+    </div>
+    <div class="flex flex-col gap-4" [formGroup]="loginForm">
+      <div class="flex justify-center items-center h-12 rounded-lg" style="background: #26964811">
+        <div class="w-12 h-full flex justify-center items-center px-2" style="background: #e3f1e7">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.5 6.1579C6.5 9.55295 9.41633 12.3158 13 12.3158C16.5837 12.3158 19.5 9.55295 19.5 6.1579C19.5 2.76284 16.5837 0 13 0C9.41633 0 6.5 2.76284 6.5 6.1579ZM24.5556 26H26V24.6316C26 19.3508 21.463 15.0526 15.8889 15.0526H10.1111C4.53556 15.0526 0 19.3508 0 24.6316V26H24.5556Z" fill="#572218" fill-opacity="0.333333"/>
+          </svg>
+        </div>
+        <input type="text" class="w-full h-full px-4 py-2 border" formControlName="email" style="background: #26964811" placeholder="Email">
+      </div>
+      <div class="flex justify-center items-center h-12 rounded-lg" style="background: #26964811">
+        <div class="w-12 h-full flex justify-center items-center px-2" style="background: #e3f1e7">
+          <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.5 8.83329H5.75V5.58329C5.75 3.79146 7.20816 2.33329 9 2.33329C10.7918 2.33329 12.25 3.79146 12.25 5.58329H14.4167C14.4167 2.59654 11.9867 0.166626 9 0.166626C6.01325 0.166626 3.58333 2.59654 3.58333 5.58329V8.83329H2.49999C1.92536 8.83329 1.37426 9.06157 0.96793 9.46789C0.561601 9.87422 0.333328 10.4253 0.333328 11V19.6666C0.333328 20.2413 0.561601 20.7924 0.96793 21.1987C1.37426 21.605 1.92536 21.8333 2.49999 21.8333H15.5C16.0746 21.8333 16.6257 21.605 17.0321 21.1987C17.4384 20.7924 17.6667 20.2413 17.6667 19.6666V11C17.6667 10.4253 17.4384 9.87422 17.0321 9.46789C16.6257 9.06157 16.0746 8.83329 15.5 8.83329ZM6.89941 14.7905C7.03257 14.2808 7.34676 13.8369 7.78328 13.5418C8.2198 13.2468 8.74881 13.1207 9.27148 13.1872C9.79416 13.2537 10.2748 13.5081 10.6235 13.9031C10.9723 14.298 11.1654 14.8064 11.1667 15.3333C11.166 15.7122 11.0656 16.0842 10.8754 16.4119C10.6852 16.7396 10.412 17.0114 10.0833 17.1999V19.6666H7.91666V17.1999C7.50675 16.965 7.18524 16.6021 7.00148 16.1669C6.81772 15.7316 6.78186 15.2481 6.89941 14.7905Z" fill="#572218" fill-opacity="0.3333"/>
+          </svg>
+        </div>
+        <input type="password" class="w-full h-full px-4 py-2 border" formControlName="password" style="background: #26964811" placeholder="Contraseña">
+      </div>
+      <div class="flex justify-center items-center h-12 rounded-lg" style="background: #26964811">
+        <div class="w-12 h-full flex justify-center items-center px-2" style="background: #e3f1e7">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 11.5556H11.5491V0H0V11.5556ZM2.88728 2.88889H8.66185V8.66667H2.88728V2.88889ZM0 26H11.5491V14.4444H0V26ZM2.88728 17.3333H8.66185V23.1111H2.88728V17.3333ZM14.4364 0V11.5556H25.9856V0H14.4364ZM23.0983 8.66667H17.3237V2.88889H23.0983V8.66667ZM14.4509 14.4444H17.3381V17.3333H14.4509V14.4444ZM17.3381 17.3333H20.2254V20.2222H17.3381V17.3333ZM14.4509 20.2222H17.3381V23.1111H14.4509V20.2222ZM20.2254 20.2222H23.1127V23.1111H20.2254V20.2222ZM23.1127 23.1111H26V26H23.1127V23.1111ZM17.3381 23.1111H20.2254V26H17.3381V23.1111ZM20.2254 14.4444H23.1127V17.3333H20.2254V14.4444ZM23.1127 17.3333H26V20.2222H23.1127V17.3333Z" fill="#572218" fill-opacity="0.3333"/>
+          </svg>
+        </div>
+        <div type="text" class="w-full h-full px-4 py-2 border" style="background: #26964811"></div>
+      </div>
+      <div class="flex justify-center items-center h-12 rounded-lg" style="background: #26964811">
+        <div class="w-12 h-full flex justify-center items-center px-2" style="background: #e3f1e7">
+          <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.6321 6.01774C17.0416 5.60824 17.2669 5.06441 17.2669 4.48591C17.2669 3.90741 17.0416 3.36357 16.6321 2.95407L14.9139 1.23591C14.5044 0.826408 13.9606 0.601074 13.3821 0.601074C12.8036 0.601074 12.2597 0.826408 11.8513 1.23482L0.333328 12.7171V17.5H5.11408L16.6321 6.01774ZM13.3821 2.76774L15.1013 4.48482L13.3788 6.20082L11.6607 4.48374L13.3821 2.76774ZM2.49999 15.3333V13.6162L10.1267 6.01341L11.8448 7.73157L4.21924 15.3333H2.49999ZM0.333328 19.6667H17.6667V21.8333H0.333328V19.6667Z" fill="#572218" fill-opacity="0.3333"/>
+          </svg>
+        </div>
+        <input type="text" class="w-full h-full px-4 py-2 border" formControlName="code" style="background: #26964811" placeholder="Cod. Verificación">
+      </div>
+      <button class="w-full h-12 rounded-md text-white font-bold text-sm" style="background: #464444" (click)="login()">Ingresar</button>
+      <div class="w-full text-center"><small class="cursor-pointer" style="color: #0F75BC">¿Olvidó su contraseña?</small></div>
+    </div>
+  </div>
+</div>
