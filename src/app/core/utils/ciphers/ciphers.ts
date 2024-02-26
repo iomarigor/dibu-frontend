@@ -62,7 +62,7 @@ export class Cipher {
   }
 
   /**
-   * Verifica un JWT (JSON Web Token) utilizando la llave RSA.
+   * Verifica la firma de un JWT (JSON Web Token) utilizando la llave RSA.
    *
    * @param {string} jwt - El JWT que se desea verificar.
    * @returns {boolean} - Retorna `true` si el JWT es válido y `false` en caso contrario.
