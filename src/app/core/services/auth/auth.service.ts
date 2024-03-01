@@ -10,10 +10,10 @@ import {JwtHelper} from "../../utils/jwt/jwt";
 })
 export class AuthService {
 
-  public _urlBase: string = 'https://dbu-dev.dimo-app.com';
-  public _urlLogin: string = this._urlBase + '/login';
-  public _cipher = new Cipher();
-  public _jwtHelper = new JwtHelper();
+  private _urlBase: string = 'https://dbu-dev.dimo-app.com';
+  private _urlLogin: string = this._urlBase + '/login';
+  private _cipher = new Cipher();
+  private _jwtHelper = new JwtHelper();
 
   constructor(
     private _http: HttpClient

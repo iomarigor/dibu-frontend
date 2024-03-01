@@ -8,7 +8,7 @@ import {PostulationComponent} from "./pages/postulation/postulation.component";
 export const homesRoutes: Routes = [
   {
     path: 'calendar',
-    component: CalendarComponent,
+    component: CalendarComponent
   },
   {
     path:'services',

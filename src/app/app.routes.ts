@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {HomeComponent} from "./modules/home/home.component";
 import {homesRoutes} from "./modules/home/home.routes";
 import {AuthComponent} from "./modules/auth/auth.component";
