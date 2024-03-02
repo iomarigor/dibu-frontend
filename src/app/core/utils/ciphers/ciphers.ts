@@ -2,11 +2,15 @@ import { KEYUTIL, RSAKey, KJUR } from 'jsrsasign';
 export class Cipher {
 
   private keyRsaStr: string = `-----BEGIN PUBLIC KEY-----
-    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCl6RCbisYho3oREByilGdicL3Q
-    A3iujpyQIDwd7f/wQv72cd9t7dwc4h3MReo5a02BGGKLV83PTybPvepPsuiuyxuN
-    Dp1zvX3MH7GK8Ms3zqWWW/6bMBlCWcxP4wLFwh804Ii+oYd6pyMmyfewI4/0EbAp
-    09u9acSYYbZVZK73WQIDAQAB
-    -----END PUBLIC KEY-----`;
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlfnYdfFMeFlxPc+mv4o8
+7F1Yngv483aq6/zFWjI8JxZe3ozjaAqGHCLJkBkiq92K2TDHJK5j5s97gReiPxXu
+ccqhecssxvIcCKlLeG2wKG4yl8k+85Ka3w32sr5oSsOdxlwQEfFFGbvLEBbU+Rpy
+wsuPXTxLqYsVRDxqmznCeYoxvSF9DBZxAd7x2OBypM5fc4A5+Cf3iFy9wt+MzgOJ
+rYWpHnn1JVrguK9DcHn5PmQFxF+CEVV8l+1ZUFln1RRWwAS9t1YXGWF8y1iUhX7U
+h/aJSjlD0pbDExA2NDThygbhZm5A9tmOuJkO2adb9TYFxSuqztncSkAkPp2YAoIZ
+QQIDAQAB
+-----END PUBLIC KEY-----
+`;
   private readonly keyRsa: RSAKey;
   private readonly keyJwk: KJUR.jws.JWS.JsonWebKey;
   private key: any;
