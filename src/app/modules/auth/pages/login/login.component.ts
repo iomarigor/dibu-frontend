@@ -8,6 +8,7 @@ import {ToastService} from "../../../../core/services/toast/toast.service";
 import {Subscription} from "rxjs";
 import {Login} from "../../../../core/models/auth";
 import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -32,12 +33,12 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private _authService: AuthService,
-    private _toastService: ToastService
+    private _toastService: ToastService,
+    private _router: Router
   ) {
     this.loginForm = this._fb.group({
       email: ['', Validators.required],
-      password: ['', Validators.required],
-      code: ['', Validators.required]
+      password: ['', Validators.required]
     });
   }
 
@@ -64,13 +65,14 @@ export class LoginComponent implements OnDestroy {
             this._toastService.add({type: 'error', message: 'No se pudo iniciar sesión, intente nuevamente'});
             return;
           }
-          this._authService.saveSession(res.detalle);
 
+          this._authService.saveSession(res.detalle);
+          this._router.navigate(['/home']);
         },
         error: (err: HttpErrorResponse) => {
           this.isLoading = false;
           this._toastService.add({type: 'error', message: err.error.msg});
-          console.log(err)
+          console.log(err);
         }
       })
     );
