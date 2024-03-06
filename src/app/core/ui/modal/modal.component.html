@@ -24,13 +24,13 @@
         </div>
         <!-- Modal footer -->
         <div class="flex items-center gap-4 justify-end p-4 md:p-5 border-t border-gray-200 rounded-b">
-          <button type="button"
+          <button *ngIf="false" type="button"
                   class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
             Regresar
           </button>
           <button type="button" (click)="onNext.emit()"
                   class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
-            Siguiente
+            Guardar
           </button>
         </div>
       </div>

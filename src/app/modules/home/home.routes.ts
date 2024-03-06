@@ -4,6 +4,7 @@ import {ServicesComponent} from "./pages/services/services.component";
 import {DataStatisticComponent} from "./pages/data-statistic/data-statistic.component";
 import {StatuteRegulationsComponent} from "./pages/statute-regulations/statute-regulations.component";
 import {PostulationComponent} from "./pages/postulation/postulation.component";
+import {AnnouncementComponent} from "./pages/announcement/announcement.component";
 
 export const homesRoutes: Routes = [
   {
@@ -25,6 +26,10 @@ export const homesRoutes: Routes = [
   {
     path: 'postulation',
     component: PostulationComponent
+  },
+  {
+    path: 'announcement',
+    component: AnnouncementComponent
   },
   {
     path: '',

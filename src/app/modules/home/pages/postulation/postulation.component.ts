@@ -13,5 +13,5 @@ import {ModalComponent} from "../../../../core/ui/modal/modal.component";
   styleUrl: './postulation.component.scss'
 })
 export class PostulationComponent {
-  public openModal: boolean = false;
+
 }

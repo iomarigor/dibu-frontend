@@ -18,9 +18,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
   providers: [AuthService]
 })
 export class MenuComponent {
-  protected isAuth: boolean = false;
+  protected isAuth: boolean = true;
 
   constructor(private authService: AuthService) {
-    this.isAuth = this.authService.isValidSession();
+    // this.isAuth = this.authService.isValidSession();
   }
 }
