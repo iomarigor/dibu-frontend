@@ -2,7 +2,9 @@ import {Component} from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
 import {NgIf} from "@angular/common";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../store/app.reducers";
 
 @Component({
   selector: 'app-menu',
@@ -20,7 +22,9 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 export class MenuComponent {
   protected isAuth: boolean = false;
 
-  constructor(private authService: AuthService) {
-    this.isAuth = this.authService.isValidSession();
+  constructor(private _store: Store<AppState>) {
+    this._store.select('auth').subscribe((auth) => {
+      this.isAuth = auth.isAuth;
+    });
   }
 }

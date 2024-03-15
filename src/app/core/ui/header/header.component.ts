@@ -3,6 +3,9 @@ import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth/auth.service";
 import {ModalComponent} from "../modal/modal.component";
 import {ISession} from "../../models/auth";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../store/app.reducers";
+import {controlAuth} from "../../store/actions/auth.action";
 
 @Component({
   selector: 'app-header',
@@ -24,14 +27,18 @@ export class HeaderComponent {
 
   constructor(
     private authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _store: Store<AppState>
   ) {
-    this.isAuth = this.authService.isValidSession();
+    this._store.select('auth').subscribe((auth) => {
+      this.isAuth = auth.isAuth;
+    });
     this.session = this.authService.getSession();
   }
 
   public logout(): void {
     this.authService.logout();
+    this._store.dispatch(controlAuth({auth: {isAuth: false, session: null, token: ''}}));
     this._router.navigateByUrl('/home/services');
     this.openModal = false;
   }

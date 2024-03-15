@@ -145,23 +145,23 @@
           </svg>
           <span>Está por iniciar una nueva convocatoria</span>
         </div>
-        <form class="space-y-4">
+        <form class="space-y-4" [formGroup]="formAnnouncement">
           <div>
             <label for="name" class="block mb-2 text-sm text-gray-500 font-bold">Nombre</label>
-            <input type="text" name="name" id="name"
+            <input type="text" name="name" id="name" formControlName="name"
                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                    required/>
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label for="date-init" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Incio</label>
-              <input type="date" name="date-init" id="date-init"
+              <input type="date" name="date-init" id="date-init" formControlName="startDate"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                      required/>
             </div>
             <div>
               <label for="date-end" class="block mb-2 text-sm font-medium text-gray-900">Fecha de Culminación</label>
-              <input type="date" name="date-end" id="date-end"
+              <input type="date" name="date-end" id="date-end" formControlName="endDate"
                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                      required/>
             </div>
@@ -176,15 +176,15 @@
           </div>
 
           <cdk-accordion-item class="accordion">
-            @for (section of announcement.seciones; track section; let index = $index) {
+            @for (section of announcement.seciones; track section; let i = $index) {
               <cdk-accordion-item
                 #accordionItem="cdkAccordionItem"
                 class="example-accordion-item"
                 role="button"
                 tabindex="0"
-                [attr.id]="'accordion-header-' + index"
+                [attr.id]="'accordion-header-' + i"
                 [attr.aria-expanded]="accordionItem.expanded"
-                [attr.aria-controls]="'accordion-body-' + index">
+                [attr.aria-controls]="'accordion-body-' + i">
                 <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="#00725c" viewBox="0 0 512 512">
                     <path
@@ -194,8 +194,8 @@
                 </div>
                 <div role="region" class="my-6"
                      [style.display]="accordionItem.expanded ? '' : 'none'"
-                     [attr.id]="'accordion-body-' + index"
-                     [attr.aria-labelledby]="'accordion-header-' + index"
+                     [attr.id]="'accordion-body-' + i"
+                     [attr.aria-labelledby]="'accordion-header-' + i"
                 >
                   <section class="container px-4 mx-auto">
                     <div class="mt-6 md:flex md:items-center md:justify-between">
@@ -203,7 +203,7 @@
                         class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse">
                         <button
                           class="flex items-center justify-center uppercase px-5 py-2 text-sm text-gray-500 transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100"
-                          (click)="openModal = true">
+                          (click)="openModal = true; currentSection = i">
                           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                   stroke-width="32" d="M256 112v288M400 256H112"/>
@@ -255,7 +255,8 @@
                                   <td
                                     class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4 items-center justify-center">
                                     <div class="flex items-center justify-center">
-                                      <input id="default-checkbox" type="checkbox" value=""
+                                      <input id="default-checkbox" type="checkbox" [checked]="requirement.activo"
+                                             [(ngModel)]="requirement.activo"
                                              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 cursor-pointer focus:ring-2">
                                     </div>
                                     <div class="cursor-pointer">
@@ -270,7 +271,7 @@
                                                 stroke-width="32"/>
                                       </svg>
                                     </div>
-                                    <div class="cursor-pointer">
+                                    <div class="cursor-pointer" (click)="editRequirement(requirement, index)">
                                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
                                         <path fill="none" stroke="currentColor" stroke-linecap="round"
                                               stroke-linejoin="round" stroke-width="32"
@@ -290,95 +291,72 @@
               </cdk-accordion-item>
             }
           </cdk-accordion-item>
+
+          <div class="w-full flex justify-end items-center mt-8">
+            <button (click)="createAnnouncement()" type="button"
+                    class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                <path
+                  d="M380.93 57.37A32 32 0 00358.3 48H94.22A46.21 46.21 0 0048 94.22v323.56A46.21 46.21 0 0094.22 464h323.56A46.36 46.36 0 00464 417.78V153.7a32 32 0 00-9.37-22.63zM256 416a64 64 0 1164-64 63.92 63.92 0 01-64 64zm48-224H112a16 16 0 01-16-16v-64a16 16 0 0116-16h192a16 16 0 0116 16v64a16 16 0 01-16 16z"
+                  fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+              </svg>
+              Crear convoctoria
+            </button>
+          </div>
         </div>
       </div>
 
-      <div *ngIf="false" class="flex flex-col mt-6 space-y-4 w-3/4">
-        <div class="uppercase mb-4 text-gray-500 font-bold">
-          <span>Vista final de convocatoria</span>
-        </div>
-        <div class="w-full flex items-center text-sm text-gray-500 gap-4">
-          <span class="font-bold">Nombre:</span>
-          <span>1° Convocatoria 2023-II</span>
-        </div>
-        <div class="w-full flex items-center justify-between text-sm text-gray-500 gap-4">
-          <div class="flex gap-4">
-            <span class="font-bold">Fecha de Inicio:</span>
-            <span>01/01/2023</span>
-          </div>
-          <div class="flex gap-4">
-            <span class="font-bold">Fecha de Culminación:</span>
-            <span>01/01/2023</span>
-          </div>
-        </div>
-        <div class="w-full flex items-center justify-between text-sm text-gray-500 gap-4">
-          <span class="font-bold">Requisitos:</span>
-        </div>
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <div class="overflow-hidden border border-gray-200 md:rounded-lg">
-              <table class="min-w-full divide-y divide-gray-200">
-                <tbody class="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                    <div>
-                      <h2 class="font-medium text-gray-800 uppercase">Copia del SISFOH</h2>
-                    </div>
-                  </td>
-                  <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4 items-center justify-center">
-                    <div class="cursor-pointer">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-amber-600" viewBox="0 0 512 512">
-                        <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
-                              stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="32" d="M352 176L217.6 336 160 272"/>
-                      </svg>
-                    </div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
 }
 
-<app-modal [(show)]="openModal" [title]="titleModal">
-  <form class="space-y-4">
+<app-modal [(show)]="openModal" [title]="titleModal" (onNext)="createRequirement()">
+  <form class="space-y-4" [formGroup]="formRequirement">
     <div>
-      <label for="name" class="block mb-2 text-sm text-gray-500 font-bold">Nombre</label>
-      <input type="text" name="name"
+      <label for="name_req" class="block mb-2 text-sm text-gray-500 font-bold">Nombre</label>
+      <input type="text" name="name" formControlName="name" id="name_req"
              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
              required/>
+      <small class="text-red-500"
+             *ngIf="formRequirement.get('name')?.invalid && formRequirement.get('name')?.touched && formRequirement.get('name')?.hasError('required')">
+        El nombre es requerido
+      </small>
     </div>
     <div>
       <label class="block mb-2 text-sm font-medium text-gray-900">Descripción</label>
-      <textarea
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+      <textarea formControlName="description"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
       </textarea>
+      <small class="text-red-500"
+             *ngIf="formRequirement.get('description')?.invalid && formRequirement.get('description')?.touched && formRequirement.get('description')?.hasError('required')">
+        La descripción es requerida
+      </small>
     </div>
     <div class="grid grid-cols-2 gap-4 ">
       <div>
         <label for="file_guia" class="block mb-2 text-sm font-medium text-gray-900">Guía</label>
-        <input type="file" name="file_guia" id="file_guia"
+        <input type="file" name="file_guia" id="file_guia" (change)="processFile($event)"
                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                required/>
+        <small class="text-red-500"
+               *ngIf="formRequirement.get('guide')?.invalid && formRequirement.get('guide')?.touched && formRequirement.get('guide')?.hasError('required')">
+          La guía es requerida
+        </small>
       </div>
       <div>
         <label class="block mb-2 text-sm font-medium text-gray-900">Formato</label>
-        <select
-          class="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <select formControlName="format"
+                class="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
           <option selected hidden>Seleccione un formato</option>
-          <option value="pdf">PDF</option>
-          <option value="doc">DOC</option>
-          <option value="docx">DOCX</option>
-          <option value="xls">XLS</option>
-          <option value="xlsx">XLSX</option>
+          <option value="1">Documento</option>
+          <option value="2">imagen</option>
+          <option value="3">Formulario</option>
         </select>
+        <small class="text-red-500"
+               *ngIf="formRequirement.get('format')?.invalid && formRequirement.get('format')?.touched && formRequirement.get('format')?.hasError('required')">
+          Seleccione un formato
+        </small>
       </div>
     </div>
     <div>
@@ -387,7 +365,7 @@
       <div class="flex items-center gap-4">
         <span class="text-sm text-gray-500">Inactivo</span>
         <label class="inline-flex items-center cursor-pointer">
-          <input type="checkbox" value="" class="sr-only peer">
+          <input type="checkbox" value="" class="sr-only peer" formControlName="active">
           <div
             class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
         </label>
@@ -398,3 +376,4 @@
 </app-modal>
 
 <app-block-ui [show]="isLoad"></app-block-ui>
+<app-toast></app-toast>

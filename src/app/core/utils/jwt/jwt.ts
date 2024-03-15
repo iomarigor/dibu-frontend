@@ -40,7 +40,7 @@ export class JwtHelper {
       let bc = 0, bs: any, buffer: any, idx = 0;
       // get next character
       (buffer = str.charAt(idx++));
-      // character found in table? initialize bit storage and add its ascii value;
+      // character found in table? initialize bit store and add its ascii value;
       ~buffer &&
       ((bs = bc % 4 ? bs * 64 + buffer : buffer),
         // and if not first of each 4 characters,

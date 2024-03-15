@@ -9,6 +9,9 @@ import {Subscription} from "rxjs";
 import {Login} from "../../../../core/models/auth";
 import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component";
 import {Router} from "@angular/router";
+import {AppState} from "../../../../core/store/app.reducers";
+import {Store} from "@ngrx/store";
+import {controlAuth} from "../../../../core/store/actions/auth.action";
 
 @Component({
   selector: 'app-login',
@@ -34,7 +37,8 @@ export class LoginComponent implements OnDestroy {
     private _fb: FormBuilder,
     private _authService: AuthService,
     private _toastService: ToastService,
-    private _router: Router
+    private _router: Router,
+    private _storage: Store<AppState>
   ) {
     this.loginForm = this._fb.group({
       email: ['', Validators.required],
@@ -67,6 +71,13 @@ export class LoginComponent implements OnDestroy {
           }
 
           this._authService.saveSession(res.detalle);
+          this._storage.dispatch(controlAuth({
+            auth: {
+              isAuth: true,
+              token: res.detalle.token,
+              session: this._authService.getSession()
+            }
+          }));
           this._router.navigate(['/home/announcement']);
         },
         error: (err: HttpErrorResponse) => {

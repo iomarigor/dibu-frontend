@@ -21,6 +21,7 @@ export interface IRequirement {
   descripcion: string;
   url_guia: string;
   tipo_requisito_id: number;
+  activo: boolean;
 }
 
 //1= documento  2=Imagen 3=Formulario
