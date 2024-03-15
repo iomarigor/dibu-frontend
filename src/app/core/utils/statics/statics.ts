@@ -1,4 +1,5 @@
 import {IRequirement} from "../../models/announcement";
+import {IServices} from "../../models/services";
 
 export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
   {
@@ -206,3 +207,55 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     tipo_requisito_id: 2
   }
 ];
+
+export const Services: IServices[] = [
+  {
+    title: "Direccion de Bienestar Universitario",
+    image: 'assets/img/OBU.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu"
+  },
+  {
+    title: "Servicio Social",
+    image: 'assets/img/Social.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu/servicio-social",
+  },
+
+  {
+    title: "Topico",
+    image: 'assets/img/Topico.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu/topico",
+  },
+
+  {
+    title: "Area de Psicopedagogia",
+    image: 'assets/img/Psicopedagogia.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu/psicopedagogia",
+  },
+
+  {
+    title: "Odontologia",
+    image: 'assets/img/Odontologia.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu/odontologia",
+  },
+
+  {
+    title: "Comedor Universitario",
+    image: 'assets/img/Comedor.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu/comedor-universitario",
+  },
+  {
+    title: "Residencia Estudiantil",
+    image: 'assets/img/Residencia.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu/residencia-estudiantil"
+  },
+  {
+    title: "Complejo Deportivo",
+    image: 'assets/img/Complejo.png',
+    url: "https://portalweb.unas.edu.pe/content/dbu/complejo-deportivo"
+  },
+  {
+    title: "Becas para Estudio de Pregrado",
+    image: 'assets/img/Becas.png',
+    url: "https://portalweb.unas.edu.pe/content/becas-pregrado"
+  }
+]

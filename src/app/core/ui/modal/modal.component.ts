@@ -16,6 +16,12 @@ export class ModalComponent {
   @Output() public showChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Output() onNext: EventEmitter<void> = new EventEmitter<void>();
-
   @Input() public title: string = '';
+
+  @Input() showFooter: boolean = true;
+  @Input() showHeader: boolean = true;
+  @Input() showClose: boolean = true;
+
+  @Input() buttonSuccess: string = 'Guardar';
+
 }

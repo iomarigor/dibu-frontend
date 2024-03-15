@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {IDetail, IResponse, ISession, Login} from "../../models/auth";
+import {IDetailSession, ISession, Login} from "../../models/auth";
 import {Cipher} from "../../utils/ciphers/ciphers";
 import {JwtHelper} from "../../utils/jwt/jwt";
+import {IResponse} from "../../models/response";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,11 @@ export class AuthService {
   ) {
   }
 
-  public login(user: Login): Observable<IResponse> {
-    return this._http.post<IResponse>(this._urlLogin, user);
+  public login(user: Login): Observable<IResponse<IDetailSession>> {
+    return this._http.post<IResponse<IDetailSession>>(this._urlLogin, user);
   }
 
-  public saveSession(data: IDetail): void {
+  public saveSession(data: IDetailSession): void {
     sessionStorage.setItem('access_token', data.token.replace('Bearer ', ''));
     const session: ISession = {
       created_at: data.created_at,
@@ -40,6 +41,10 @@ export class AuthService {
     sessionStorage.setItem('session', JSON.stringify(session));
   }
 
+  public getSession(): ISession {
+    return JSON.parse(sessionStorage.getItem('session') || '{}');
+  }
+
   public isValidSession(): boolean {
     const token = sessionStorage.getItem('access_token');
     if (!token) return false;
@@ -47,5 +52,14 @@ export class AuthService {
     if (!this._cipher.verifyJWT(token)) return false;
 
     return !this._jwtHelper.isTokenExpired(token);
+  }
+
+  public getToken(): string {
+    return sessionStorage.getItem('access_token') || '';
+  }
+
+  public logout(): void {
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('session');
   }
 }

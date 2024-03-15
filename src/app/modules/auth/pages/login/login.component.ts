@@ -67,7 +67,7 @@ export class LoginComponent implements OnDestroy {
           }
 
           this._authService.saveSession(res.detalle);
-          this._router.navigate(['/home']);
+          this._router.navigate(['/home/announcement']);
         },
         error: (err: HttpErrorResponse) => {
           this.isLoading = false;

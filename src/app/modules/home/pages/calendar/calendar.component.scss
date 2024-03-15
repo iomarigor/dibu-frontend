@@ -1,0 +1,25 @@
+.calendar-month {
+  color: #607d8b;
+  display: block;
+  font-size: .625rem;
+  padding: 0;
+  position: relative;
+  text-transform: uppercase;
+  width: 100%;
+  text-align: center;
+}
+.calendar-year {
+  color: #607d8b;
+  display: block;
+  font-size: .625rem;
+  padding: 0;
+  text-align: center;
+}
+.calendar-day {
+  display: block;
+  font-size: .875rem;
+  font-weight: 600;
+  padding: 0;
+  text-align: center;
+  color: #1abb9c;
+}

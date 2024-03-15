@@ -1,1 +1,445 @@
-<div>postulation</div>
+@if (view === 'list') {
+  <div class="flex justify-center items-center w-full gap-4 flex-col" style="height: calc(100vh - 64px)"
+       xmlns="http://www.w3.org/1999/html">
+    <div class="w-3/4">
+      <section class="container px-4 mx-auto">
+        <div class="mt-6 md:flex md:items-center md:justify-between">
+          <div
+            class="flex overflow-hidden bg-white divide-x text-2xl w-full font-bold text-slate-500 justify-center items-center rounded-lg rtl:flex-row-reverse">
+            <span>LISTA DE REQUISITOS PARA LA CONVOCATORIA</span>
+          </div>
+        </div>
+
+        <div
+          class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6">
+          <button (click)="showModal = true"
+                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-gray-500 transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+              <path
+                d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
+                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+              <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            </svg>
+            Postular
+          </button>
+        </div>
+
+        <div class="flex flex-col mt-6">
+          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+              <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <tbody class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap" width="80%">
+                      <div>
+                        <h2 class="font-medium text-gray-800 uppercase">SOLICITUD UNICA DE TRAMITE</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4" width="20%">
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M320 336h76c55 0 100-21.21 100-75.6s-53-73.47-96-75.6C391.11 99.74 329 48 256 48c-69 0-113.44 45.79-128 91.2-60 5.7-112 35.88-112 98.4S70 336 136 336h56M192 400.1l64 63.9 64-63.9M256 224v224.03"
+                            fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="32"/>
+                        </svg>
+                      </div>
+                      <div class="cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                          <path
+                            d="M248 64C146.39 64 64 146.39 64 248s82.39 184 184 184 184-82.39 184-184S349.61 64 248 64z"
+                            fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="32" d="M220 220h32v116"/>
+                          <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                                stroke-width="32" d="M208 340h88"/>
+                          <path d="M248 130a26 26 0 1026 26 26 26 0 00-26-26z"/>
+                        </svg>
+                      </div>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
+          <div class="text-sm text-gray-500">
+            Página <span class="font-medium text-gray-700">1 de 10</span>
+          </div>
+
+          <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
+            <button
+              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                   stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
+              </svg>
+              <span>Anterior</span>
+            </button>
+
+            <button
+              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+              <span>Siguiente</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                   stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+} @else {
+  <div class="px-8 py-12 overflow-auto w-full" style="height: calc(100vh - 64px)">
+    <div class="w-full flex justify-center items-center flex-col overflow-auto space-y-4">
+      <div class="w-3/4 mt-8">
+        <div class="uppercase mb-4 text-gray-500 text-2xl font-bold flex items-center gap-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+               stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="view = 'list'">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
+          </svg>
+          <span>Bienvenido a la postulación</span>
+        </div>
+      </div>
+
+      <div class="w-3/4">
+        <div class="flex flex-col mt-6">
+
+          <cdk-accordion-item class="accordion">
+            @for (section of announcement.seciones; track section; let index = $index) {
+              <cdk-accordion-item
+                #accordionItem="cdkAccordionItem"
+                class="example-accordion-item"
+                role="button"
+                tabindex="0"
+                [attr.id]="'accordion-header-' + index"
+                [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion-body-' + index">
+                <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="#00725c" viewBox="0 0 512 512">
+                    <path
+                      d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
+                  </svg>
+                  {{ section.descripcion }}
+                </div>
+                <div role="region" class="my-6"
+                     [style.display]="accordionItem.expanded ? '' : 'none'"
+                     [attr.id]="'accordion-body-' + index"
+                     [attr.aria-labelledby]="'accordion-header-' + index"
+                >
+                  <div class="border border-stone-300 rounded-md shadow-xl px-8 py-4">
+                    <div>
+                      <span>Nombre:</span>
+                      <input type="text">
+                    </div>
+                    <div>
+                      <span>DNI:</span>
+                      <input type="text">
+                    </div>
+                    <div>
+                      <span>FACULTAD:</span>
+                      <input type="text">
+                    </div>
+                    <div>
+                      <span>CÓDIGO:</span>
+                      <input type="text">
+                    </div>
+                    <div>
+                      <span>SEMESTRE CRUZADO:</span>
+                      <input type="text">
+                    </div>
+                  </div>
+                </div>
+              </cdk-accordion-item>
+            }
+          </cdk-accordion-item>
+        </div>
+      </div>
+
+      <div *ngIf="false" class="flex flex-col mt-6 space-y-4 w-3/4">
+        <div class="uppercase mb-4 text-gray-500 font-bold">
+          <span>Vista final de convocatoria</span>
+        </div>
+        <div class="w-full flex items-center text-sm text-gray-500 gap-4">
+          <span class="font-bold">Nombre:</span>
+          <span>1° Convocatoria 2023-II</span>
+        </div>
+        <div class="w-full flex items-center justify-between text-sm text-gray-500 gap-4">
+          <div class="flex gap-4">
+            <span class="font-bold">Fecha de Inicio:</span>
+            <span>01/01/2023</span>
+          </div>
+          <div class="flex gap-4">
+            <span class="font-bold">Fecha de Culminación:</span>
+            <span>01/01/2023</span>
+          </div>
+        </div>
+        <div class="w-full flex items-center justify-between text-sm text-gray-500 gap-4">
+          <span class="font-bold">Requisitos:</span>
+        </div>
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-200">
+                <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                    <div>
+                      <h2 class="font-medium text-gray-800 uppercase">Copia del SISFOH</h2>
+                    </div>
+                  </td>
+                  <td class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4 items-center justify-center">
+                    <div class="cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-amber-600" viewBox="0 0 512 512">
+                        <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
+                              stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-width="32" d="M352 176L217.6 336 160 272"/>
+                      </svg>
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<app-modal [(show)]="showModal" title="Bienvenido Postulante" buttonSuccess="Siguiente"
+           (onNext)="view = 'postulate'; showModal= false">
+  <div class="space-y-4">
+    <div class="w-full flex justify-center items-center font-bold text-slate-500 text-xl">
+      <span>Ingrese sus datos</span>
+    </div>
+    <div class="flex gap-4 items-center">
+      <div class="text-sm text-slate-500 flex gap-4 flex-col w-full">
+        <label>DNI:</label>
+        <input type="text" class="w-full border border-gray-200 rounded-md h-10 px-4">
+      </div>
+      <div class="text-sm text-slate-500 flex gap-4 flex-col w-full">
+        <label>Corre Institucional</label>
+        <input type="email" class="w-full border border-gray-200 rounded-md h-10 px-4">
+      </div>
+    </div>
+  </div>
+</app-modal>

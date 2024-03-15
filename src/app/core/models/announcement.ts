@@ -3,12 +3,12 @@ export interface IAnnouncement {
   fecha_fin: string;
   nombre: string;
   convocatoria_servicio: IService[];
-  "seciones": ISection[];
+  seciones: ISection[];
 }
 
 export interface IService {
-  "servicio_id": number;
-  "cantidad": number;
+  servicio_id: number;
+  cantidad: number;
 }
 
 export interface ISection {

@@ -6,16 +6,61 @@
     <div>
       <div class="text-white flex justify-center items-center gap-4">
         <span class="text-white font-bold">GESTION DE  TRAMITE DOCUMENTARIO</span>
-        <svg class="cursor-pointer" width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="cursor-pointer" width="16" height="12" viewBox="0 0 16 12" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0H16V2H0V0ZM0 5H16V7H0V5ZM0 10H16V12H0V10Z" fill="white"/>
         </svg>
       </div>
     </div>
   </div>
-  <div class="px-6 py-3 text-white h-full flex items-center justify-center gap-2 cursor-pointer" routerLink="/auth/login" style="background: #0F75BC">
+  @if (isAuth) {
+    <div class="px-6 py-3 text-white h-full flex items-center justify-center gap-2 cursor-pointer"
+         (click)="openModal = true"
+         style="background: #0F75BC">
+      <span>{{ session.full_name }}</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+        <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none"
+              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+        <path
+          d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+          fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+      </svg>
+    </div>
+  } @else {
+    <div class="px-6 py-3 text-white h-full flex items-center justify-center gap-2 cursor-pointer"
+         routerLink="/auth/login" style="background: #0F75BC">
       <span>Ingresar</span>
       <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M13.5 0H0.5C0.367392 0 0.240215 0.0526785 0.146447 0.146447C0.0526785 0.240215 0 0.367392 0 0.5V9H6V6L11 10L6 14V11H0V19.5C0 19.6326 0.0526785 19.7598 0.146447 19.8536C0.240215 19.9473 0.367392 20 0.5 20H13.5C13.6326 20 13.7598 19.9473 13.8536 19.8536C13.9473 19.7598 14 19.6326 14 19.5V0.5C14 0.367392 13.9473 0.240215 13.8536 0.146447C13.7598 0.0526785 13.6326 0 13.5 0Z" fill="white"/>
+        <path
+          d="M13.5 0H0.5C0.367392 0 0.240215 0.0526785 0.146447 0.146447C0.0526785 0.240215 0 0.367392 0 0.5V9H6V6L11 10L6 14V11H0V19.5C0 19.6326 0.0526785 19.7598 0.146447 19.8536C0.240215 19.9473 0.367392 20 0.5 20H13.5C13.6326 20 13.7598 19.9473 13.8536 19.8536C13.9473 19.7598 14 19.6326 14 19.5V0.5C14 0.367392 13.9473 0.240215 13.8536 0.146447C13.7598 0.0526785 13.6326 0 13.5 0Z"
+          fill="white"/>
       </svg>
-  </div>
+    </div>
+  }
 </div>
+
+<app-modal [(show)]="openModal" [showFooter]="false">
+  <div class="flex flex-col justify-center items-center gap-6">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-slate-500" viewBox="0 0 512 512">
+        <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none"
+              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+        <path
+          d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+          fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+      </svg>
+    </div>
+    <div>
+      <div class="text-center text-slate-500 text-xl font-bold">Nombre: {{ session.full_name }}</div>
+      <div class="text-center text-slate-500 text-sm">Correo Electrónico: {{ session.email }}</div>
+    </div>
+    <div class="w-full">
+      <div class="flex justify-center items-center gap-4">
+        <button (click)="logout()"
+          class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+          Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>
+</app-modal>

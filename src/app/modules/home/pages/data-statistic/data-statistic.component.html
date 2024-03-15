@@ -1,1 +1,99 @@
-<p>data-statistic works!</p>
+<div class="w-full px-8 py-12 overflow-auto" style="height: calc(100vh - 64px)">
+  <div class="flex flex-col space-y-8">
+    <div class="w-full text-slate-500 text-center uppercase font-bold text-xl">
+      <span>Datos de los postulantes universitarios ciclo 2024-1</span>
+    </div>
+
+    <div class="flex justify-center items-center gap-8 w-full">
+      <div>
+        <apx-chart
+          [series]="chartComedor.series"
+          [chart]="chartComedor.chart"
+          [labels]="chartComedor.labels"
+          [responsive]="chartComedor.responsive"
+          [title]="chartComedor.title"
+        ></apx-chart>
+      </div>
+      <div>
+        <apx-chart
+          [series]="chartInternado.series"
+          [chart]="chartInternado.chart"
+          [labels]="chartInternado.labels"
+          [responsive]="chartInternado.responsive"
+          [title]="chartComedor.title"
+        ></apx-chart>
+      </div>
+    </div>
+    <div class="w-full text-slate-500 text-center uppercase font-bold text-xl">
+      <span>GRAFICO DE ALUMNOS USUARIOS DE LOS SERVICIOS UNIVERSITARIO</span>
+    </div>
+    <div class="flex justify-center items-center gap-8 w-full">
+      <div>
+        <apx-chart
+          [series]="chartBarrasComedor.series"
+          [chart]="chartBarrasComedor.chart"
+          [dataLabels]="chartBarrasComedor.dataLabels"
+          [plotOptions]="chartBarrasComedor.plotOptions"
+          [yaxis]="chartBarrasComedor.yaxis"
+          [legend]="chartBarrasComedor.legend"
+          [fill]="chartBarrasComedor.fill"
+          [stroke]="chartBarrasComedor.stroke"
+          [tooltip]="chartBarrasComedor.tooltip"
+          [xaxis]="chartBarrasComedor.xaxis"
+          [title]="chartBarrasComedor.title"
+        ></apx-chart>
+      </div>
+      <div>
+        <apx-chart
+          [series]="chartBarrasInternado.series"
+          [chart]="chartBarrasInternado.chart"
+          [dataLabels]="chartBarrasInternado.dataLabels"
+          [plotOptions]="chartBarrasInternado.plotOptions"
+          [yaxis]="chartBarrasInternado.yaxis"
+          [legend]="chartBarrasInternado.legend"
+          [fill]="chartBarrasInternado.fill"
+          [stroke]="chartBarrasInternado.stroke"
+          [tooltip]="chartBarrasInternado.tooltip"
+          [xaxis]="chartBarrasInternado.xaxis"
+          [title]="chartBarrasComedor.title"
+        ></apx-chart>
+      </div>
+    </div>
+    <div class="w-full text-slate-500 text-center uppercase font-bold text-xl">
+      <span>GRAFICO DE ALUMNOS USUARIOS DE LOS SERVICIOS UNIVERSITARIO POR FACULTAD</span>
+    </div>
+
+    <div class="flex justify-center items-center gap-8 w-full">
+      <div>
+        <apx-chart
+          [series]="chartBarrasHComedor.series"
+          [chart]="chartBarrasHComedor.chart"
+          [dataLabels]="chartBarrasHComedor.dataLabels"
+          [plotOptions]="chartBarrasHComedor.plotOptions"
+          [yaxis]="chartBarrasHComedor.yaxis"
+          [legend]="chartBarrasHComedor.legend"
+          [fill]="chartBarrasHComedor.fill"
+          [stroke]="chartBarrasHComedor.stroke"
+          [tooltip]="chartBarrasHComedor.tooltip"
+          [xaxis]="chartBarrasHComedor.xaxis"
+          [title]="chartBarrasHComedor.title"
+        ></apx-chart>
+      </div>
+      <div>
+        <apx-chart
+          [series]="chartBarrasHInternado.series"
+          [chart]="chartBarrasHInternado.chart"
+          [dataLabels]="chartBarrasHInternado.dataLabels"
+          [plotOptions]="chartBarrasHInternado.plotOptions"
+          [yaxis]="chartBarrasHInternado.yaxis"
+          [legend]="chartBarrasHInternado.legend"
+          [fill]="chartBarrasHInternado.fill"
+          [stroke]="chartBarrasHInternado.stroke"
+          [tooltip]="chartBarrasHInternado.tooltip"
+          [xaxis]="chartBarrasHInternado.xaxis"
+          [title]="chartBarrasHInternado.title"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>
+</div>

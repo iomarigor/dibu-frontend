@@ -3,12 +3,7 @@ export interface Login {
   password: string;
 }
 
-export interface IResponse {
-  msg: string;
-  detalle: IDetail;
-}
-
-export interface IDetail {
+export interface IDetailSession {
   id: number;
   username: string;
   full_name: string;
@@ -22,13 +17,13 @@ export interface IDetail {
 }
 
 export interface IToken {
-  "iss": string;
-  "iat": number;
-  "exp": number;
-  "nbf": number;
-  "jti": string;
-  "sub": number;
-  "prv": string;
+  iss: string;
+  iat: number;
+  exp: number;
+  nbf: number;
+  jti: string;
+  sub: number;
+  prv: string;
 }
 
 export interface ISession {
