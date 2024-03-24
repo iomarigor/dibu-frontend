@@ -29,7 +29,7 @@ export class PostulationComponent {
     convocatoria_servicio: [],
     fecha_fin: '',
     fecha_inicio: '',
-    seciones: [
+    secciones: [
       {
         descripcion: 'Datos personales',
         requisitos: SECTIONS_REQUIREMENTS_ONE
@@ -43,5 +43,6 @@ export class PostulationComponent {
         requisitos: SECTIONS_REQUIREMENTS_THREE
       }
     ],
+    activo: false
   };
 }

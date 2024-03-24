@@ -5,7 +5,7 @@
       <section class="container px-4 mx-auto">
         <div class="mt-6 md:flex md:items-center md:justify-between">
           <div class="inline-flex overflow-hidden bg-white divide-x rounded-lg rtl:flex-row-reverse">
-            <button class="rounded-md px-4 py-2 text-white bg-amber-500" (click)="view = 'create'">
+            <button class="rounded-md px-4 py-2 text-white bg-amber-500" (click)="createAnnouncement()">
               Crear Nueva Convocatoria
             </button>
           </div>
@@ -51,6 +51,10 @@
                           class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
                         Estado
                       </th>
+                      <th scope="col"
+                          class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
+                        Opciones
+                      </th>
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -71,15 +75,31 @@
                               <h2 class="font-medium text-gray-800 uppercase">{{ announcement.fecha_fin }}</h2>
                             </div>
                           </td>
-
                           <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                            <div
-                              class="inline px-3 py-1 text-sm font-normal select-none rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60">
-                              Activo
-                            </div>
-                            <div *ngIf="false"
-                                 class="inline px-3 py-1 text-sm font-normal select-none rounded-full text-red-500 gap-x-2 bg-red-100/60">
-                              Inactivo
+                            @if (announcement.activo) {
+                              <div
+                                class="inline px-3 py-1 text-sm font-normal select-none rounded-full text-emerald-500 gap-x-2 bg-emerald-100/60">
+                                Activo
+                              </div>
+                            } @else {
+                              <div
+                                class="inline px-3 py-1 text-sm font-normal select-none rounded-full text-red-500 gap-x-2 bg-red-100/60">
+                                Terminado
+                              </div>
+                            }
+                          </td>
+                          <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                            <div class="cursor-pointer flex justify-center" (click)="viewAnnouncement(announcement)">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                                <path
+                                  d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z"
+                                  fill="none" stroke="currentColor" stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="32"/>
+                                <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor"
+                                        stroke-miterlimit="10"
+                                        stroke-width="32"/>
+                              </svg>
                             </div>
                           </td>
                         </tr>
@@ -176,7 +196,7 @@
           </div>
 
           <cdk-accordion-item class="accordion">
-            @for (section of announcement.seciones; track section; let i = $index) {
+            @for (section of announcement.secciones; track section; let i = $index) {
               <cdk-accordion-item
                 #accordionItem="cdkAccordionItem"
                 class="example-accordion-item"
@@ -198,12 +218,12 @@
                      [attr.aria-labelledby]="'accordion-header-' + i"
                 >
                   <section class="container px-4 mx-auto">
-                    <div class="mt-6 md:flex md:items-center md:justify-between">
+                    <div class="mt-6 md:flex md:items-center md:justify-between" *ngIf="this.view === 'create'">
                       <div
                         class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse">
                         <button
                           class="flex items-center justify-center uppercase px-5 py-2 text-sm text-gray-500 transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100"
-                          (click)="openModal = true; currentSection = i">
+                          (click)="createRequirement(i)">
                           <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
                             <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                   stroke-width="32" d="M256 112v288M400 256H112"/>
@@ -254,12 +274,13 @@
                                   </td>
                                   <td
                                     class="px-12 py-4 text-sm font-medium whitespace-nowrap flex gap-4 items-center justify-center">
-                                    <div class="flex items-center justify-center">
+                                    <div *ngIf="view === 'create'" class="flex items-center justify-center">
                                       <input id="default-checkbox" type="checkbox" [checked]="requirement.activo"
                                              [(ngModel)]="requirement.activo"
                                              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 cursor-pointer focus:ring-2">
                                     </div>
-                                    <div class="cursor-pointer">
+                                    <div class="cursor-pointer" *ngIf="this.view === 'view-readonly'"
+                                         (click)="viewRequirement(requirement)">
                                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
                                         <path
                                           d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z"
@@ -271,7 +292,8 @@
                                                 stroke-width="32"/>
                                       </svg>
                                     </div>
-                                    <div class="cursor-pointer" (click)="editRequirement(requirement, index)">
+                                    <div *ngIf="view === 'create'" class="cursor-pointer"
+                                         (click)="editRequirement(requirement, index, i)">
                                       <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
                                         <path fill="none" stroke="currentColor" stroke-linecap="round"
                                               stroke-linejoin="round" stroke-width="32"
@@ -292,8 +314,8 @@
             }
           </cdk-accordion-item>
 
-          <div class="w-full flex justify-end items-center mt-8">
-            <button (click)="createAnnouncement()" type="button"
+          <div class="w-full flex justify-end items-center mt-8" *ngIf="this.view === 'create'">
+            <button (click)="submitAnnouncement()" type="button"
                     class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-600">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
                 <path
@@ -305,13 +327,13 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
 }
 
-<app-modal [(show)]="openModal" [title]="titleModal" (onNext)="createRequirement()">
+<app-modal [(show)]="openModal" [title]="titleModal" (onNext)="createOrUpdateRequirement()"
+           [showFooter]="typeProcess !== 'view'">
   <form class="space-y-4" [formGroup]="formRequirement">
     <div>
       <label for="name_req" class="block mb-2 text-sm text-gray-500 font-bold">Nombre</label>
@@ -337,6 +359,7 @@
       <div>
         <label for="file_guia" class="block mb-2 text-sm font-medium text-gray-900">Guía</label>
         <input type="file" name="file_guia" id="file_guia" (change)="processFile($event)"
+               [disabled]="typeProcess === 'view'"
                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                required/>
         <small class="text-red-500"

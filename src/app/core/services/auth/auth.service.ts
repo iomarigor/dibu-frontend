@@ -5,6 +5,7 @@ import {IDetailSession, ISession, Login} from "../../models/auth";
 import {Cipher} from "../../utils/ciphers/ciphers";
 import {JwtHelper} from "../../utils/jwt/jwt";
 import {IResponse} from "../../models/response";
+import {IUser, IUserCreation} from "../../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
 
   private _urlBase: string = 'https://dbu-dev.dimo-app.com';
   private _urlLogin: string = this._urlBase + '/login';
+
   private _cipher = new Cipher();
   private _jwtHelper = new JwtHelper();
 
@@ -23,6 +25,22 @@ export class AuthService {
 
   public login(user: Login): Observable<IResponse<IDetailSession>> {
     return this._http.post<IResponse<IDetailSession>>(this._urlLogin, user);
+  }
+
+  public createUser(data: IUserCreation): Observable<IResponse> {
+    return this._http.post<IResponse>(this._urlBase + '/register', data);
+  }
+
+  public updateUser(data: IUserCreation, userId: number): Observable<IResponse> {
+    return this._http.post<IResponse>(this._urlBase + '/users/update/' + userId, data);
+  }
+
+  public getUsers(): Observable<IResponse<IUser[]>> {
+    return this._http.get<IResponse<IUser[]>>(this._urlBase + '/users');
+  }
+
+  public deleteUser(userId: number): Observable<IResponse> {
+    return this._http.delete<IResponse>(this._urlBase + '/users/destroy/' + userId);
   }
 
   public saveSession(data: IDetailSession): void {

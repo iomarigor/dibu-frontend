@@ -6,7 +6,7 @@
       <div class="relative bg-white rounded-lg shadow">
         <!-- Modal header -->
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t0" *ngIf="showHeader">
-          <h3 class="text-xl font-semibold text-gray-900 uppercase">
+          <h3 class="text-xl font-semibold text-slate-500 uppercase">
             {{title}}
           </h3>
           <button *ngIf="showClose" type="button" (click)="showChange.emit(false)"
@@ -24,9 +24,9 @@
         </div>
         <!-- Modal footer -->
         <div class="flex items-center gap-4 justify-end p-4 md:p-5 border-t border-gray-200 rounded-b" *ngIf="showFooter">
-          <button *ngIf="false" type="button"
+          <button *ngIf="showButtonCancel" type="button" (click)="showChange.emit(false)"
                   class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
-            Regresar
+            {{buttonCancel}}
           </button>
           <button type="button" (click)="onNext.emit()"
                   class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">

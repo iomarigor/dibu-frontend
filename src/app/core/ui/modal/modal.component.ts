@@ -23,5 +23,8 @@ export class ModalComponent {
   @Input() showClose: boolean = true;
 
   @Input() buttonSuccess: string = 'Guardar';
+  @Input() buttonCancel: string = 'Cancelar';
+
+  @Input() showButtonCancel: boolean = false;
 
 }

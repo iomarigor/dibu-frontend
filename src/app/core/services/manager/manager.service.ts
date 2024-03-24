@@ -9,8 +9,8 @@ import {IAnnouncement} from "../../models/announcement";
 })
 export class ManagerService {
 
-  private urlBase = 'https://dbu-dev.dimo-app.com';
-  private urlGetAnnouncements = this.urlBase + '/convocatoria';
+  private urlBase = 'https://dbu-dev.dimo-app.com/convocatoria';
+  private urlCreate = this.urlBase + '/create';
 
   constructor(
     private http: HttpClient
@@ -18,11 +18,11 @@ export class ManagerService {
   }
 
   public getAnnouncement(): Observable<IResponse<IAnnouncement[]>> {
-    return this.http.get<IResponse<IAnnouncement[]>>(this.urlGetAnnouncements);
+    return this.http.get<IResponse<IAnnouncement[]>>(this.urlBase);
   }
 
   public createAnnouncement(announcement: IAnnouncement): Observable<IResponse> {
-    return this.http.post<IResponse>(this.urlGetAnnouncements, announcement);
+    return this.http.post<IResponse>(this.urlCreate, announcement);
   }
 
 }

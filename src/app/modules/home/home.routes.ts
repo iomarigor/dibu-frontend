@@ -5,6 +5,8 @@ import {DataStatisticComponent} from "./pages/data-statistic/data-statistic.comp
 import {StatuteRegulationsComponent} from "./pages/statute-regulations/statute-regulations.component";
 import {PostulationComponent} from "./pages/postulation/postulation.component";
 import {AnnouncementComponent} from "./pages/announcement/announcement.component";
+import {authGuard} from "../../core/guards/auth.guard";
+import {UsersComponent} from "./pages/users/users.component";
 
 export const homesRoutes: Routes = [
   {
@@ -12,7 +14,7 @@ export const homesRoutes: Routes = [
     component: CalendarComponent
   },
   {
-    path:'services',
+    path: 'services',
     component: ServicesComponent
   },
   {
@@ -29,7 +31,19 @@ export const homesRoutes: Routes = [
   },
   {
     path: 'announcement',
-    component: AnnouncementComponent
+    component: AnnouncementComponent,
+    canActivate: [authGuard],
+    data: {
+      role: [1]
+    }
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    canActivate: [authGuard],
+    data: {
+      role: [1]
+    }
   },
   {
     path: '',

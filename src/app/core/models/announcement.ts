@@ -3,7 +3,8 @@ export interface IAnnouncement {
   fecha_fin: string;
   nombre: string;
   convocatoria_servicio: IService[];
-  seciones: ISection[];
+  secciones: ISection[];
+  activo: boolean;
 }
 
 export interface IService {
