@@ -12,6 +12,8 @@ import {Router} from "@angular/router";
 import {AppState} from "../../../../core/store/app.reducers";
 import {Store} from "@ngrx/store";
 import {controlAuth} from "../../../../core/store/actions/auth.action";
+import {RecaptchaModule} from "ng-recaptcha";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,9 @@ import {controlAuth} from "../../../../core/store/actions/auth.action";
     ReactiveFormsModule,
     HttpClientModule,
     ToastComponent,
-    BlockUiComponent
+    BlockUiComponent,
+    RecaptchaModule,
+    NgIf
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -42,7 +46,8 @@ export class LoginComponent implements OnDestroy {
   ) {
     this.loginForm = this._fb.group({
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      captcha: ['', Validators.required]
     });
   }
 
@@ -53,6 +58,7 @@ export class LoginComponent implements OnDestroy {
   public login(): void {
     if (this.loginForm.invalid) {
       this._toastService.add({type: 'warning', message: 'Complete todos los campos correctamente'});
+      this.loginForm.markAllAsTouched();
       return;
     }
 
@@ -78,7 +84,8 @@ export class LoginComponent implements OnDestroy {
               session: this._authService.getSession()
             }
           }));
-          this._router.navigate(['/home/announcement']);
+
+          this._router.navigate(['/home/requests']);
         },
         error: (err: HttpErrorResponse) => {
           this.isLoading = false;

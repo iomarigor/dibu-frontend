@@ -1,4 +1,5 @@
-import { KEYUTIL, RSAKey, KJUR } from 'jsrsasign';
+import {KEYUTIL, RSAKey, KJUR} from 'jsrsasign';
+
 export class Cipher {
 
   private keyRsaStr: string = `-----BEGIN PUBLIC KEY-----
@@ -24,7 +25,7 @@ QQIDAQAB
   constructor() {
     this.keyRsa = KEYUTIL.getKey(this.keyRsaStr) as RSAKey;
     this.keyJwk = KEYUTIL.getJWKFromKey(this.keyRsa);
-    this.importPublicKey();
+    this.importPublicKey().catch(err => console.log(err));
   }
 
   /**
@@ -72,6 +73,6 @@ QQIDAQAB
    * @returns {boolean} - Retorna `true` si el JWT es válido y `false` en caso contrario.
    */
   public verifyJWT(jwt: string): boolean {
-    return KJUR.jws.JWS.verifyJWT(jwt, this.keyRsa, { alg: ['RS256'] });
+    return KJUR.jws.JWS.verify(jwt, this.keyRsa, ['RS256']);
   }
 }

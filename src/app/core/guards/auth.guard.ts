@@ -1,7 +1,6 @@
 import {CanActivateFn, Router} from '@angular/router';
 import {inject} from "@angular/core";
 import {AuthService} from "../services/auth/auth.service";
-import {CalendarComponent} from "../../modules/home/pages/calendar/calendar.component";
 
 export const authGuard: CanActivateFn = (route, state) => {
 

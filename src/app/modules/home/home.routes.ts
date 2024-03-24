@@ -7,6 +7,7 @@ import {PostulationComponent} from "./pages/postulation/postulation.component";
 import {AnnouncementComponent} from "./pages/announcement/announcement.component";
 import {authGuard} from "../../core/guards/auth.guard";
 import {UsersComponent} from "./pages/users/users.component";
+import {RequestsComponent} from "./pages/requests/requests.component";
 
 export const homesRoutes: Routes = [
   {
@@ -28,6 +29,10 @@ export const homesRoutes: Routes = [
   {
     path: 'postulation',
     component: PostulationComponent
+  },
+  {
+    path: 'requests',
+    component: RequestsComponent
   },
   {
     path: 'announcement',
