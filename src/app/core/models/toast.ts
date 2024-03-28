@@ -1,5 +1,5 @@
 export interface Message {
-  type: string;
+  type: 'error' | 'success' | 'warning' | 'info';
   message: string;
   id?: any;
   key?: string;
