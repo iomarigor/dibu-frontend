@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IResponse} from "../../models/response";
 import {IAnnouncement} from "../../models/announcement";
-import {IRequest} from "../../models/requests";
+import {IBodyRequest, IFileRequest, IRequest, IResponseFile} from "../../models/requests";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +39,13 @@ export class ManagerService {
 
   public getDataStudent(code: string): Observable<IResponse<IAnnouncement>> {
     return this.http.get<IResponse<IAnnouncement>>(this.urlRequest + '/alumno/' + code);
+  }
+
+  public uploadRequestFile(file: IFileRequest): Observable<IResponse<IResponseFile>> {
+    return this.http.post<IResponse<IResponseFile>>(this.urlRequest + '/uploadDocument', file);
+  }
+
+  public createRequest(data: IBodyRequest): Observable<IResponse> {
+    return this.http.post<IResponse>(this.urlRequest + '/create', data);
   }
 }

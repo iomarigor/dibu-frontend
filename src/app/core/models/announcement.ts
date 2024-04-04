@@ -1,4 +1,6 @@
 export interface IAnnouncement {
+  id?: number;
+  user_id?: number;
   fecha_inicio: string;
   fecha_fin: string;
   nombre: string;

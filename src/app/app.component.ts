@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
 import {HttpClientModule} from "@angular/common/http";
@@ -6,28 +6,23 @@ import {Store} from "@ngrx/store";
 import {AppState} from "./core/store/app.reducers";
 import {AuthService} from "./core/services/auth/auth.service";
 import {controlAuth} from "./core/store/actions/auth.action";
-import {Idle, DEFAULT_INTERRUPTSOURCES} from '@ng-idle/core';
-import {Keepalive, NgIdleKeepaliveModule} from '@ng-idle/keepalive';
+import {interval, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule, NgIdleKeepaliveModule],
+  imports: [CommonModule, RouterOutlet, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [AuthService, Idle, Keepalive]
+  providers: [AuthService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnDestroy {
   title = 'dibuWebApp';
-  idleState = "NOT_STARTED";
-  private countdown: any = null;
-  private lastPing: any = null;
+  private _subscriptions: Subscription = new Subscription();
 
   constructor(
     private _store: Store<AppState>,
-    private _authService: AuthService,
-    private idle: Idle,
-    cd: ChangeDetectorRef
+    private _authService: AuthService
   ) {
     this._store.dispatch(controlAuth({
       auth: {
@@ -37,12 +32,22 @@ export class AppComponent implements OnInit {
       }
     }));
 
-
+    this._store.select('auth').subscribe((auth) => {
+      if (auth.isAuth) this.verifySession();
+    });
   }
 
+  ngOnDestroy() {
+    this._subscriptions.unsubscribe();
+  }
 
-  ngOnInit(): void {
-
+  private verifySession(): void {
+    this._subscriptions.add(
+      interval(60000)
+        .subscribe(() => {
+          if (!this._authService.isValidSession()) return this._authService.logout();
+        })
+    );
   }
 
 }

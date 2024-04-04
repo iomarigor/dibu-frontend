@@ -148,7 +148,7 @@
       <div class="w-3/4 mt-8">
         <div class="uppercase mb-4 text-gray-500 text-2xl font-bold flex items-center gap-6">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-               stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="init()">
+               stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="deleteModal = true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
           </svg>
           <span>Bienvenido a la postulación</span>
@@ -191,7 +191,8 @@
                                      class="w-full border border-gray-200 rounded-md px-4 h-12">
                             } @else {
                               <input type="file" [accept]="req.tipo_requisito_id === 1 ? '.pdf': 'image/jpeg,image/png'"
-                                     class="w-full border border-gray-200 rounded-md px-4 h-12">
+                                     class="w-full border border-gray-200 rounded-md px-4 h-12"
+                                     (change)="processFile($event, req.id?.toString() || '' )">
                             }
                           </div>
                         } @else {
@@ -266,18 +267,37 @@
       <span>Servicios brindados</span>
     </div>
 
-    <div class="flex justify-between px-6">
+    <div class="flex justify-between px-6" [formGroup]="formPostulation">
       <div class="text-sm text-slate-500 flex gap-4 items-center">
         <label>Comedor Estudiantil:</label>
-        <input type="checkbox"
+        <input type="checkbox" formControlName="eat_service"
                class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
       <div class="text-sm text-slate-500 flex gap-4 items-center">
         <label>Internado Estudiantil:</label>
-        <input type="checkbox"
+        <input type="checkbox" formControlName="resident_service"
                class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
     </div>
+  </div>
+</app-modal>
+
+<app-modal [(show)]="deleteModal" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true"
+           (onNext)="init()">
+  <div class="flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-28 h-28 text-amber-300" viewBox="0 0 512 512">
+      <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
+            stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+      <path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+      <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" stroke="currentColor" class="fill-amber-300"/>
+    </svg>
+  </div>
+  <div class="flex justify-center items-center text-slate-500 font-bold text-xl">
+    <span>¿Esta seguro de cerrar la postulación?</span>
+  </div>
+  <div class="text-slate-500 text-sm text-center">
+    <span>¡Si realiza esta acción, perdera todos los datos que ya a completado!</span>
   </div>
 </app-modal>
 

@@ -3,8 +3,8 @@ export interface IRequest {
   fecha_solicitud: string;
   convocatoria_id: number;
   alumno: IStudent;
-  "servicios_solicitados": IServicesRequests[];
-  "detalle_solicitudes": IResponseRequirements[];
+  servicios_solicitados: IServicesRequests[];
+  detalle_solicitudes: IResponseRequirements[];
 }
 
 export interface IStudent {
@@ -69,4 +69,15 @@ export interface IDetailRequest {
   url_documento: string;
   opcion_seleccion: string;
   requisito_id: number;
+}
+
+export interface IFileRequest {
+  id_convocatoria: number;
+  dni_alumno: number;
+  name_file: string;
+  file: string;
+}
+
+export interface IResponseFile {
+  url_file: string;
 }

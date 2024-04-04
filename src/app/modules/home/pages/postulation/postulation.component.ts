@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {ModalComponent} from "../../../../core/ui/modal/modal.component";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
-import {IAnnouncement, ISection} from "../../../../core/models/announcement";
+import {IAnnouncement, IRequirement, ISection} from "../../../../core/models/announcement";
 import {ManagerService} from "../../../../core/services/manager/manager.service";
 import {ToastService} from "../../../../core/services/toast/toast.service";
 import {Subscription} from "rxjs";
@@ -10,6 +10,7 @@ import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component"
 import {HttpErrorResponse} from "@angular/common/http";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ToastComponent} from "../../../../core/ui/toast/toast.component";
+import {IBodyRequest, IFileRequest} from "../../../../core/models/requests";
 
 @Component({
   selector: 'app-postulation',
@@ -49,6 +50,7 @@ export class PostulationComponent implements OnDestroy {
     activo: false
   };
   protected isLoading: boolean = false;
+  protected deleteModal: boolean = false;
   protected formPostulation: FormGroup;
 
   constructor(
@@ -59,7 +61,9 @@ export class PostulationComponent implements OnDestroy {
     this.getCurrentAnnouncement();
     this.formPostulation = this._fb.group({
       dni_student: ['', Validators.required],
-      email_student: ['', [Validators.required, Validators.email]]
+      email_student: ['', [Validators.required, Validators.email]],
+      eat_service: [false, Validators.required,],
+      resident_service: [false, Validators.required],
     });
   }
 
@@ -79,7 +83,9 @@ export class PostulationComponent implements OnDestroy {
     };
     this.formPostulation = this._fb.group({
       dni_student: ['', Validators.required],
-      email_student: ['', [Validators.required, Validators.email]]
+      email_student: ['', [Validators.required, Validators.email]],
+      eat_service: [false, Validators.required,],
+      resident_service: [false, Validators.required],
     });
   }
 
@@ -110,6 +116,11 @@ export class PostulationComponent implements OnDestroy {
     if (this.formPostulation.invalid) {
       this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
       this.formPostulation.markAllAsTouched();
+      return;
+    }
+
+    if (!this.formPostulation.value.eat_service && !this.formPostulation.value.resident_service) {
+      this._toastService.add({type: 'error', message: 'Seleccione al menos un servicio!'});
       return;
     }
 
@@ -153,18 +164,118 @@ export class PostulationComponent implements OnDestroy {
     }
   }
 
+  protected processFile(event: any, key: string): void {
+    const file: File = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const body: IFileRequest = {
+        id_convocatoria: this.postulation.id || 0,
+        dni_alumno: parseInt(this.formPostulation.value.dni_student),
+        name_file: file.name,
+        file: (reader.result as string).split(',')[1] || ''
+      };
+      this.handleLoadFile(body, key);
+    };
+  }
+
+  private handleLoadFile(body: IFileRequest, key: string): void {
+    this.isLoading = true;
+
+    this._subscriptions.add(
+      this._managerService.uploadRequestFile(body).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (!res.detalle) {
+            this._toastService.add({type: 'error', message: res.msg});
+            return;
+          }
+
+          this._toastService.add({type: 'success', message: res.msg});
+          console.log(res)
+          this.formPostulation.get(key)?.setValue(res.detalle.url_file);
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.isLoading = false;
+          this._toastService.add({type: 'error', message: 'No se pudo subir el archivo, intente nuevamente'});
+        }
+      })
+    );
+  }
+
   protected handlePostulation(): void {
 
-    console.log(this.formPostulation.value);
-    console.log(this.formPostulation.controls);
+    const body: IBodyRequest = {
+      convocatoria_id: this.postulation?.id || 0,
+      alumno_id: this.postulation.user_id || 0,
+      servicios_solicitados: [],
+      detalle_solicitudes: []
+    };
+
     if (this.formPostulation.invalid) {
       this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
       this.formPostulation.markAllAsTouched();
       return
     }
 
+    if (this.formPostulation.value.eat_service) {
+      body.servicios_solicitados.push({
+        estado: 'pendiente',
+        servicio_id: 1
+      });
+    }
+
+    if (this.formPostulation.value.resident_service) {
+      body.servicios_solicitados.push({
+        estado: 'pendiente',
+        servicio_id: 2
+      });
+    }
+
+    const sections = this.postulation.secciones;
+
+    for (const key in this.formPostulation.controls) {
+      if (!this.formPostulation.controls.hasOwnProperty(key)) continue;
+      const control = this.formPostulation.controls[key];
+
+      let req: IRequirement | undefined = undefined;
+      for (const section of sections) {
+        req = section.requisitos.find((r) => r.id === parseInt(key));
+        if (req) break;
+      }
+
+      if (!req) continue;
+
+      body.detalle_solicitudes.push({
+        respuesta_formulario: req.tipo_requisito_id === 3 ? control.value : '',
+        url_documento: [1, 2].includes(req.tipo_requisito_id) ? control.value : '',
+        opcion_seleccion: req.tipo_requisito_id === 4 ? control.value : '',
+        requisito_id: parseInt(key)
+      });
+    }
+
     this.isLoading = true;
 
+    this._subscriptions.add(
+      this._managerService.createRequest(body).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (!res.detalle) {
+            this._toastService.add({type: 'error', message: res.msg});
+            return;
+          }
+
+          this._toastService.add({type: 'success', message: 'Postulación realizada correctamente'});
+          this.init();
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.isLoading = false;
+          this._toastService.add({type: 'error', message: 'No se pudo realizar la postulación, intente nuevamente'});
+        }
+      })
+    );
   }
 
 }

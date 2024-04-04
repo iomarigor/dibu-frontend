@@ -357,6 +357,21 @@
     </div>
     <div class="grid grid-cols-2 gap-4 ">
       <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">Formato</label>
+        <select formControlName="format"
+                class="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+          <option selected hidden>Seleccione un formato</option>
+          <option value="1">Documento</option>
+          <option value="2">imagen</option>
+          <option value="3">Formulario</option>
+          <option value="4">Selección</option>
+        </select>
+        <small class="text-red-500"
+               *ngIf="formRequirement.get('format')?.invalid && formRequirement.get('format')?.touched && formRequirement.get('format')?.hasError('required')">
+          Seleccione un formato
+        </small>
+      </div>
+      <div *ngIf="formRequirement.get('format')?.value === '1' || formRequirement.get('format')?.value === '2'">
         <label for="file_guia" class="block mb-2 text-sm font-medium text-gray-900">Guía</label>
         <input type="file" name="file_guia" id="file_guia" (change)="processFile($event)"
                [disabled]="typeProcess === 'view'"
@@ -367,23 +382,8 @@
           La guía es requerida
         </small>
       </div>
-      <div>
-        <label class="block mb-2 text-sm font-medium text-gray-900">Formato</label>
-        <select formControlName="format"
-                class="bg-gray-50 border border-gray-300 text-gray-900 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-          <option selected hidden>Seleccione un formato</option>
-          <option value="1">Documento</option>
-          <option value="2">imagen</option>
-          <option value="3">Formulario</option>
-        </select>
-        <small class="text-red-500"
-               *ngIf="formRequirement.get('format')?.invalid && formRequirement.get('format')?.touched && formRequirement.get('format')?.hasError('required')">
-          Seleccione un formato
-        </small>
-      </div>
     </div>
     <div>
-      <!-- estado, es un switch -->
       <label class="block mb-2 text-sm font-medium text-gray-900">Estado</label>
       <div class="flex items-center gap-4">
         <span class="text-sm text-gray-500">Inactivo</span>
