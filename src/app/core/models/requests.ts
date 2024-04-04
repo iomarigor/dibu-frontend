@@ -50,3 +50,23 @@ export interface IResponseRequirements {
   opcion_seleccion: string;
   requisito: string;
 }
+
+
+export interface IBodyRequest {
+  convocatoria_id: number;
+  alumno_id: number;
+  servicios_solicitados: IServiceRequest[];
+  detalle_solicitudes: IDetailRequest[];
+}
+
+export interface IServiceRequest {
+  estado: string;
+  servicio_id: number;
+}
+
+export interface IDetailRequest {
+  respuesta_formulario: string;
+  url_documento: string;
+  opcion_seleccion: string;
+  requisito_id: number;
+}

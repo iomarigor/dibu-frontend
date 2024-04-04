@@ -2,12 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {ModalComponent} from "../../../../core/ui/modal/modal.component";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
-import {IAnnouncement, IRequirement, ISection} from "../../../../core/models/announcement";
-import {
-  SECTIONS_REQUIREMENTS_ONE,
-  SECTIONS_REQUIREMENTS_THREE,
-  SECTIONS_REQUIREMENTS_TWO
-} from "../../../../core/utils/statics/statics";
+import {IAnnouncement, ISection} from "../../../../core/models/announcement";
 import {ManagerService} from "../../../../core/services/manager/manager.service";
 import {ToastService} from "../../../../core/services/toast/toast.service";
 import {Subscription} from "rxjs";
@@ -150,11 +145,26 @@ export class PostulationComponent implements OnDestroy {
     for (const section of sections) {
       for (const req of section.requisitos) {
         const key = (req.id || 0).toString();
-        const defaultValue = req.default ? req.default : '';
+        let defaultValue = req.default ? req.default : '';
+        if (req.nombre === 'Correo institutcional') defaultValue = this.formPostulation.value.email_student;
         this.formPostulation.addControl(key, new FormControl(defaultValue, Validators.required));
         if (defaultValue) this.formPostulation.get(key)?.disable();
       }
     }
+  }
+
+  protected handlePostulation(): void {
+
+    console.log(this.formPostulation.value);
+    console.log(this.formPostulation.controls);
+    if (this.formPostulation.invalid) {
+      this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
+      this.formPostulation.markAllAsTouched();
+      return
+    }
+
+    this.isLoading = true;
+
   }
 
 }

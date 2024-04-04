@@ -187,7 +187,8 @@
                         @if ([1, 2, 3].includes(req.tipo_requisito_id)) {
                           <div class="flex items-end h-full">
                             @if (req.tipo_requisito_id === 3) {
-                              <input type="text" [formControlName]="req.id || ''" class="w-full border border-gray-200 rounded-md px-4 h-12">
+                              <input type="text" [formControlName]="req.id || ''"
+                                     class="w-full border border-gray-200 rounded-md px-4 h-12">
                             } @else {
                               <input type="file" [accept]="req.tipo_requisito_id === 1 ? '.pdf': 'image/jpeg,image/png'"
                                      class="w-full border border-gray-200 rounded-md px-4 h-12">
@@ -196,7 +197,7 @@
                         } @else {
                           <div class="flex items-end h-full">
                             <select [formControlName]="req.id || ''"
-                              class="bg-gray-50 border border-gray-300 text-gray-500 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    class="bg-gray-50 border border-gray-300 text-gray-500 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                               <option selected hidden>Seleccione una Opción</option>
                               @for (op of req.opciones?.split("|"); track op) {
                                 <option [value]="op">{{ op }}</option>
@@ -217,7 +218,7 @@
           </cdk-accordion-item>
         </div>
         <div class="w-full flex justify-end items-center mt-8">
-          <button type="button"
+          <button type="button" (click)="handlePostulation()"
                   class="flex items-center justify-center capitalize px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-600">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
               <path
@@ -242,7 +243,8 @@
       <div class="text-sm text-slate-500 flex gap-4 flex-col w-full">
         <label>DNI:</label>
         <input type="text" formControlName="dni_student" class="w-full border border-gray-200 rounded-md h-10 px-4">
-        <small class="text-red-500" *ngIf="formPostulation.get('dni_student')?.invalid && formPostulation.get('dni_student')?.touched">
+        <small class="text-red-500"
+               *ngIf="formPostulation.get('dni_student')?.invalid && formPostulation.get('dni_student')?.touched">
           El DNI es requerido
         </small>
       </div>
@@ -257,6 +259,23 @@
                *ngIf="formPostulation.get('email_student')?.invalid && formPostulation.get('email_student')?.touched && formPostulation.get('email_student')?.hasError('email')">
           El Correo Institucional no es valido
         </small>
+      </div>
+    </div>
+
+    <div class="w-full flex justify-center items-center font-bold text-slate-500">
+      <span>Servicios brindados</span>
+    </div>
+
+    <div class="flex justify-between px-6">
+      <div class="text-sm text-slate-500 flex gap-4 items-center">
+        <label>Comedor Estudiantil:</label>
+        <input type="checkbox"
+               class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+      </div>
+      <div class="text-sm text-slate-500 flex gap-4 items-center">
+        <label>Internado Estudiantil:</label>
+        <input type="checkbox"
+               class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
     </div>
   </div>
