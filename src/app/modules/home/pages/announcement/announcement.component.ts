@@ -71,7 +71,9 @@ export class AnnouncementComponent implements OnDestroy {
     this.formAnnouncement = this._fb.group({
       name: ['', Validators.required],
       startDate: ['', Validators.required],
-      endDate: ['', Validators.required]
+      endDate: ['', Validators.required],
+      eat_service: [0, [Validators.required, Validators.min(0)]],
+      inter_service: [0, [Validators.required, Validators.min(0)]]
     });
     this.init();
   }
@@ -161,6 +163,12 @@ export class AnnouncementComponent implements OnDestroy {
       endDate: this.announcement.fecha_fin
     });
 
+    const eatService = this.announcement.convocatoria_servicio.find(item => item.id === 2);
+    if (eatService) this.formAnnouncement.get('eat_service')?.setValue(eatService.cantidad);
+
+    const interService = this.announcement.convocatoria_servicio.find(item => item.id === 1);
+    if (interService) this.formAnnouncement.get('inter_service')?.setValue(interService.cantidad);
+
     this.formAnnouncement.disable();
     this.view = 'view-readonly';
   }
@@ -247,7 +255,18 @@ export class AnnouncementComponent implements OnDestroy {
     this.announcement.fecha_inicio = this.formAnnouncement.value.startDate;
     this.announcement.fecha_fin = this.formAnnouncement.value.endDate;
     this.announcement.activo = true;
-    debugger;
+
+    this.announcement.convocatoria_servicio = [
+      {
+        cantidad: parseInt(this.formAnnouncement.value.eat_service),
+        servicio_id: 2
+      },
+      {
+        cantidad: parseInt(this.formAnnouncement.value.inter_service),
+        servicio_id: 1
+      }
+    ];
+
     this.isLoad = true;
     this._subscriptions.add(
       this._managerService.createAnnouncement(this.announcement).subscribe({
@@ -273,5 +292,17 @@ export class AnnouncementComponent implements OnDestroy {
         }
       })
     );
+  }
+
+  protected changeFormat(): void {
+    if (this.formRequirement.value.format === '1' || this.formRequirement.value.format === '2') {
+      this.formRequirement.get('guide')?.setValidators([Validators.required]);
+      this.formRequirement.get('guide')?.updateValueAndValidity();
+      return;
+    }
+
+    this.formRequirement.get('guide')?.clearValidators();
+    this.formRequirement.get('guide')?.updateValueAndValidity();
+    return;
   }
 }

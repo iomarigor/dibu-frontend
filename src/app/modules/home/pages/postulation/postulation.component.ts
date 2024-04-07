@@ -97,7 +97,7 @@ export class PostulationComponent implements OnDestroy {
         next: (res) => {
           this.isLoading = false;
           if (!res.detalle) {
-            this._toastService.add({type: 'error', message: 'No se encontró la convocatoria actual'});
+            this._toastService.add({type: 'error', message: res.msg});
             return;
           }
           this.announcement = res.detalle;
@@ -248,9 +248,9 @@ export class PostulationComponent implements OnDestroy {
       if (!req) continue;
 
       body.detalle_solicitudes.push({
-        respuesta_formulario: req.tipo_requisito_id === 3 ? control.value : '',
-        url_documento: [1, 2].includes(req.tipo_requisito_id) ? control.value : '',
-        opcion_seleccion: req.tipo_requisito_id === 4 ? control.value : '',
+        respuesta_formulario: req.tipo_requisito_id === 3 ? control.value.toString() : null,
+        url_documento: [1, 2].includes(req.tipo_requisito_id) ? control.value.toString() : null,
+        opcion_seleccion: req.tipo_requisito_id === 4 ? control.value.toString() : null,
         requisito_id: parseInt(key)
       });
     }

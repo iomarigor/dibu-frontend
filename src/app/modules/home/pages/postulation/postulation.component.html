@@ -9,8 +9,8 @@
           </div>
         </div>
 
-        <div
-          class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6">
+        <div *ngIf="announcement.nombre !== ''"
+             class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6">
           <button (click)="showModal = true"
                   class="flex items-center justify-center capitalize px-5 py-2 text-sm text-gray-500 transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
@@ -24,7 +24,7 @@
           </button>
         </div>
 
-        <div class="mt-6">
+        <div class="mt-6" *ngIf="announcement.nombre !== ''">
           <cdk-accordion-item class="accordion">
             @for (section of announcement.secciones; track section; let index = $index) {
               <cdk-accordion-item
@@ -137,6 +137,28 @@
               </cdk-accordion-item>
             }
           </cdk-accordion-item>
+        </div>
+
+        <div class="mt-6 flex flex-col w-full h-full items-center justify-center"
+             *ngIf="announcement.nombre === '' && !isLoading">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-slate-500" viewBox="0 0 512 512">
+              <rect x="32" y="96" width="64" height="368" rx="16" ry="16" fill="none" stroke="currentColor"
+                    stroke-linejoin="round" stroke-width="32"/>
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                    d="M112 224h128M112 400h128"/>
+              <rect x="112" y="160" width="128" height="304" rx="16" ry="16" fill="none" stroke="currentColor"
+                    stroke-linejoin="round" stroke-width="32"/>
+              <rect x="256" y="48" width="96" height="416" rx="16" ry="16" fill="none" stroke="currentColor"
+                    stroke-linejoin="round" stroke-width="32"/>
+              <path
+                d="M422.46 96.11l-40.4 4.25c-11.12 1.17-19.18 11.57-17.93 23.1l34.92 321.59c1.26 11.53 11.37 20 22.49 18.84l40.4-4.25c11.12-1.17 19.18-11.57 17.93-23.1L445 115c-1.31-11.58-11.42-20.06-22.54-18.89z"
+                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+            </svg>
+          </div>
+          <div class="font-bold text-slate-500 flex-wrap text-center">
+            <span>Actualmente no se cuenta con convocatorias disponibles, Consulte el calendario para ver nuevas convocatorias.</span>
+          </div>
         </div>
 
       </section>

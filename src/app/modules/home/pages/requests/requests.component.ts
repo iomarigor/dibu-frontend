@@ -8,6 +8,7 @@ import {ManagerService} from "../../../../core/services/manager/manager.service"
 import {Subscription} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {IRequest} from "../../../../core/models/requests";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-requests',
@@ -16,7 +17,8 @@ import {IRequest} from "../../../../core/models/requests";
     BlockUiComponent,
     ModalComponent,
     ReactiveFormsModule,
-    ToastComponent
+    ToastComponent,
+    NgIf
   ],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.scss',

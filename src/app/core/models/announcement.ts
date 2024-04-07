@@ -12,6 +12,7 @@ export interface IAnnouncement {
 export interface IService {
   servicio_id: number;
   cantidad: number;
+  id?: number;
 }
 
 export interface ISection {
@@ -28,6 +29,7 @@ export interface IRequirement {
   default?: string;
   activo: boolean;
   id?: number;
+  url_plantilla?: string;
 }
 
 //1= documento  2=Imagen 3=Formulario

@@ -65,9 +65,9 @@ export interface IServiceRequest {
 }
 
 export interface IDetailRequest {
-  respuesta_formulario: string;
-  url_documento: string;
-  opcion_seleccion: string;
+  respuesta_formulario: string | null;
+  url_documento: string | null;
+  opcion_seleccion: string | null;
   requisito_id: number;
 }
 

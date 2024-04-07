@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterOutlet} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {HttpClientModule} from "@angular/common/http";
 import {Store} from "@ngrx/store";
 import {AppState} from "./core/store/app.reducers";
@@ -22,7 +22,8 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private _store: Store<AppState>,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _router: Router
   ) {
     this._store.dispatch(controlAuth({
       auth: {
@@ -45,7 +46,11 @@ export class AppComponent implements OnDestroy {
     this._subscriptions.add(
       interval(60000)
         .subscribe(() => {
-          if (!this._authService.isValidSession()) return this._authService.logout();
+          if (!this._authService.isValidSession()) {
+            this._authService.logout();
+            this._router.navigate(['/home/services']);
+            return;
+          }
         })
     );
   }
