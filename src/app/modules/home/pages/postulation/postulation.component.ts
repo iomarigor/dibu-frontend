@@ -11,6 +11,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ToastComponent} from "../../../../core/ui/toast/toast.component";
 import {IBodyRequest, IFileRequest} from "../../../../core/models/requests";
+import {IValidationUser} from "../../../../core/models/user";
 
 @Component({
   selector: 'app-postulation',
@@ -111,21 +112,7 @@ export class PostulationComponent implements OnDestroy {
     );
   }
 
-  protected getStudent(): void {
-
-    if (this.formPostulation.invalid) {
-      this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
-      this.formPostulation.markAllAsTouched();
-      return;
-    }
-
-    if (!this.formPostulation.value.eat_service && !this.formPostulation.value.resident_service) {
-      this._toastService.add({type: 'error', message: 'Seleccione al menos un servicio!'});
-      return;
-    }
-
-    this.isLoading = true;
-
+  private getStudent(): void {
     this._subscriptions.add(
       this._managerService.getDataStudent(this.formPostulation.value.dni_student).subscribe({
         next: (res) => {
@@ -146,6 +133,47 @@ export class PostulationComponent implements OnDestroy {
             type: 'error',
             message: 'No se pudo obtener los datos del alumno, intente nuevamente'
           });
+          return;
+        }
+      })
+    );
+  }
+
+  protected validateStudent(): void {
+    if (this.formPostulation.invalid) {
+      this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
+      this.formPostulation.markAllAsTouched();
+      return;
+    }
+
+    if (!this.formPostulation.value.eat_service && !this.formPostulation.value.resident_service) {
+      this._toastService.add({type: 'error', message: 'Seleccione al menos un servicio!'});
+      return;
+    }
+
+    const data: IValidationUser = {
+      correo: this.formPostulation.value.email_student,
+      DNI: parseInt(this.formPostulation.value.dni_student)
+    };
+
+    this.isLoading = true;
+    this._subscriptions.add(
+      this._managerService.validateStudent(data).subscribe({
+        next: (res) => {
+
+          if (!res.detalle) {
+            this.isLoading = false;
+            this._toastService.add({type: 'info', message: res.msg});
+            return;
+          }
+
+          this.getStudent();
+          return;
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this._toastService.add({type: 'error', message: 'No se pudo validar al estudiante, intente nuevamente!'});
+          this.isLoading = false;
           return;
         }
       })

@@ -4,7 +4,7 @@ export interface IRequest {
   convocatoria_id: number;
   alumno: IStudent;
   servicios_solicitados: IServicesRequests[];
-  detalle_solicitudes: IResponseRequirements[];
+  detalle_solicitudes: ISectionsRequest[];
 }
 
 export interface IStudent {
@@ -80,4 +80,39 @@ export interface IFileRequest {
 
 export interface IResponseFile {
   url_file: string;
+}
+
+export interface ISectionsRequest {
+  id: number;
+  descripcion: string;
+  convocatoria_id: 1,
+  created_at: string;
+  updated_at: string;
+  requisitos: IRequirementsRequest[];
+}
+
+export interface IRequirementsRequest {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  url_guia: string;
+  url_plantilla: string;
+  opciones: string;
+  tipo_requisito_id: number;
+  seccion_id: number;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
+  respuesta: IResponseRequest;
+}
+
+export interface IResponseRequest {
+  id: number;
+  respuesta_formulario: string;
+  url_documento: string;
+  opcion_seleccion: string;
+  solicitud_id: number;
+  requisito_id: number;
+  created_at: string;
+  updated_at: string;
 }

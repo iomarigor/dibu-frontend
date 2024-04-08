@@ -14,6 +14,7 @@ import {Store} from "@ngrx/store";
 import {controlAuth} from "../../../../core/store/actions/auth.action";
 import {RecaptchaModule} from "ng-recaptcha";
 import {NgIf} from "@angular/common";
+import {EnvServiceFactory} from "../../../../core/services/env/env.service.provider";
 
 @Component({
   selector: 'app-login',
@@ -36,6 +37,7 @@ export class LoginComponent implements OnDestroy {
   private _cipher: Cipher = new Cipher();
   public loginForm: FormGroup;
   public isLoading: boolean = false;
+  protected googleKey: string = EnvServiceFactory().GOOGLE_RECAPTCHA_SITEKEY;
 
   constructor(
     private _fb: FormBuilder,

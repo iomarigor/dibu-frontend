@@ -17,3 +17,8 @@ export interface IUserCreation {
   password_confirmation: string;
   password: string;
 }
+
+export interface IValidationUser {
+  correo: string;
+  DNI: number;
+}

@@ -1,151 +1,467 @@
-<div class="w-full h-full flex p-8 flex-col gap-8">
-  <div class="w-full flex justify-between">
-    <div class="text-slate-500 font-bold text-2xl text-center w-full">
-      <span>Lista de Solicitudes Recibidas</span>
-    </div>
-  </div>
-  <section class="container mx-auto space-y-4" *ngIf="requests.length">
-    <div class="mt-6 flex justify-end">
-      <div class="inline-flex overflow-hidden bg-white divide-x rounded-lg rtl:flex-row-reverse">
-        <input type="text" class="w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 focus:outline-none"
-               placeholder="Buscar Postulante"/>
-        <button
-          class="flex items-center justify-center px-4 text-gray-500 bg-gray-100 hover:bg-gray-200 focus:outline-none">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-        </button>
+@if (view === 'list') {
+  <div class="w-full h-full flex p-8 flex-col gap-8">
+    <div class="w-full flex justify-between">
+      <div class="text-slate-500 font-bold text-2xl text-center w-full">
+        <span>Lista de Solicitudes Recibidas</span>
       </div>
     </div>
-    <div class="flex flex-col">
-      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-          <div class="overflow-hidden border border-gray-200 md:rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  <button class="flex items-center gap-x-3 focus:outline-none">
-                    <span>Nombres</span>
 
-                    <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
-                        fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                      <path
-                        d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
-                        fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                      <path
-                        d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
-                        fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
-                    </svg>
-                  </button>
-                </th>
-
-                <th scope="col"
-                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  Código
-                </th>
-
-                <th scope="col"
-                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  Fecha Inicio
-                </th>
-
-                <th scope="col"
-                    class="px-12 py-3.5 text-sm font-normal rtl:text-right text-gray-500 text-center">
-                  Oprciones
-                </th>
-
-              </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                @for (request of requests; track requests) {
-                  <tr>
-                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                      <div>
-                        <h2
-                          class="font-medium text-slate-500">{{ request.alumno.nombres + ' ' + request.alumno.apellido_materno + ' ' + request.alumno.apellido_materno }}</h2>
-                      </div>
-                    </td>
-                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                      <div>
-                        <h2 class="font-medium text-slate-500">{{ '00' + request.alumno.codigo_estudiante }}</h2>
-                      </div>
-                    </td>
-                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                      <div>
-                        <h2 class="font-medium text-slate-500">{{ request.fecha_solicitud }}</h2>
-                      </div>
-                    </td>
-
-                    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                      <div class="cursor-pointer flex justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
-                          <path
-                            d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z"
-                            fill="none" stroke="currentColor" stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="32"/>
-                          <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor"
-                                  stroke-miterlimit="10"
-                                  stroke-width="32"/>
-                        </svg>
-                      </div>
-                    </td>
-
-                  </tr>
-                }
-              </tbody>
-            </table>
+    @if (requests.length) {
+      <section class="container mx-auto space-y-4">
+        <div class="mt-6 flex justify-end">
+          <div class="inline-flex overflow-hidden bg-white divide-x rounded-lg rtl:flex-row-reverse">
+            <input type="text" class="w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 focus:outline-none"
+                   placeholder="Buscar Postulante"/>
+            <button
+              class="flex items-center justify-center px-4 text-gray-500 bg-gray-100 hover:bg-gray-200 focus:outline-none">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </button>
           </div>
         </div>
+        <div class="flex flex-col">
+          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+              <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
+                      <button class="flex items-center gap-x-3 focus:outline-none">
+                        <span>Nombres</span>
+
+                        <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
+                            fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                          <path
+                            d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
+                            fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                          <path
+                            d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
+                            fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+                        </svg>
+                      </button>
+                    </th>
+
+                    <th scope="col"
+                        class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                      Código
+                    </th>
+
+                    <th scope="col"
+                        class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                      Fecha Inicio
+                    </th>
+
+                    <th scope="col"
+                        class="px-12 py-3.5 text-sm font-normal rtl:text-right text-gray-500 text-center">
+                      Oprciones
+                    </th>
+
+                  </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    @for (request of requests; track requests) {
+                      <tr>
+                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                          <div>
+                            <h2
+                              class="font-medium text-slate-500">{{ request.alumno.nombres + ' ' + request.alumno.apellido_materno + ' ' + request.alumno.apellido_materno }}</h2>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                          <div>
+                            <h2 class="font-medium text-slate-500">{{ '00' + request.alumno.codigo_estudiante }}</h2>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                          <div>
+                            <h2 class="font-medium text-slate-500">{{ request.fecha_solicitud }}</h2>
+                          </div>
+                        </td>
+
+                        <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                          <div class="cursor-pointer flex justify-center" (click)="getStudentRequest(request)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+                              <path
+                                d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z"
+                                fill="none" stroke="currentColor" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="32"/>
+                              <circle cx="256" cy="256" r="80" fill="none" stroke="currentColor"
+                                      stroke-miterlimit="10"
+                                      stroke-width="32"/>
+                            </svg>
+                          </div>
+                        </td>
+
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-6 sm:flex sm:items-center sm:justify-between" *ngIf="requests.length > 10">
+          <div class="text-sm text-gray-500">
+            Página <span class="font-medium text-gray-700">1 de 10</span>
+          </div>
+
+          <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
+            <button
+              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                   stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
+              </svg>
+              <span>Anterior</span>
+            </button>
+
+            <button
+              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+              <span>Siguiente</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                   stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    } @else {
+      <div class="flex w-full h-full flex-col gap-6 items-center">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-slate-500" viewBox="0 0 512 512">
+            <path
+              d="M64 192v-72a40 40 0 0140-40h75.89a40 40 0 0122.19 6.72l27.84 18.56a40 40 0 0022.19 6.72H408a40 40 0 0140 40v40"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            <path
+              d="M479.9 226.55L463.68 392a40 40 0 01-39.93 40H88.25a40 40 0 01-39.93-40L32.1 226.55A32 32 0 0164 192h384.1a32 32 0 0131.8 34.55z"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+          </svg>
+        </div>
+        <div class="font-bold text-slate-500 text-2xl">
+          <span>¡Aún no se cuenta con postulantes a la convocatoria actual!</span>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
+    <div class="w-full flex justify-center items-center flex-col overflow-auto space-y-4">
+      <div class="w-3/4 mt-8">
+        <div class="uppercase mb-4 text-gray-500 text-2xl font-bold flex items-center gap-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+               stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="view = 'list'">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
+          </svg>
+          <span>Postulante a la convocatoria actual</span>
+        </div>
       </div>
     </div>
-    <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
-        <div class="text-sm text-gray-500">
-          Página <span class="font-medium text-gray-700">1 de 10</span>
+    <div class="space-y-6">
+      <div class="space-y-4">
+
+        <div class="text-xl font-bold text-slate-500">
+          <span>Datos Básicos</span>
         </div>
 
-        <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
-          <button
-            class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                 stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
-            </svg>
-            <span>Anterior</span>
-          </button>
+        <div class="grid grid-cols-2 gap-4">
 
-          <button
-            class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
-            <span>Siguiente</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                 stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
-            </svg>
-          </button>
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Nombres: </span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.nombres }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Apellidos:</span>
+            <span
+              class="text-gray-500 text-sm">{{ student.alumno.apellido_paterno + ' ' + student.alumno.apellido_materno }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Sexo:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.sexo === 'M' ? 'Masculino' : 'Femenino' }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Facultad:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.facultad }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Escuela profesional:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.escuela_profesional }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Modalidad de ingreso:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.modalidad_ingreso }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Lugar de procedencia:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.lugar_procedencia }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Lugar de nacimiento:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.lugar_nacimiento }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Edad:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.edad }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Correo institucional:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.correo_institucional }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Dirección:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.direccion }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Fecha de nacimiento:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.fecha_nacimiento }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Correo personal:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.correo_personal }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Telefono o número de celular:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.celular_estudiante }}</span>
+          </div>
+
+          <div class="grid grid-cols-2 items-center gap-4">
+            <span class="text-gray-500 font-bold">Telefono o número de celular del apoderado:</span>
+            <span class="text-gray-500 text-sm">{{ student.alumno.celular_padre }}</span>
+          </div>
+
         </div>
       </div>
-  </section>
-  <div class="flex w-full h-full flex-col gap-6 items-center">
-    <div>
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-slate-500" viewBox="0 0 512 512">
-        <path
-          d="M64 192v-72a40 40 0 0140-40h75.89a40 40 0 0122.19 6.72l27.84 18.56a40 40 0 0022.19 6.72H408a40 40 0 0140 40v40"
-          fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-        <path
-          d="M479.9 226.55L463.68 392a40 40 0 01-39.93 40H88.25a40 40 0 01-39.93-40L32.1 226.55A32 32 0 0164 192h384.1a32 32 0 0131.8 34.55z"
-          fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-      </svg>
-    </div>
-    <div class="font-bold text-slate-500 text-2xl">
-      <span>¡Aún no se cuenta con postulantes a la convocatoria actual!</span>
+
+      <div class="space-y-4">
+        <div class="text-xl font-bold text-slate-500">
+          <span>Servicios solicitados</span>
+        </div>
+
+        <section class="container mx-auto space-y-4">
+          <div class="flex flex-col">
+            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+                  <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
+                        <button class="flex items-center gap-x-3 focus:outline-none">
+                          <span>Servicio</span>
+
+                          <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
+                              fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                            <path
+                              d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
+                              fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                            <path
+                              d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
+                              fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+                          </svg>
+                        </button>
+                      </th>
+
+                      <th scope="col"
+                          class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                        Descripción
+                      </th>
+
+                      <th scope="col"
+                          class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                        Estado
+                      </th>
+
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                      @for (service of student.servicios_solicitados; track service) {
+                        <tr>
+                          <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                            <div>
+                              <h2
+                                class="font-medium text-slate-500">{{ service.servicio.nombre }}</h2>
+                            </div>
+                          </td>
+                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                            <div>
+                              <h2 class="font-medium text-slate-500">{{ service.servicio.descripcion }}</h2>
+                            </div>
+                          </td>
+                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                            <div class="flex w-full justify-center">
+                              <div
+                                class="inline px-3 py-1 text-sm font-normal select-none rounded-full gap-x-2 capitalize chip-status-{{service.estado}}">
+                                {{ service.estado }}
+                              </div>
+                            </div>
+                          </td>
+
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="space-y-4">
+        <div class="text-xl font-bold text-slate-500">
+          <span>Datos Solicitados</span>
+        </div>
+
+        <div class="mt-6">
+          <cdk-accordion-item class="accordion">
+            @for (section of student.detalle_solicitudes; track section; let index = $index) {
+              <cdk-accordion-item
+                #accordionItem="cdkAccordionItem"
+                class="example-accordion-item"
+                role="button"
+                tabindex="0"
+                [attr.id]="'accordion-header-' + index"
+                [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion-body-' + index">
+                <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="#00725c" viewBox="0 0 512 512">
+                    <path
+                      d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
+                  </svg>
+                  {{ section.descripcion }}
+                </div>
+                <div role="region" class="my-6"
+                     [style.display]="accordionItem.expanded ? '' : 'none'"
+                     [attr.id]="'accordion-body-' + index"
+                     [attr.aria-labelledby]="'accordion-header-' + index"
+                >
+                  <section class="container px-4 mx-auto">
+                    <div class="-mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+                          <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                            <tr>
+                              <th scope="col"
+                                  class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500">
+                                <button class="flex items-center gap-x-3 focus:outline-none uppercase">
+                                  <span>Requisito</span>
+
+                                  <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
+                                      fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                                    <path
+                                      d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
+                                      fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                                    <path
+                                      d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
+                                      fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+                                  </svg>
+                                </button>
+                              </th>
+
+                              <th scope="col"
+                                  class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 flex justify-center">
+                                Respuesta
+                              </th>
+
+                              <th scope="col"
+                                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                                Fecha de respuesta
+                              </th>
+                              <th scope="col"
+                                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                                Recurso
+                              </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+
+                              @for (req of section.requisitos; track req; let index = $index) {
+                                <tr>
+                                  <td class="px-4 py-4 text-sm font-medium">
+                                    <div>
+                                      <h2 class="font-medium text-gray-500 capitalize">{{ req.nombre }}</h2>
+                                    </div>
+                                  </td>
+                                  <td class="px-4 py-4 text-sm font-medium">
+                                    <div>
+                                      <h2 class="font-medium text-gray-500 capitalize">
+                                        {{ (req.respuesta.opcion_seleccion || req.respuesta.respuesta_formulario) || '-'}}
+                                      </h2>
+                                    </div>
+                                  </td>
+                                  <td class="px-4 py-4 text-sm font-medium text-center">
+                                    <div>
+                                      <h2 class="font-medium text-gray-500 capitalize">
+                                        {{ req.respuesta.created_at | date: 'medium': 'UTC'}}
+                                      </h2>
+                                    </div>
+                                  </td>
+                                  <td class="px-4 py-4 text-sm font-medium whitespace-nowrap flex justify-center">
+                                    <div>
+                                      @if (req.respuesta.url_documento) {
+                                        <a [href]="req.respuesta.url_documento" target="_blank">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+                                            <path
+                                              d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
+                                              fill="none" stroke="currentColor" stroke-linejoin="round"
+                                              stroke-width="32"/>
+                                            <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                                          </svg>
+                                        </a>
+                                      } @else {
+                                        <span>-</span>
+                                      }
+                                    </div>
+                                  </td>
+                                </tr>
+                              }
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </cdk-accordion-item>
+            }
+          </cdk-accordion-item>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
+}
+
+
+
 
 <app-block-ui [show]="isLoading"></app-block-ui>
 

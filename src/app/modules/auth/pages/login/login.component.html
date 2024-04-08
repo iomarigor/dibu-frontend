@@ -52,7 +52,7 @@
         La contraseña es requerida
       </small>
       <div class="flex justify-center items-center h-12 rounded-lg mt-4 mb-4" style="background: #26964811">
-        <re-captcha (resolved)="loginForm.get('captcha')?.setValue($event)" siteKey="6LeHadskAAAAADv1LgwVU2Xe9sOQqiRt2Sfkr-5-"></re-captcha>
+        <re-captcha (resolved)="loginForm.get('captcha')?.setValue($event)" [siteKey]="googleKey"></re-captcha>
       </div>
 
       <small class="text-red-400"

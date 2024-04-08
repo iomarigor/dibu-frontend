@@ -4,13 +4,15 @@ import {Observable} from "rxjs";
 import {IResponse} from "../../models/response";
 import {IAnnouncement} from "../../models/announcement";
 import {IBodyRequest, IFileRequest, IRequest, IResponseFile} from "../../models/requests";
+import {IValidationUser} from "../../models/user";
+import {EnvServiceFactory} from "../env/env.service.provider";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManagerService {
 
-  private urlBase = 'https://dbu-dev.dimo-app.com';
+  private urlBase = EnvServiceFactory().API_DBU;
   private urlBaseAnnouncement = this.urlBase + '/convocatoria';
   private urlRequests = this.urlBase + '/solicitudes';
   private urlRequest = this.urlBase + '/solicitud';
@@ -47,5 +49,13 @@ export class ManagerService {
 
   public createRequest(data: IBodyRequest): Observable<IResponse> {
     return this.http.post<IResponse>(this.urlRequest + '/create', data);
+  }
+
+  public validateStudent(data: IValidationUser): Observable<IResponse> {
+    return this.http.post<IResponse>(this.urlRequest + '/validacion', data);
+  }
+
+  public getStudentRequest(code: number): Observable<IResponse<IRequest>> {
+    return this.http.get<IResponse<IRequest>>(this.urlRequest + '/show/' + code);
   }
 }

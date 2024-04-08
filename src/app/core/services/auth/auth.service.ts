@@ -6,13 +6,14 @@ import {Cipher} from "../../utils/ciphers/ciphers";
 import {JwtHelper} from "../../utils/jwt/jwt";
 import {IResponse} from "../../models/response";
 import {IUser, IUserCreation} from "../../models/user";
+import {EnvServiceFactory} from "../env/env.service.provider";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private _urlBase: string = 'https://dbu-dev.dimo-app.com';
+  private _urlBase: string = EnvServiceFactory().API_DBU;
   private _urlLogin: string = this._urlBase + '/login';
 
   private _cipher = new Cipher();
