@@ -34,25 +34,30 @@ export class AppComponent implements OnDestroy {
     }));
 
     this._store.select('auth').subscribe((auth) => {
-      if (auth.isAuth) this.verifySession();
+      if (auth.isAuth) this.timerVerifySession();
     });
+
+    if (this._authService.getToken() !== '') this.verifySession();
   }
 
   ngOnDestroy() {
     this._subscriptions.unsubscribe();
   }
 
-  private verifySession(): void {
+  private timerVerifySession(): void {
     this._subscriptions.add(
       interval(60000)
-        .subscribe(() => {
-          if (!this._authService.isValidSession()) {
-            this._authService.logout();
-            this._router.navigate(['/home/services']);
-            return;
-          }
-        })
+        .subscribe(() => this.verifySession())
     );
+  }
+
+  private verifySession(): void {
+    if (!this._authService.isValidSession()) {
+
+      this._authService.logout();
+      this._router.navigate(['/home/services']);
+      return;
+    }
   }
 
 }

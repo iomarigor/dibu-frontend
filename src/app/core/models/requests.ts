@@ -116,3 +116,13 @@ export interface IResponseRequest {
   created_at: string;
   updated_at: string;
 }
+
+export interface IUpdateService {
+  solicitud_id: number;
+  servicios: IServiceRequest[];
+}
+
+export interface IErrorPostulation {
+  tipo: string;
+  msg: string;
+}

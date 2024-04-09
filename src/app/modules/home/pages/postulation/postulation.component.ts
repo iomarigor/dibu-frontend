@@ -1,5 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
-import {NgIf} from "@angular/common";
+import {DatePipe, NgIf} from "@angular/common";
 import {ModalComponent} from "../../../../core/ui/modal/modal.component";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {IAnnouncement, IRequirement, ISection} from "../../../../core/models/announcement";
@@ -10,8 +10,8 @@ import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component"
 import {HttpErrorResponse} from "@angular/common/http";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ToastComponent} from "../../../../core/ui/toast/toast.component";
-import {IBodyRequest, IFileRequest} from "../../../../core/models/requests";
-import {IValidationUser} from "../../../../core/models/user";
+import {IBodyRequest, IErrorPostulation, IFileRequest} from "../../../../core/models/requests";
+import {IDebtsStudent, IValidationUser} from "../../../../core/models/user";
 
 @Component({
   selector: 'app-postulation',
@@ -22,7 +22,8 @@ import {IValidationUser} from "../../../../core/models/user";
     CdkAccordionItem,
     BlockUiComponent,
     ReactiveFormsModule,
-    ToastComponent
+    ToastComponent,
+    DatePipe
   ],
   templateUrl: './postulation.component.html',
   styleUrl: './postulation.component.scss',
@@ -53,6 +54,10 @@ export class PostulationComponent implements OnDestroy {
   protected isLoading: boolean = false;
   protected deleteModal: boolean = false;
   protected formPostulation: FormGroup;
+  protected showDebts: boolean = false;
+  protected showErrors: boolean = false;
+  protected debts: IDebtsStudent[] = [];
+  protected errorsPostulation: IErrorPostulation[] = [];
 
   constructor(
     private _managerService: ManagerService,
@@ -88,6 +93,9 @@ export class PostulationComponent implements OnDestroy {
       eat_service: [false, Validators.required,],
       resident_service: [false, Validators.required],
     });
+    this.showModal = false;
+    this.deleteModal = false;
+    this.showDebts = false;
   }
 
   private getCurrentAnnouncement(): void {
@@ -156,7 +164,7 @@ export class PostulationComponent implements OnDestroy {
       DNI: parseInt(this.formPostulation.value.dni_student)
     };
 
-    this.isLoading = true;
+
     this._subscriptions.add(
       this._managerService.validateStudent(data).subscribe({
         next: (res) => {
@@ -172,7 +180,13 @@ export class PostulationComponent implements OnDestroy {
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);
-          this._toastService.add({type: 'error', message: 'No se pudo validar al estudiante, intente nuevamente!'});
+          this._toastService.add({type: 'error', message: err.error.msg, life: 10000});
+          if (err.error.detalle) {
+            this.errorsPostulation = err.error.detalle;
+            this.showErrors = true;
+            this.showModal = false;
+          }
+
           this.isLoading = false;
           return;
         }
@@ -301,6 +315,40 @@ export class PostulationComponent implements OnDestroy {
           console.error(err);
           this.isLoading = false;
           this._toastService.add({type: 'error', message: 'No se pudo realizar la postulación, intente nuevamente'});
+        }
+      })
+    );
+  }
+
+  protected validateDebts(): void {
+    this.isLoading = true;
+
+    this._subscriptions.add(
+      this._managerService.validateStudentDebts(this.formPostulation.value.dni_student).subscribe({
+        next: (res) => {
+          if (res.length > 0) {
+            this.isLoading = false;
+            this._toastService.add({
+              type: 'warning',
+              message: 'El estudiante tiene deudas pendientes, no puede postular!'
+            });
+
+            this.formPostulation.reset();
+            this.debts = res;
+            this.showDebts = true;
+            this.showModal = false;
+            return;
+          }
+
+          this.validateStudent();
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.isLoading = false;
+          this._toastService.add({
+            type: 'error',
+            message: 'No se pudo validar las deudas del estudiante, intente nuevamente'
+          });
         }
       })
     );

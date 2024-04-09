@@ -3,8 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IResponse} from "../../models/response";
 import {IAnnouncement} from "../../models/announcement";
-import {IBodyRequest, IFileRequest, IRequest, IResponseFile} from "../../models/requests";
-import {IValidationUser} from "../../models/user";
+import {IBodyRequest, IFileRequest, IRequest, IResponseFile, IUpdateService} from "../../models/requests";
+import {IDebtsStudent, IValidationUser} from "../../models/user";
 import {EnvServiceFactory} from "../env/env.service.provider";
 
 @Injectable({
@@ -13,6 +13,7 @@ import {EnvServiceFactory} from "../env/env.service.provider";
 export class ManagerService {
 
   private urlBase = EnvServiceFactory().API_DBU;
+  private urlCaja = EnvServiceFactory().API_CAJA;
   private urlBaseAnnouncement = this.urlBase + '/convocatoria';
   private urlRequests = this.urlBase + '/solicitudes';
   private urlRequest = this.urlBase + '/solicitud';
@@ -57,5 +58,13 @@ export class ManagerService {
 
   public getStudentRequest(code: number): Observable<IResponse<IRequest>> {
     return this.http.get<IResponse<IRequest>>(this.urlRequest + '/show/' + code);
+  }
+
+  public updateStatusService(data: IUpdateService): Observable<IResponse> {
+    return this.http.put<IResponse>(this.urlRequest + '/servicio', data);
+  }
+
+  public validateStudentDebts(code: string): Observable<IDebtsStudent[]> {
+    return this.http.get<IDebtsStudent[]>(this.urlCaja + '/api/report/hasdebt/' + code);
   }
 }

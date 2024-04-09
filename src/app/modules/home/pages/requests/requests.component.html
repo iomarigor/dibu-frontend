@@ -165,13 +165,149 @@
       </div>
     </div>
     <div class="space-y-6">
+
+      <div class="space-y-4">
+        <div class="text-xl font-bold text-slate-500">
+          <span>Servicios solicitados</span>
+        </div>
+
+        <section class="container mx-auto space-y-4">
+          <div class="flex flex-col">
+            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+                  <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                    <tr>
+                      <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
+                        <button class="flex items-center gap-x-3 focus:outline-none">
+                          <span>Servicio</span>
+
+                          <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
+                              fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                            <path
+                              d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
+                              fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
+                            <path
+                              d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
+                              fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
+                          </svg>
+                        </button>
+                      </th>
+
+                      <th scope="col"
+                          class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                        Descripción
+                      </th>
+
+                      <th scope="col"
+                          class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                        Estado
+                      </th>
+
+                      <th scope="col"
+                          class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                        Opciones
+                      </th>
+
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                      @for (service of student.servicios_solicitados; track service) {
+                        <tr>
+                          <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                            <div>
+                              <h2
+                                class="font-medium text-slate-500">{{ service.servicio.nombre }}</h2>
+                            </div>
+                          </td>
+                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                            <div>
+                              <h2 class="font-medium text-slate-500">{{ service.servicio.descripcion }}</h2>
+                            </div>
+                          </td>
+                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                            <div class="flex w-full justify-center">
+                              <div
+                                class="inline px-3 py-1 text-sm font-normal select-none rounded-full gap-x-2 capitalize chip-status-{{service.estado}}">
+                                {{ service.estado }}
+                              </div>
+                            </div>
+                          </td>
+
+                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                            <div class="flex w-full justify-center gap-4">
+                              <div (click)="updateStatusService(service.id, 'aprobado')"
+                                class="chip-status-aceptado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-500"
+                                     viewBox="0 0 512 512">
+                                  <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+                                        fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="32" d="M352 176L217.6 336 160 272"/>
+                                </svg>
+                                <div
+                                  class="group-hover:opacity-100 popover absolute bg-gray-700 border shadow-md mt-2 px-4 py-2 rounded-lg transition ease-out translate-y-full duration-300 opacity-0 transform scale-95">
+                                  <p class="text-white">Aprobar solicitud</p>
+                                </div>
+
+                              </div>
+
+                              <div (click)="updateStatusService(service.id, 'rechazado')"
+                                class="chip-status-rechazado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500"
+                                     viewBox="0 0 512 512">
+                                  <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+                                        fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+                                  <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="32" d="M320 320L192 192M192 320l128-128"/>
+                                </svg>
+                                <div
+                                  class="group-hover:opacity-100 popover absolute bg-gray-700 border shadow-md mt-2 px-4 py-2 rounded-lg transition ease-out translate-y-full duration-300 opacity-0 transform scale-95">
+                                  <p class="text-white">Rechazar Solicitud</p>
+                                </div>
+                              </div>
+
+                              <div (click)="updateStatusService(service.id, 'aceptado')" *ngIf="service.estado === 'pendiente'"
+                                class="chip-status-aceptado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-sky-500"
+                                     viewBox="0 0 512 512">
+                                  <path class="stroke-sky-500"
+                                        d="M384 224v184a40 40 0 01-40 40H104a40 40 0 01-40-40V168a40 40 0 0140-40h167.48"
+                                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="32"/>
+                                  <path class="fill-sky-500"
+                                        d="M459.94 53.25a16.06 16.06 0 00-23.22-.56L424.35 65a8 8 0 000 11.31l11.34 11.32a8 8 0 0011.34 0l12.06-12c6.1-6.09 6.67-16.01.85-22.38zM399.34 90L218.82 270.2a9 9 0 00-2.31 3.93L208.16 299a3.91 3.91 0 004.86 4.86l24.85-8.35a9 9 0 003.93-2.31L422 112.66a9 9 0 000-12.66l-9.95-10a9 9 0 00-12.71 0z"/>
+                                </svg>
+                                <div
+                                  class="group-hover:opacity-100 popover absolute bg-gray-700 border shadow-md mt-2 px-4 py-2 rounded-lg transition ease-out translate-y-full duration-300 opacity-0 transform scale-95">
+                                  <p class="text-white">Aceptar Solicitud</p>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
       <div class="space-y-4">
 
         <div class="text-xl font-bold text-slate-500">
           <span>Datos Básicos</span>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4 px-6">
 
           <div class="grid grid-cols-2 items-center gap-4">
             <span class="text-gray-500 font-bold">Nombres: </span>
@@ -250,84 +386,6 @@
           </div>
 
         </div>
-      </div>
-
-      <div class="space-y-4">
-        <div class="text-xl font-bold text-slate-500">
-          <span>Servicios solicitados</span>
-        </div>
-
-        <section class="container mx-auto space-y-4">
-          <div class="flex flex-col">
-            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                <div class="overflow-hidden border border-gray-200 md:rounded-lg">
-                  <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                    <tr>
-                      <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
-                        <button class="flex items-center gap-x-3 focus:outline-none">
-                          <span>Servicio</span>
-
-                          <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
-                              fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                            <path
-                              d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
-                              fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                            <path
-                              d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
-                              fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
-                          </svg>
-                        </button>
-                      </th>
-
-                      <th scope="col"
-                          class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                        Descripción
-                      </th>
-
-                      <th scope="col"
-                          class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                        Estado
-                      </th>
-
-                    </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      @for (service of student.servicios_solicitados; track service) {
-                        <tr>
-                          <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                            <div>
-                              <h2
-                                class="font-medium text-slate-500">{{ service.servicio.nombre }}</h2>
-                            </div>
-                          </td>
-                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                            <div>
-                              <h2 class="font-medium text-slate-500">{{ service.servicio.descripcion }}</h2>
-                            </div>
-                          </td>
-                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                            <div class="flex w-full justify-center">
-                              <div
-                                class="inline px-3 py-1 text-sm font-normal select-none rounded-full gap-x-2 capitalize chip-status-{{service.estado}}">
-                                {{ service.estado }}
-                              </div>
-                            </div>
-                          </td>
-
-                        </tr>
-                      }
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
       </div>
 
       <div class="space-y-4">
@@ -411,31 +469,49 @@
                                   <td class="px-4 py-4 text-sm font-medium">
                                     <div>
                                       <h2 class="font-medium text-gray-500 capitalize">
-                                        {{ (req.respuesta.opcion_seleccion || req.respuesta.respuesta_formulario) || '-'}}
+                                        {{ (req.respuesta.opcion_seleccion || req.respuesta.respuesta_formulario) || '-' }}
                                       </h2>
                                     </div>
                                   </td>
                                   <td class="px-4 py-4 text-sm font-medium text-center">
                                     <div>
                                       <h2 class="font-medium text-gray-500 capitalize">
-                                        {{ req.respuesta.created_at | date: 'medium': 'UTC'}}
+                                        {{ req.respuesta.created_at | date: 'medium': 'UTC' }}
                                       </h2>
                                     </div>
                                   </td>
                                   <td class="px-4 py-4 text-sm font-medium whitespace-nowrap flex justify-center">
                                     <div>
                                       @if (req.respuesta.url_documento) {
-                                        <a [href]="req.respuesta.url_documento" target="_blank">
-                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
-                                            <path
-                                              d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
-                                              fill="none" stroke="currentColor" stroke-linejoin="round"
-                                              stroke-width="32"/>
-                                            <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none"
-                                                  stroke="currentColor"
-                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-                                          </svg>
-                                        </a>
+                                        @if (req.tipo_requisito_id === 1) {
+                                          <div (click)="viewFileAnnexe(req.respuesta.url_documento)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                 viewBox="0 0 512 512">
+                                              <path
+                                                d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
+                                                fill="none" stroke="currentColor" stroke-linejoin="round"
+                                                stroke-width="32"/>
+                                              <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                                            </svg>
+                                          </div>
+                                        } @else {
+                                          <a [href]="req.respuesta.url_documento" target="_blank">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                                 viewBox="0 0 512 512">
+                                              <path
+                                                d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
+                                                fill="none" stroke="currentColor" stroke-linejoin="round"
+                                                stroke-width="32"/>
+                                              <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                                            </svg>
+                                          </a>
+                                        }
                                       } @else {
                                         <span>-</span>
                                       }
@@ -462,6 +538,31 @@
 
 
 
+<app-modal [(show)]="showModal" [showFooter]="false" title="Documento Adjunto">
+  <div class="w-full h-full flex justify-center">
+    <iframe [src]="fileUrl | safe" class="w-full border-0" height="700" allowfullscreen="allowfullscreen" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</app-modal>
+
+<app-modal [(show)]="alertModal" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true" (onNext)="handleUpdateStatus()">
+  <div class="flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-28 h-28 text-amber-300" viewBox="0 0 512 512">
+      <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
+            stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+      <path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+      <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" stroke="currentColor" class="fill-amber-300"/>
+    </svg>
+  </div>
+  <div class="flex justify-center items-center text-slate-500 font-bold text-xl">
+    <span>¿Esta seguro de ejecutar la acción </span>"<span class="uppercase">{{action}}"?</span>
+  </div>
+  <div class="text-slate-500 text-sm">
+    <span>¡Si realiza esta acción, el estado de la solicitud del alumno para este serivcio se actualizará!</span>
+  </div>
+</app-modal>
 
 <app-block-ui [show]="isLoading"></app-block-ui>
 

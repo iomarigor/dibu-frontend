@@ -9,7 +9,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "DNI",
@@ -18,7 +18,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Nombres",
@@ -27,7 +27,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Apellidos",
@@ -36,7 +36,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Sexo",
@@ -45,7 +45,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: "M|F",
     tipo_requisito_id: 4,
-    activo: false
+    activo: true
   },
   {
     nombre: "Facultad",
@@ -54,7 +54,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Escuela profesional",
@@ -63,7 +63,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Modalidad de ingreso",
@@ -72,7 +72,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Lugar de procedencia",
@@ -81,7 +81,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Lugar de nacimiento",
@@ -90,7 +90,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Edad",
@@ -99,7 +99,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Correo institucional",
@@ -108,7 +108,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Dirección",
@@ -117,7 +117,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Feha de nacimiento",
@@ -126,7 +126,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Correo personal",
@@ -135,7 +135,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "celular de estudiante",
@@ -144,7 +144,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Celular padre",
@@ -153,7 +153,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 3,
-    activo: false
+    activo: true
   },
   {
     nombre: "Tipo de estudiante",
@@ -162,7 +162,7 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
     url_plantilla: '',
     opciones: "Estudiante|Practicante|Tesista",
     tipo_requisito_id: 4,
-    activo: false
+    activo: true
   }
 ];
 
@@ -174,7 +174,7 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Seleccion su clasificación según su SISFOH vigente",
@@ -183,7 +183,7 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
     url_plantilla: '',
     opciones: "POBRE EXTREMO|POBRE|NO POBRE|NO REGISTRA",
     tipo_requisito_id: 4,
-    activo: false
+    activo: true
   },
   {
     nombre: "Suba la captura de su SISFOH vigente",
@@ -192,7 +192,7 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Copia de DNI de los padres",
@@ -201,7 +201,7 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 1,
-    activo: false
+    activo: true
   },
   {
     nombre: "Copia de DNI del solicitante",
@@ -210,7 +210,7 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 1,
-    activo: false
+    activo: true
   },
   {
     nombre: "Una (01) fotorafia actualizada tamaño carnet y/o pasaporte",
@@ -219,7 +219,7 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 1,
-    activo: false
+    activo: true
   }
 ];
 
@@ -231,7 +231,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 1,
-    activo: false
+    activo: true
   },
   {
     nombre: "Solicitud dirigida a la dirección de bienestar universitario",
@@ -240,7 +240,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Copia de recivo de luz y/o agua los que solicitan por primera vez",
@@ -249,7 +249,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Reporte de deudas de tesoreria",
@@ -258,7 +258,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Formato de atencion de los servicios de DBU",
@@ -267,7 +267,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Certijoven policiales",
@@ -276,7 +276,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: "No tiene|Si tiene",
     tipo_requisito_id: 4,
-    activo: false
+    activo: true
   },
   {
     nombre: "Certijoven judiciales",
@@ -285,7 +285,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: "No tiene|Si tiene",
     tipo_requisito_id: 4,
-    activo: false
+    activo: true
   },
   {
     nombre: "Certijoven penales",
@@ -294,7 +294,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: "No tiene|Si tiene",
     tipo_requisito_id: 4,
-    activo: false
+    activo: true
   },
   {
     nombre: "Certificado actualizado unico laboral CERTIJOVEN (Pag web del Ministerio de Trabajo)",
@@ -303,7 +303,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Carne de vacuna antitetanica",
@@ -312,7 +312,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Carne de vacuna antihepatitis",
@@ -321,7 +321,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Seguro de salud",
@@ -330,7 +330,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: "SIS|EsSalud|Otro seguro",
     tipo_requisito_id: 4,
-    activo: false
+    activo: true
   },
   {
     nombre: "Constancia vigente del SIS o seguro particular",
@@ -339,7 +339,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   },
   {
     nombre: "Carta de compromiso para la asistencia a los talleres de psicopedagogia minimo 03 veces",
@@ -348,7 +348,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 1,
-    activo: false
+    activo: true
   },
   {
     nombre: "Certificado domiciliario",
@@ -357,7 +357,7 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
-    activo: false
+    activo: true
   }
 ];
 

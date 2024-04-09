@@ -22,3 +22,13 @@ export interface IValidationUser {
   correo: string;
   DNI: number;
 }
+
+export interface IDebtsStudent {
+  nombre_completo: string;
+  nombres: string;
+  apellido_paterno: string;
+  apellido_materno: string;
+  monto_deuda: string;
+  concepto_deuda: string;
+  fecha_deuda: string;
+}

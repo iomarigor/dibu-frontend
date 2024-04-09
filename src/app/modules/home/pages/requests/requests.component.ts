@@ -7,9 +7,10 @@ import {ToastService} from "../../../../core/services/toast/toast.service";
 import {ManagerService} from "../../../../core/services/manager/manager.service";
 import {Subscription} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {IRequest} from "../../../../core/models/requests";
+import {IRequest, IUpdateService} from "../../../../core/models/requests";
 import {DatePipe, KeyValuePipe, NgIf} from "@angular/common";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
+import {SafePipePipe} from "../../../../core/pipes/safe-pipe.pipe";
 
 @Component({
   selector: 'app-requests',
@@ -22,7 +23,8 @@ import {CdkAccordionItem} from "@angular/cdk/accordion";
     NgIf,
     CdkAccordionItem,
     KeyValuePipe,
-    DatePipe
+    DatePipe,
+    SafePipePipe
   ],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.scss',
@@ -36,6 +38,11 @@ export class RequestsComponent implements OnDestroy {
   protected requests: IRequest[] = [];
   protected view: string = 'list';
   protected student!: IRequest;
+  protected showModal: boolean = false;
+  protected fileUrl: string = '';
+  protected alertModal: boolean = false;
+  protected action: string = '';
+  private serviceID: number = 0;
 
   constructor(
     private _toastService: ToastService,
@@ -96,6 +103,58 @@ export class RequestsComponent implements OnDestroy {
           this._toastService.add({
             type: 'error',
             message: 'No se pudo obtener la solicitud del estudiante, intente de nuevo'
+          });
+        }
+      })
+    );
+  }
+
+  protected viewFileAnnexe(url: string): void {
+    this.fileUrl = url;
+    this.showModal = true;
+  }
+
+  protected updateStatusService(service: number, status: string): void {
+    this.action = status;
+    this.serviceID = service;
+    this.alertModal = true;
+  }
+
+  protected handleUpdateStatus(): void {
+
+    const data: IUpdateService = {
+      solicitud_id: this.student.id,
+      servicios: [
+        {
+          servicio_id: this.serviceID,
+          estado: this.action
+        }
+      ]
+    }
+
+    this.isLoading = true;
+
+    this._subscriptions.add(
+      this._managerService.updateStatusService(data).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (!res.detalle) {
+            this._toastService.add({type: 'info', message: res.msg});
+            return;
+          }
+          this._toastService.add({type: 'info', message: "Estado actualizado correctamente"});
+
+          const service = this.student.servicios_solicitados.find(service => service.id = this.serviceID);
+          if (service) service.estado = this.action;
+
+          this.alertModal = false;
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.isLoading = false;
+          this._toastService.add({
+            type: 'error',
+            message: 'No se pudo actualizar el estado del servicio, intente nuevamente!'
           });
         }
       })

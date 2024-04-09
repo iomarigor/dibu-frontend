@@ -1,13 +1,13 @@
 .chip-status-pendiente {
-  @apply text-sky-500 gap-x-2 bg-sky-100/60;
+  @apply text-amber-500 gap-x-2 bg-amber-100/60;
 }
 
-.chip-status-aceptado {
+.chip-status-aprobado {
   @apply text-emerald-500 gap-x-2 bg-emerald-100/60;
 }
 
-.chip-status-recepcionado {
-  @apply text-amber-500 gap-x-2 bg-amber-100/60;
+.chip-status-aceptado {
+  @apply text-sky-500 gap-x-2 bg-sky-100/60;
 }
 
 .chip-status-rechazado {
