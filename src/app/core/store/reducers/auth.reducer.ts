@@ -6,12 +6,14 @@ export interface AuthState {
   isAuth: boolean;
   token: string;
   session: ISession | null;
+  role: number;
 }
 
 export const AuthInitialState: AuthState = {
   isAuth: false,
   token: '',
-  session: null
+  session: null,
+  role: 0
 };
 
 const authReducer = createReducer(
@@ -20,7 +22,8 @@ const authReducer = createReducer(
     ...state,
     isAuth: auth.isAuth,
     token: auth.token,
-    session: auth.session
+    session: auth.session,
+    role: auth.role
   }))
 );
 

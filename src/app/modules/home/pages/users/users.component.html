@@ -100,7 +100,7 @@
                       <div>
                         <h2
                           class="inline px-3 py-1 text-sm font-normal select-none rounded-full chip-role-{{user.id_level_user}}">
-                          {{ user.id_level_user === 1 ? 'Administrador' : 'Trabajor' }}
+                          {{ user.id_level_user === 1 ? 'Administrador' : user.id_level_user === 2 ? 'Trabajor' : 'Colaborador' }}
                         </h2>
                       </div>
                     </td>
@@ -195,13 +195,15 @@
           <option selected hidden>Seleccione un rol</option>
           <option value="1">Administrador</option>
           <option value="2">Trabajor</option>
+          <option value="3">Colaborador</option>
         </select>
       </div>
     </div>
   </form>
 </app-modal>
 
-<app-modal [(show)]="deleteModal" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true" (onNext)="deleteUser()">
+<app-modal [(show)]="deleteModal" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true"
+           (onNext)="deleteUser()">
   <div class="flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-28 h-28 text-amber-300" viewBox="0 0 512 512">
       <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"

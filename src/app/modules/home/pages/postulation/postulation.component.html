@@ -12,7 +12,7 @@
         <div *ngIf="announcement.nombre !== ''"
              class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6">
           <button (click)="showModal = true"
-                  class="flex items-center justify-center capitalize px-5 py-2 text-sm text-gray-500 transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
+                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-gray-500 transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
               <path
                 d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
@@ -94,35 +94,39 @@
                                 <tr>
                                   <td class="px-4 py-4 text-sm font-medium">
                                     <div>
-                                      <h2 class="font-medium text-gray-500 capitalize">{{ requirement.nombre }}</h2>
+                                      <h2 class="font-medium text-gray-500">{{ requirement.nombre }}</h2>
                                     </div>
                                   </td>
                                   <td class="px-4 py-4 text-sm font-medium">
                                     <div>
                                       <h2
-                                        class="font-medium text-gray-500 capitalize">{{ requirement.descripcion || '-' }}</h2>
+                                        class="font-medium text-gray-500 text-center">{{ requirement.descripcion || '-' }}</h2>
                                     </div>
                                   </td>
                                   <td class="px-4 py-4 text-sm font-medium text-center">
                                     <div>
-                                      <h2 class="font-medium text-gray-500 capitalize">
+                                      <h2 class="font-medium text-gray-500 uppercase">
                                         {{ requirement.tipo_requisito_id === 1 ? 'Documento' : requirement.tipo_requisito_id === 2 ? 'Imagen' : 'Formulario' }}
                                       </h2>
                                     </div>
                                   </td>
                                   <td class="px-4 py-4 text-sm font-medium whitespace-nowrap flex justify-center">
-                                    <div>
-                                      <a *ngIf="requirement.url_guia" [href]="requirement.url_guia" target="_blank">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
-                                          <path
-                                            d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
-                                            fill="none" stroke="currentColor" stroke-linejoin="round"
-                                            stroke-width="32"/>
-                                          <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none"
-                                                stroke="currentColor"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-                                        </svg>
-                                      </a>
+                                    <div class="text-center">
+                                      @if (requirement.url_guia) {
+                                        <a [href]="requirement.url_guia" target="_blank">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+                                            <path
+                                              d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
+                                              fill="none" stroke="currentColor" stroke-linejoin="round"
+                                              stroke-width="32"/>
+                                            <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none"
+                                                  stroke="currentColor"
+                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+                                          </svg>
+                                        </a>
+                                      } @else {
+                                        <div>-</div>
+                                      }
                                     </div>
                                   </td>
                                 </tr>
@@ -259,7 +263,7 @@
 <app-modal [(show)]="showModal" title="Bienvenido Postulante" buttonSuccess="Siguiente"
            (onNext)="validateDebts()">
   <div class="space-y-4">
-    <div class="w-full flex justify-center items-center font-bold text-slate-500 text-xl">
+    <div class="w-full flex justify-center items-center font-bold text-slate-500 text-xl uppercase">
       <span>Ingrese sus datos</span>
     </div>
     <div class="flex gap-4 items-center" [formGroup]="formPostulation">
@@ -285,18 +289,18 @@
       </div>
     </div>
 
-    <div class="w-full flex justify-center items-center font-bold text-slate-500">
-      <span>Servicios brindados</span>
+    <div class="w-full flex justify-center items-center font-bold text-slate-500 uppercase">
+      <span>Servicios</span>
     </div>
 
     <div class="flex justify-between px-6" [formGroup]="formPostulation">
       <div class="text-sm text-slate-500 flex gap-4 items-center">
-        <label>Comedor Estudiantil:</label>
+        <label class="uppercase">Comedor:</label>
         <input type="checkbox" formControlName="eat_service"
                class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
       <div class="text-sm text-slate-500 flex gap-4 items-center">
-        <label>Internado Estudiantil:</label>
+        <label class="uppercase">Residencia:</label>
         <input type="checkbox" formControlName="resident_service"
                class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
@@ -329,8 +333,11 @@
 <app-modal [(show)]="showDebts" [showFooter]="false">
   <div class="flex flex-col space-y-4">
     <div class="w-full text-slate-500 flex gap-4 flex-col">
-      <span class="font-bold text-xl text-center">Deudas presentadas por el alumno</span>
-      <span class="text-sm">Subsane todas las deudas para poder postular</span>
+      <span class="font-bold text-xl text-center uppercase">Deudas presentadas por el alumno</span>
+      <div class="flex w-full gap-4 items-center">
+        <div class="h-12 w-1 bg-blue-500"></div>
+        <span class="text-sm">Subsane todas las deudas para poder postular</span>
+      </div>
     </div>
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -340,7 +347,7 @@
             <tr>
               <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
                 <button class="flex items-center gap-x-3 focus:outline-none">
-                  <span>Nombres</span>
+                  <span>Apellidos y Nombres</span>
 
                   <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -382,7 +389,7 @@
                   </td>
                   <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
                     <div>
-                      <h2 class="font-medium text-slate-500">{{ debt.monto_deuda }}</h2>
+                      <h2 class="font-medium text-slate-500">S/ {{ debt.monto_deuda }}</h2>
                     </div>
                   </td>
                   <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">

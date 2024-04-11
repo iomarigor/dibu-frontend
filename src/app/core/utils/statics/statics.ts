@@ -3,7 +3,7 @@ import {IServices} from "../../models/services";
 
 export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
   {
-    nombre: "Codigo estudiante",
+    nombre: "Código estudiante",
     descripcion: '',
     url_guia: '',
     url_plantilla: '',
@@ -67,24 +67,6 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
   },
   {
     nombre: "Modalidad de ingreso",
-    descripcion: '',
-    url_guia: '',
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 3,
-    activo: true
-  },
-  {
-    nombre: "Lugar de procedencia",
-    descripcion: '',
-    url_guia: '',
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 3,
-    activo: true
-  },
-  {
-    nombre: "Lugar de nacimiento",
     descripcion: '',
     url_guia: '',
     url_plantilla: '',
@@ -168,9 +150,87 @@ export const SECTIONS_REQUIREMENTS_ONE: IRequirement[] = [
 
 export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
   {
+    nombre: "Departamento de nacimiento",
+    descripcion: '',
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 3,
+    activo: true
+  },
+  {
+    nombre: "Provincia de nacimiento",
+    descripcion: '',
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 3,
+    activo: true
+  },
+  {
+    nombre: "Distrito de nacimiento",
+    descripcion: '',
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 3,
+    activo: true
+  }
+];
+
+export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
+  {
+    nombre: "Departamento de procedencia",
+    descripcion: '',
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 3,
+    activo: true
+  },
+  {
+    nombre: "Provincia de procedencia",
+    descripcion: '',
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 3,
+    activo: true
+  },
+  {
+    nombre: "Distrito de procedencia",
+    descripcion: '',
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 3,
+    activo: true
+  }
+];
+
+export const SECTIONS_REQUIREMENTS_FOURTH: IRequirement[] = [
+  {
     nombre: "Ficha socieconomica",
     descripcion: "Subir una captura de la ficha socieconomica actualizada (servicio social y pag web)",
-    url_guia: "https://www.facebook.com/profile.php?id=100057627601990",
+    url_guia: "https://bienestar.unas.edu.pe/backend/storage/app/guias/1_GUIA_FICHA_SOCIECONOMICA_UNAS_2024.pdf",
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 2,
+    activo: true
+  },
+  {
+    nombre: "Una (01) fotorafia actualizada tamaño carnet y/o pasaporte",
+    descripcion: '',
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 1,
+    activo: true
+  },
+  {
+    nombre: "Suba la captura de su SISFOH vigente",
+    descripcion: "Suba la captura de su SISFOH actual, puede obtener la información en la siguiente URL",
+    url_guia: "https://bienestar.unas.edu.pe/backend/storage/app/guias/1_GUIA_SISFOH.pdf",
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
@@ -178,25 +238,16 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
   },
   {
     nombre: "Seleccion su clasificación según su SISFOH vigente",
-    descripcion: '',
-    url_guia: "https://operaciones.sisfoh.gob.pe:450/cse/",
+    descripcion: "Ingrese su clasificación de acuerdo a su SISFOH",
+    url_guia: '',
     url_plantilla: '',
     opciones: "POBRE EXTREMO|POBRE|NO POBRE|NO REGISTRA",
     tipo_requisito_id: 4,
     activo: true
   },
   {
-    nombre: "Suba la captura de su SISFOH vigente",
-    descripcion: "Suba la captura de su SISFOH actual, puede obtener la información en la siguiente URL",
-    url_guia: "https://operaciones.sisfoh.gob.pe:450/cse/",
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 2,
-    activo: true
-  },
-  {
     nombre: "Copia de DNI de los padres",
-    descripcion: "Subir documento con los DNI de los padres escaneado",
+    descripcion: "Subir documento con los DNI de los padres escaneados",
     url_guia: '',
     url_plantilla: '',
     opciones: '',
@@ -211,50 +262,14 @@ export const SECTIONS_REQUIREMENTS_TWO: IRequirement[] = [
     opciones: '',
     tipo_requisito_id: 1,
     activo: true
-  },
-  {
-    nombre: "Una (01) fotorafia actualizada tamaño carnet y/o pasaporte",
-    descripcion: '',
-    url_guia: '',
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 1,
-    activo: true
   }
 ];
 
-export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
-  {
-    nombre: "Carta de compromiso de los padres para uso de los servicios solicitados (Menores de edad)",
-    descripcion: '',
-    url_guia: '',
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 1,
-    activo: true
-  },
+export const SECTIONS_REQUIREMENTS_FIVE: IRequirement[] = [
   {
     nombre: "Solicitud dirigida a la dirección de bienestar universitario",
     descripcion: '',
-    url_guia: "https://image.slidesharecdn.com/35934652-solicitudes-varios-modelos1-140408175524-phpapp02/85/modelos-de-solicitudes-1-320.jpg?cb=1665847816",
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 2,
-    activo: true
-  },
-  {
-    nombre: "Copia de recivo de luz y/o agua los que solicitan por primera vez",
-    descripcion: "En caso de no contar con recibo, subir documento que lo acredite",
-    url_guia: '',
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 2,
-    activo: true
-  },
-  {
-    nombre: "Reporte de deudas de tesoreria",
-    descripcion: "No tener deudas en (CAJA UNAS)",
-    url_guia: '',
+    url_guia: "https://bienestar.unas.edu.pe/backend/storage/app/guias/1_GUIA_SOLICITUD_DIRIGIDA_DBU.pdf",
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
@@ -263,6 +278,51 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
   {
     nombre: "Formato de atencion de los servicios de DBU",
     descripcion: "Tener los sello de odontologia, psicopedagogia, centro medico (evaluación medido DBU o certificado medico del minsa) y enfermeria",
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 2,
+    activo: true
+  },
+  {
+    nombre: "Carta de compromiso de los padres para uso de los servicios solicitados (Menores de edad)",
+    descripcion: '',
+    url_guia: "https://bienestar.unas.edu.pe/backend/storage/app/guias/1_GUIA_PLANTILLA_CARTA_COMPROMISO_PADRES.docx",
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 1,
+    activo: true
+  },
+  {
+    nombre: "Carta de compromiso para la asistencia a los talleres de psicopedagogia minimo 03 veces",
+    descripcion: '',
+    url_guia: "https://bienestar.unas.edu.pe/backend/storage/app/guias/1_GUIA_PLANTILLA_CARTA_COMPROMISO_ASISTECIA_TALLERES.docx",
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 1,
+    activo: true
+  },
+  {
+    nombre: "Reporte de deudas de tesoreria",
+    descripcion: "Solicitar en caja ubicada en pabellon central",
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 2,
+    activo: true
+  },
+  {
+    nombre: "Certificado domiciliario",
+    descripcion: "Certificado donde tu municipalidad valide tu lugar de residencia de tu ciudad de origen",
+    url_guia: '',
+    url_plantilla: '',
+    opciones: '',
+    tipo_requisito_id: 2,
+    activo: true
+  },
+  {
+    nombre: "Copia de recivo de luz y/o agua los que solicitan por primera vez",
+    descripcion: "En caso de no contar con recibo, subir documento que lo acredite",
     url_guia: '',
     url_plantilla: '',
     opciones: '',
@@ -300,6 +360,15 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
     nombre: "Certificado actualizado unico laboral CERTIJOVEN (Pag web del Ministerio de Trabajo)",
     descripcion: '',
     url_guia: "https://www.empleosperu.gob.pe/CertificadoUnicoLaboral/irIndex.html",
+    url_plantilla: "https://bienestar.unas.edu.pe/backend/storage/app/guias/1_GUIA_CERTIJOVEN.pdf",
+    opciones: '',
+    tipo_requisito_id: 2,
+    activo: true
+  },
+  {
+    nombre: "Constancia vigente del SIS o seguro particular",
+    descripcion: "Subir imagen de seguro vigente, puede obtener la información en la siguiente URL",
+    url_guia: "https://bienestar.unas.edu.pe/backend/storage/app/guias/1_GUIA_SIS.pdf",
     url_plantilla: '',
     opciones: '',
     tipo_requisito_id: 2,
@@ -325,38 +394,11 @@ export const SECTIONS_REQUIREMENTS_THREE: IRequirement[] = [
   },
   {
     nombre: "Seguro de salud",
-    descripcion:"",
+    descripcion: "",
     url_guia: '',
     url_plantilla: '',
     opciones: "SIS|EsSalud|Otro seguro",
     tipo_requisito_id: 4,
-    activo: true
-  },
-  {
-    nombre: "Constancia vigente del SIS o seguro particular",
-    descripcion: "Subir imagen de seguro vigente, puede obtener la información en la siguiente URL",
-    url_guia: "https://app1.susalud.gob.pe/registro/",
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 2,
-    activo: true
-  },
-  {
-    nombre: "Carta de compromiso para la asistencia a los talleres de psicopedagogia minimo 03 veces",
-    descripcion: '',
-    url_guia: '',
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 1,
-    activo: true
-  },
-  {
-    nombre: "Certificado domiciliario",
-    descripcion: "Certificado donde tu municipalidad valide tu lugar de residencia de tu ciudad de origen",
-    url_guia: '',
-    url_plantilla: '',
-    opciones: '',
-    tipo_requisito_id: 2,
     activo: true
   }
 ];
@@ -412,3 +454,4 @@ export const Services: IServices[] = [
     url: "https://portalweb.unas.edu.pe/content/becas-pregrado"
   }
 ]
+

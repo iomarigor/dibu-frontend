@@ -77,6 +77,11 @@ export class AuthService {
     return sessionStorage.getItem('access_token') || '';
   }
 
+  public getRole(): number {
+    const session = this.getSession();
+    return session.id_level_user;
+  }
+
   public logout(): void {
     sessionStorage.removeItem('access_token');
     sessionStorage.removeItem('session');

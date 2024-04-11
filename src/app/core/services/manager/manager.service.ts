@@ -67,4 +67,8 @@ export class ManagerService {
   public validateStudentDebts(code: string): Observable<IDebtsStudent[]> {
     return this.http.get<IDebtsStudent[]>(this.urlCaja + '/api/report/hasdebt/' + code);
   }
+
+  public exportRequest(): Observable<Blob> {
+    return this.http.get(this.urlRequest + '/export', {responseType: 'blob'});
+  }
 }

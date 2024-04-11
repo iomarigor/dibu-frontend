@@ -148,16 +148,6 @@ export class PostulationComponent implements OnDestroy {
   }
 
   protected validateStudent(): void {
-    if (this.formPostulation.invalid) {
-      this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
-      this.formPostulation.markAllAsTouched();
-      return;
-    }
-
-    if (!this.formPostulation.value.eat_service && !this.formPostulation.value.resident_service) {
-      this._toastService.add({type: 'error', message: 'Seleccione al menos un servicio!'});
-      return;
-    }
 
     const data: IValidationUser = {
       correo: this.formPostulation.value.email_student,
@@ -321,6 +311,18 @@ export class PostulationComponent implements OnDestroy {
   }
 
   protected validateDebts(): void {
+
+    if (this.formPostulation.invalid) {
+      this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
+      this.formPostulation.markAllAsTouched();
+      return;
+    }
+
+    if (!this.formPostulation.value.eat_service && !this.formPostulation.value.resident_service) {
+      this._toastService.add({type: 'error', message: 'Seleccione al menos un servicio!'});
+      return;
+    }
+
     this.isLoading = true;
 
     this._subscriptions.add(

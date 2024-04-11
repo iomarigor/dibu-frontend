@@ -32,7 +32,10 @@ export const homesRoutes: Routes = [
   },
   {
     path: 'requests',
-    component: RequestsComponent
+    component: RequestsComponent,
+    data: {
+      role: [2]
+    }
   },
   {
     path: 'announcement',

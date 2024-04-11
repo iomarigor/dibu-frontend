@@ -21,10 +21,12 @@ import {AppState} from "../../store/app.reducers";
 })
 export class MenuComponent {
   protected isAuth: boolean = false;
+  protected role: number = 0;
 
   constructor(private _store: Store<AppState>) {
     this._store.select('auth').subscribe((auth) => {
       this.isAuth = auth.isAuth;
+      this.role = auth.role;
     });
   }
 }

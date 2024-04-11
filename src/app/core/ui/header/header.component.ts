@@ -38,7 +38,7 @@ export class HeaderComponent {
 
   public logout(): void {
     this.authService.logout();
-    this._store.dispatch(controlAuth({auth: {isAuth: false, session: null, token: ''}}));
+    this._store.dispatch(controlAuth({auth: {isAuth: false, session: null, token: '', role: 0}}));
     this._router.navigateByUrl('/home/services');
     this.openModal = false;
   }

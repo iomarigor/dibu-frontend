@@ -83,7 +83,8 @@ export class LoginComponent implements OnDestroy {
             auth: {
               isAuth: true,
               token: res.detalle.token,
-              session: this._authService.getSession()
+              session: this._authService.getSession(),
+              role: res.detalle.id_level_user
             }
           }));
 

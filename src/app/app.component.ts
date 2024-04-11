@@ -29,7 +29,8 @@ export class AppComponent implements OnDestroy {
       auth: {
         isAuth: this._authService.isValidSession(),
         session: this._authService.getSession(),
-        token: this._authService.getToken()
+        token: this._authService.getToken(),
+        role: this._authService.getRole()
       }
     }));
 

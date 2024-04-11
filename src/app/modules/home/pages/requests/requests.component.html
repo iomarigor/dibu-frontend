@@ -9,6 +9,21 @@
     @if (requests.length) {
       <section class="container mx-auto space-y-4">
         <div class="mt-6 flex justify-end">
+          <div>
+            <button type="button" (click)="exportToExcel()"
+                    class="focus:outline-none h-full text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 flex items-center gap-2"
+                    style="background: #1ABB9C">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white fill-white" viewBox="0 0 24 24">
+                <g id="file-excel">
+                  <path
+                    d="M18.53,9,13,3.47a.75.75,0,0,0-.53-.22H8A2.75,2.75,0,0,0,5.25,6V18A2.75,2.75,0,0,0,8,20.75h8A2.75,2.75,0,0,0,18.75,18V9.5A.75.75,0,0,0,18.53,9ZM13.25,5.81l2.94,2.94H13.25ZM16,19.25H8A1.25,1.25,0,0,1,6.75,18V6A1.25,1.25,0,0,1,8,4.75h3.75V9.5a.76.76,0,0,0,.75.75h4.75V18A1.25,1.25,0,0,1,16,19.25Z"/>
+                  <path
+                    d="M14.47,11.91a.77.77,0,0,0-1.06.12L12,13.8,10.59,12A.75.75,0,1,0,9.41,13L11,15,9.41,17a.75.75,0,0,0,1.18.94L12,16.2,13.41,18a.77.77,0,0,0,.59.28A.75.75,0,0,0,14.59,17L13,15l1.63-2A.77.77,0,0,0,14.47,11.91Z"/>
+                </g>
+              </svg>
+              Exportar datos
+            </button>
+          </div>
           <div class="inline-flex overflow-hidden bg-white divide-x rounded-lg rtl:flex-row-reverse">
             <input type="text" class="w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 focus:outline-none"
                    placeholder="Buscar Postulante"/>
@@ -22,6 +37,7 @@
             </button>
           </div>
         </div>
+
         <div class="flex flex-col">
           <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -207,7 +223,7 @@
                         Estado
                       </th>
 
-                      <th scope="col"
+                      <th scope="col" *ngIf="role !== 3"
                           class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
                         Opciones
                       </th>
@@ -237,10 +253,11 @@
                             </div>
                           </td>
 
-                          <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                          <td *ngIf="role !== 3 && service.estado !== 'aprobado' && service.estado !== 'rechazado'"
+                              class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
                             <div class="flex w-full justify-center gap-4">
                               <div (click)="updateStatusService(service.id, 'aprobado')"
-                                class="chip-status-aceptado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
+                                   class="chip-status-aceptado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-500"
                                      viewBox="0 0 512 512">
                                   <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
@@ -256,7 +273,7 @@
                               </div>
 
                               <div (click)="updateStatusService(service.id, 'rechazado')"
-                                class="chip-status-rechazado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
+                                   class="chip-status-rechazado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500"
                                      viewBox="0 0 512 512">
                                   <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
@@ -270,8 +287,9 @@
                                 </div>
                               </div>
 
-                              <div (click)="updateStatusService(service.id, 'aceptado')" *ngIf="service.estado === 'pendiente'"
-                                class="chip-status-aceptado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
+                              <div (click)="updateStatusService(service.id, 'aceptado')"
+                                   *ngIf="service.estado === 'pendiente'"
+                                   class="chip-status-aceptado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-sky-500"
                                      viewBox="0 0 512 512">
                                   <path class="stroke-sky-500"
@@ -539,14 +557,16 @@
 
 
 <app-modal [(show)]="showModal" [showFooter]="false" title="Documento Adjunto">
-  <div class="w-full h-full flex justify-center">
-    <iframe [src]="fileUrl | safe" class="w-full border-0" height="700" allowfullscreen="allowfullscreen" loading="lazy"
+  <div class="w-full h-full flex justify-center" style="width: 40rem">
+    <iframe [src]="fileUrl | safe" class="w-full border-0" width="1000" height="700" allowfullscreen="allowfullscreen"
+            loading="lazy"
             referrerpolicy="no-referrer-when-downgrade">
     </iframe>
   </div>
 </app-modal>
 
-<app-modal [(show)]="alertModal" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true" (onNext)="handleUpdateStatus()">
+<app-modal [(show)]="alertModal" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true"
+           (onNext)="handleUpdateStatus()">
   <div class="flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-28 h-28 text-amber-300" viewBox="0 0 512 512">
       <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
@@ -557,7 +577,7 @@
     </svg>
   </div>
   <div class="flex justify-center items-center text-slate-500 font-bold text-xl">
-    <span>¿Esta seguro de ejecutar la acción </span>"<span class="uppercase">{{action}}"?</span>
+    <span>¿Esta seguro de ejecutar la acción </span>"<span class="uppercase">{{ action }}"?</span>
   </div>
   <div class="text-slate-500 text-sm">
     <span>¡Si realiza esta acción, el estado de la solicitud del alumno para este serivcio se actualizará!</span>

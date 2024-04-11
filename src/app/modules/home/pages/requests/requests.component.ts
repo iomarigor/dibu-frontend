@@ -11,6 +11,7 @@ import {IRequest, IUpdateService} from "../../../../core/models/requests";
 import {DatePipe, KeyValuePipe, NgIf} from "@angular/common";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {SafePipePipe} from "../../../../core/pipes/safe-pipe.pipe";
+import {AuthService} from "../../../../core/services/auth/auth.service";
 
 @Component({
   selector: 'app-requests',
@@ -28,7 +29,7 @@ import {SafePipePipe} from "../../../../core/pipes/safe-pipe.pipe";
   ],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.scss',
-  providers: [ToastService, ManagerService]
+  providers: [ToastService, ManagerService, AuthService]
 })
 export class RequestsComponent implements OnDestroy {
 
@@ -43,12 +44,15 @@ export class RequestsComponent implements OnDestroy {
   protected alertModal: boolean = false;
   protected action: string = '';
   private serviceID: number = 0;
+  protected role: number = 0;
 
   constructor(
     private _toastService: ToastService,
-    private _managerService: ManagerService
+    private _managerService: ManagerService,
+    private _authService: AuthService
   ) {
     this.getRequests();
+    this.role = this._authService.getRole();
   }
 
   ngOnDestroy() {
@@ -155,6 +159,39 @@ export class RequestsComponent implements OnDestroy {
           this._toastService.add({
             type: 'error',
             message: 'No se pudo actualizar el estado del servicio, intente nuevamente!'
+          });
+        }
+      })
+    );
+  }
+
+  protected exportToExcel(): void {
+    this.isLoading = true;
+
+    this._subscriptions.add(
+      this._managerService.exportRequest().subscribe({
+        next: (res) => {
+          this.isLoading = false;
+
+          this._toastService.add({type: 'info', message: "Archivo exportado correctamente"});
+
+          const blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+          const url = window.URL.createObjectURL(blob);
+          let downloadLink = document.createElement('a');
+          downloadLink.href = url;
+          downloadLink.download = 'Lista de postulantes.xlsx';
+
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+
+          document.body.removeChild(downloadLink);
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.isLoading = false;
+          this._toastService.add({
+            type: 'error',
+            message: 'No se pudo exportar el archivo, intente nuevamente!'
           });
         }
       })

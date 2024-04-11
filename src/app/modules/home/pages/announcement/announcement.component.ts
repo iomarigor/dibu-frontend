@@ -4,6 +4,8 @@ import {DatePipe, JsonPipe, NgIf} from "@angular/common";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {IAnnouncement, IRequirement} from "../../../../core/models/announcement";
 import {
+  SECTIONS_REQUIREMENTS_FIVE,
+  SECTIONS_REQUIREMENTS_FOURTH,
   SECTIONS_REQUIREMENTS_ONE,
   SECTIONS_REQUIREMENTS_THREE,
   SECTIONS_REQUIREMENTS_TWO
@@ -94,12 +96,20 @@ export class AnnouncementComponent implements OnDestroy {
         requisitos: SECTIONS_REQUIREMENTS_ONE
       },
       {
-        descripcion: 'Solicitan por primera vez',
+        descripcion: 'Lugar de nacimiento',
         requisitos: SECTIONS_REQUIREMENTS_TWO
       },
       {
-        descripcion: 'Documentos solicitados',
+        descripcion: 'Lugar de procedencia',
         requisitos: SECTIONS_REQUIREMENTS_THREE
+      },
+      {
+        descripcion: 'Solicitan por primera vez',
+        requisitos: SECTIONS_REQUIREMENTS_FOURTH
+      },
+      {
+        descripcion: 'Documentos solicitados',
+        requisitos: SECTIONS_REQUIREMENTS_FIVE
       }
     ];
   }
