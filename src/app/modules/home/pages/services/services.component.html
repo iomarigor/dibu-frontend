@@ -3,13 +3,13 @@
     @for (service of services; track service; let i = $index) {
       <div class="border border-stone-300 rounded-md shadow-xl">
         <div class="flex justify-center items-center py-2">
-          <small class="font-bold">Dirección de Bienestar Universitario</small>
+          <small class="font-bold uppercase">{{service.title}}</small>
         </div>
         <div class="p-4 flex justify-center">
           <img [src]="service.image" [alt]="service.title" class="w-[340px] h-[187px]" loading="lazy">
         </div>
         <div class="w-full flex justify-center items-center h-11" style="background: #D9D9D933">
-          <a [href]="service.url" target="_blank" style="color: #1ABB9C" class="font-bold cursor-pointer">IR A LA DIRECCIÓN</a>
+          <a [href]="service.url" target="_blank" style="color: #1ABB9C" class="font-bold cursor-pointer">MÁS INFORMACIÓN</a>
         </div>
       </div>
     }

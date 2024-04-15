@@ -3,19 +3,13 @@ import {ModalComponent} from "../../../../core/ui/modal/modal.component";
 import {DatePipe, JsonPipe, NgIf} from "@angular/common";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {IAnnouncement, IRequirement} from "../../../../core/models/announcement";
-import {
-  SECTIONS_REQUIREMENTS_FIVE,
-  SECTIONS_REQUIREMENTS_FOURTH,
-  SECTIONS_REQUIREMENTS_ONE,
-  SECTIONS_REQUIREMENTS_THREE,
-  SECTIONS_REQUIREMENTS_TWO
-} from "../../../../core/utils/statics/statics";
 import {ManagerService} from "../../../../core/services/manager/manager.service";
 import {Subscription} from "rxjs";
 import {ToastService} from "../../../../core/services/toast/toast.service";
 import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ToastComponent} from "../../../../core/ui/toast/toast.component";
+import {EnvServiceFactory} from "../../../../core/services/env/env.service.provider";
 
 @Component({
   selector: 'app-announcement',
@@ -92,24 +86,32 @@ export class AnnouncementComponent implements OnDestroy {
     this.announcement.fecha_inicio = '';
     this.announcement.secciones = [
       {
-        descripcion: 'Datos personales',
-        requisitos: SECTIONS_REQUIREMENTS_ONE
+        descripcion: 'Datos Personales',
+        requisitos: EnvServiceFactory().SECTIONS_REQUIREMENTS_ONE
       },
       {
-        descripcion: 'Lugar de nacimiento',
-        requisitos: SECTIONS_REQUIREMENTS_TWO
+        descripcion: 'Lugar de Nacimiento',
+        requisitos: EnvServiceFactory().SECTIONS_REQUIREMENTS_TWO
       },
       {
-        descripcion: 'Lugar de procedencia',
-        requisitos: SECTIONS_REQUIREMENTS_THREE
+        descripcion: 'Lugar de Procedencia',
+        requisitos: EnvServiceFactory().SECTIONS_REQUIREMENTS_THREE
       },
       {
-        descripcion: 'Solicitan por primera vez',
-        requisitos: SECTIONS_REQUIREMENTS_FOURTH
+        descripcion: 'Documentos Requeridos',
+        requisitos: EnvServiceFactory().SECTIONS_REQUIREMENTS_FOURTH
       },
       {
-        descripcion: 'Documentos solicitados',
-        requisitos: SECTIONS_REQUIREMENTS_FIVE
+        descripcion: 'Datos Socioeconómica',
+        requisitos: EnvServiceFactory().SECTIONS_REQUIREMENTS_FIVE
+      },
+      {
+        descripcion: 'Salud',
+        requisitos: EnvServiceFactory().SECTIONS_REQUIREMENTS_SIX
+      },
+      {
+        descripcion: 'Datos de CERTIJOVEN',
+        requisitos: EnvServiceFactory().SECTIONS_REQUIREMENTS_SEVEN
       }
     ];
   }

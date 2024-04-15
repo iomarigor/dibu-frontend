@@ -8,11 +8,51 @@
             <span>LISTA DE REQUISITOS PARA LA CONVOCATORIA</span>
           </div>
         </div>
-
         <div *ngIf="announcement.nombre !== ''"
-             class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6">
-          <button (click)="showModal = true"
-                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-gray-500 transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100">
+             class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6 gap-4">
+          <button
+            class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-400">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+              <path
+                d="M384 80H128c-26 0-43 14-48 40L48 272v112a48.14 48.14 0 0048 48h320a48.14 48.14 0 0048-48V272l-32-152c-5-27-23-40-48-40z"
+                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                    d="M48 272h144M320 272h144M192 272a64 64 0 00128 0M144 144h224M128 208h256"/>
+            </svg>
+            Estado de mi solicitud
+          </button>
+
+          <button (click)="showManual = true"
+            class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-indigo-500 border rounded-md gap-x-2 hover:bg-indigo-400">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 24 24">
+              <g id="file-pdf">
+                <path
+                  d="M18.53,9,13,3.47a.75.75,0,0,0-.53-.22H8A2.75,2.75,0,0,0,5.25,6V18A2.75,2.75,0,0,0,8,20.75h8A2.75,2.75,0,0,0,18.75,18V9.5A.75.75,0,0,0,18.53,9ZM13.25,5.81l2.94,2.94H13.25ZM16,19.25H8A1.25,1.25,0,0,1,6.75,18V6A1.25,1.25,0,0,1,8,4.75h3.75V9.5a.76.76,0,0,0,.75.75h4.75V18A1.25,1.25,0,0,1,16,19.25Z"/>
+                <path
+                  d="M13.49,14.85a3.15,3.15,0,0,1-1.31-1.66,4.44,4.44,0,0,0,.19-2A.8.8,0,0,0,10.85,11a5,5,0,0,0,.25,2.4A29,29,0,0,1,9.83,16C9.12,16.4,8.15,17,8,17.69c-.12.56.93,2,2.72-1.12a18.58,18.58,0,0,1,2.44-.72,4.72,4.72,0,0,0,2,.61.82.82,0,0,0,.62-1.38C15.36,14.65,14.11,14.77,13.49,14.85Zm-4.78,3A4.32,4.32,0,0,1,9.8,16.61C9.12,17.69,8.71,17.88,8.71,17.86Zm2.92-6.81c.26,0,.24,1.15.06,1.46A3.07,3.07,0,0,1,11.63,11.05Zm-.87,4.88A14.76,14.76,0,0,0,11.64,14a3.88,3.88,0,0,0,1.08,1.26A12.35,12.35,0,0,0,10.76,15.93Zm4.7-.18s-.18.22-1.33-.28C15.38,15.38,15.59,15.67,15.46,15.75Z"/>
+              </g>
+            </svg>
+            Instructivo
+          </button>
+
+          <button style="background: #1ABB9C" (click)="showVideo = true"
+                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-emerald-100">
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+              <path
+                d="M374.79 308.78L457.5 367a16 16 0 0022.5-14.62V159.62A16 16 0 00457.5 145l-82.71 58.22A16 16 0 00368 216.3v79.4a16 16 0 006.79 13.08z"
+                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+              <path
+                d="M268 384H84a52.15 52.15 0 01-52-52V180a52.15 52.15 0 0152-52h184.48A51.68 51.68 0 01320 179.52V332a52.15 52.15 0 01-52 52z"
+                fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+            </svg>
+            Video instructivo
+          </button>
+
+          <button (click)="showModal = true" style="background: #0F75BC"
+                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-blue-600">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
               <path
                 d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
@@ -36,7 +76,7 @@
                 [attr.aria-expanded]="accordionItem.expanded"
                 [attr.aria-controls]="'accordion-body-' + index">
                 <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="#00725c" viewBox="0 0 512 512">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c" viewBox="0 0 512 512">
                     <path
                       d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
                   </svg>
@@ -119,7 +159,8 @@
                                               d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
                                               fill="none" stroke="currentColor" stroke-linejoin="round"
                                               stroke-width="32"/>
-                                            <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none"
+                                            <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160"
+                                                  fill="none"
                                                   stroke="currentColor"
                                                   stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
                                           </svg>
@@ -195,7 +236,7 @@
                 [attr.aria-expanded]="accordionItem.expanded"
                 [attr.aria-controls]="'accordion-body-' + index">
                 <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="#00725c" viewBox="0 0 512 512">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c" viewBox="0 0 512 512">
                     <path
                       d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
                   </svg>
@@ -218,7 +259,7 @@
                             } @else {
                               <input type="file" [accept]="req.tipo_requisito_id === 1 ? '.pdf': 'image/jpeg,image/png'"
                                      class="w-full border border-gray-200 rounded-md px-4 h-12"
-                                     (change)="processFile($event, req.id?.toString() || '' )">
+                                     (change)="processFile($event, req.id?.toString() || '', req.tipo_requisito_id )">
                             }
                           </div>
                         } @else {
@@ -290,7 +331,7 @@
     </div>
 
     <div class="w-full flex justify-center items-center font-bold text-slate-500 uppercase">
-      <span>Servicios</span>
+      <span>Servicios a Solicitar</span>
     </div>
 
     <div class="flex justify-between px-6" [formGroup]="formPostulation">
@@ -459,5 +500,18 @@
   </div>
 </app-modal>
 
+<app-modal [(show)]="showVideo" [showFooter]="false">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/ahxDR_JhgzA?si=kBHbL0rVwpArvLWH"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</app-modal>
+
+<app-modal [(show)]="showManual" [showFooter]="false">
+  <iframe width="760" height="715" src="assets/files/Manual.pdf"
+          title="VIDEO INSTRUCTIVO SISTEMA DE GESTIÓN DOCUMENTARIA DBU" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</app-modal>
 <app-block-ui [show]="isLoading"></app-block-ui>
 <app-toast></app-toast>

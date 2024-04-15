@@ -12,6 +12,7 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {ToastComponent} from "../../../../core/ui/toast/toast.component";
 import {IBodyRequest, IErrorPostulation, IFileRequest} from "../../../../core/models/requests";
 import {IDebtsStudent, IValidationUser} from "../../../../core/models/user";
+import {FILE_MAX_SIZE, ValidateFileType} from "../../../../core/utils/statics/statics";
 
 @Component({
   selector: 'app-postulation',
@@ -56,6 +57,8 @@ export class PostulationComponent implements OnDestroy {
   protected formPostulation: FormGroup;
   protected showDebts: boolean = false;
   protected showErrors: boolean = false;
+  protected showManual: boolean = false;
+  protected showVideo: boolean = false;
   protected debts: IDebtsStudent[] = [];
   protected errorsPostulation: IErrorPostulation[] = [];
 
@@ -196,8 +199,19 @@ export class PostulationComponent implements OnDestroy {
     }
   }
 
-  protected processFile(event: any, key: string): void {
+  protected processFile(event: any, key: string, typeFile: number): void {
     const file: File = event.target.files[0];
+
+    if (!ValidateFileType(file, typeFile)) {
+      this._toastService.add({type: 'error', message: 'El archivo debe ser PDF o Imagen'});
+      return;
+    }
+
+    if (file.size > FILE_MAX_SIZE) {
+      this._toastService.add({type: 'error', message: 'El archivo no debe ser mayor a 10MB'});
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -313,12 +327,14 @@ export class PostulationComponent implements OnDestroy {
   protected validateDebts(): void {
 
     if (this.formPostulation.invalid) {
+      console.log(this.formPostulation.controls)
       this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
       this.formPostulation.markAllAsTouched();
       return;
     }
 
     if (!this.formPostulation.value.eat_service && !this.formPostulation.value.resident_service) {
+      console.log(this.formPostulation.controls)
       this._toastService.add({type: 'error', message: 'Seleccione al menos un servicio!'});
       return;
     }
@@ -329,16 +345,30 @@ export class PostulationComponent implements OnDestroy {
       this._managerService.validateStudentDebts(this.formPostulation.value.dni_student).subscribe({
         next: (res) => {
           if (res.length > 0) {
-            this.isLoading = false;
-            this._toastService.add({
-              type: 'warning',
-              message: 'El estudiante tiene deudas pendientes, no puede postular!'
-            });
 
-            this.formPostulation.reset();
-            this.debts = res;
-            this.showDebts = true;
-            this.showModal = false;
+            const debtsEat = res.filter((d) => d.concepto_deuda === 'COMEDOR (DEUDA OAEBU)');
+            if (debtsEat && debtsEat.length) this.debts = debtsEat;
+
+            const debtsInt = res.filter((d) => d.concepto_deuda === 'INTERNADO UNAS (DEUDA)');
+            if (debtsInt && debtsInt.length) this.debts = this.debts.concat(debtsInt);
+
+            if (this.debts.length) {
+              this.isLoading = false;
+              this._toastService.add({
+                type: 'warning',
+                message: 'El estudiante tiene deudas pendientes, no puede postular!'
+              });
+
+              this.formPostulation.patchValue({
+                dni_student: '',
+                email_student: '',
+                eat_service: false,
+                resident_service: false
+              });
+              this.showDebts = true;
+              this.showModal = false;
+            }
+
             return;
           }
 

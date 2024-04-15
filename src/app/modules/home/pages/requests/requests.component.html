@@ -9,7 +9,7 @@
     @if (requests.length) {
       <section class="container mx-auto space-y-4">
         <div class="mt-6 flex justify-end">
-          <div>
+          <div *ngIf="role === 1">
             <button type="button" (click)="exportToExcel()"
                     class="focus:outline-none h-full text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 flex items-center gap-2"
                     style="background: #1ABB9C">
@@ -26,7 +26,7 @@
           </div>
           <div class="inline-flex overflow-hidden bg-white divide-x rounded-lg rtl:flex-row-reverse">
             <input type="text" class="w-full px-4 py-2 text-sm text-gray-900 placeholder-gray-500 focus:outline-none"
-                   placeholder="Buscar Postulante"/>
+                   placeholder="Buscar Postulante" (input)="findRequest($event)"/>
             <button
               class="flex items-center justify-center px-4 text-gray-500 bg-gray-100 hover:bg-gray-200 focus:outline-none">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -81,7 +81,7 @@
                   </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                    @for (request of requests; track requests) {
+                    @for (request of requestsDisplay; track request) {
                       <tr>
                         <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                           <div>
@@ -123,7 +123,7 @@
             </div>
           </div>
         </div>
-        <div class="mt-6 sm:flex sm:items-center sm:justify-between" *ngIf="requests.length > 10">
+        <div class="mt-6 sm:flex sm:items-center sm:justify-between" *ngIf="requestsDisplay.length > 10">
           <div class="text-sm text-gray-500">
             Página <span class="font-medium text-gray-700">1 de 10</span>
           </div>
@@ -223,7 +223,7 @@
                         Estado
                       </th>
 
-                      <th scope="col" *ngIf="role !== 3"
+                      <th scope="col"
                           class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
                         Opciones
                       </th>
@@ -253,10 +253,10 @@
                             </div>
                           </td>
 
-                          <td *ngIf="role !== 3 && service.estado !== 'aprobado' && service.estado !== 'rechazado'"
+                          <td *ngIf="service.estado !== 'aprobado' && service.estado !== 'rechazado'"
                               class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
                             <div class="flex w-full justify-center gap-4">
-                              <div (click)="updateStatusService(service.id, 'aprobado')"
+                              <div *ngIf="role !== 3" (click)="updateStatusService(service.id, 'aprobado')"
                                    class="chip-status-aceptado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-500"
                                      viewBox="0 0 512 512">
@@ -272,7 +272,7 @@
 
                               </div>
 
-                              <div (click)="updateStatusService(service.id, 'rechazado')"
+                              <div *ngIf="role !== 3" (click)="updateStatusService(service.id, 'rechazado')"
                                    class="chip-status-rechazado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500"
                                      viewBox="0 0 512 512">
@@ -325,7 +325,7 @@
           <span>Datos Básicos</span>
         </div>
 
-        <div class="grid grid-cols-2 gap-4 px-6">
+        <div class="grid md:grid-cols-2 gap-4 px-6">
 
           <div class="grid grid-cols-2 items-center gap-4">
             <span class="text-gray-500 font-bold">Nombres: </span>
@@ -423,7 +423,7 @@
                 [attr.aria-expanded]="accordionItem.expanded"
                 [attr.aria-controls]="'accordion-body-' + index">
                 <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="#00725c" viewBox="0 0 512 512">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c" viewBox="0 0 512 512">
                     <path
                       d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
                   </svg>
@@ -581,6 +581,15 @@
   </div>
   <div class="text-slate-500 text-sm">
     <span>¡Si realiza esta acción, el estado de la solicitud del alumno para este serivcio se actualizará!</span>
+  </div>
+  <div class="flex flex-col gap-4 mt-4 font-bold" *ngIf="action === 'rechazado'">
+    <span class="text-slate-500 text-sm">Ingrese el motivo del rechazo de la postulación a este servicio</span>
+    <input type="text" [formControl]="messageService"
+           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+           required/>
+    <small class="text-red-500" *ngIf="messageService.invalid && messageService.touched">
+      El motivo del rechazo es requerido.
+    </small>
   </div>
 </app-modal>
 

@@ -35,7 +35,13 @@ export class AppComponent implements OnDestroy {
     }));
 
     this._store.select('auth').subscribe((auth) => {
-      if (auth.isAuth) this.timerVerifySession();
+      if (auth.isAuth) {
+        this._subscriptions = new Subscription();
+        this.timerVerifySession();
+        return;
+      }
+
+      this._subscriptions.unsubscribe();
     });
 
     if (this._authService.getToken() !== '') this.verifySession();

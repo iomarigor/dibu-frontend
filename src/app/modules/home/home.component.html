@@ -1,6 +1,6 @@
 <app-header (openSidenav)="toggleMenu()"></app-header>
 <div class="flex">
-  <app-menu></app-menu>
+  <app-menu *ngIf="openMenu"></app-menu>
   <div class="w-full h-full">
     <router-outlet></router-outlet>
     <footer class="flex justify-between items-center py-4 bottom-0 px-8 bg-white fixed" style="width: 85%">

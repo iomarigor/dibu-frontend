@@ -6,13 +6,16 @@ import {ISession} from "../../models/auth";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../store/app.reducers";
 import {controlAuth} from "../../store/actions/auth.action";
+import {UserAgent} from "../../utils/functions/userAnget";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
     RouterLink,
-    ModalComponent
+    ModalComponent,
+    NgIf
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -21,6 +24,7 @@ export class HeaderComponent {
 
   @Output() openSidenav: EventEmitter<void> = new EventEmitter<void>();
 
+  protected isMobileDevice: boolean = UserAgent.IsMobileDevice();
   protected isAuth: boolean = false;
   protected session!: ISession;
   protected openModal: boolean = false;

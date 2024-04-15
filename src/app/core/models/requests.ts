@@ -62,6 +62,7 @@ export interface IBodyRequest {
 export interface IServiceRequest {
   estado: string;
   servicio_id: number;
+  detalle_rechazo?: string;
 }
 
 export interface IDetailRequest {

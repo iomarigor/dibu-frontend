@@ -37,6 +37,7 @@ export class ManagerService {
   }
 
   public getCurrentAnnouncement(): Observable<IResponse<IAnnouncement>> {
+    console.log(this.urlBase)
     return this.http.get<IResponse<IAnnouncement>>(this.urlBaseAnnouncement + '/vigente-convocatoria');
   }
 

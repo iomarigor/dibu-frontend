@@ -3,6 +3,7 @@ import {RouterOutlet} from "@angular/router";
 import {HeaderComponent} from "../../core/ui/header/header.component";
 import {MenuComponent} from "../../core/ui/menu/menu.component";
 import {NgIf} from "@angular/common";
+import {UserAgent} from "../../core/utils/functions/userAnget";
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,10 @@ import {NgIf} from "@angular/common";
 })
 export class HomeComponent {
 
-  public menuOpen: boolean = false;
+  protected openMenu: boolean = !UserAgent.IsMobileDevice();
 
   public toggleMenu(): void {
-    console.log('toggleMenu')
-    this.menuOpen = !this.menuOpen;
+    this.openMenu = !this.openMenu;
   }
 
 }

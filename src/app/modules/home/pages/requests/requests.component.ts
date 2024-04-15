@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component";
 import {ModalComponent} from "../../../../core/ui/modal/modal.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ToastComponent} from "../../../../core/ui/toast/toast.component";
 import {ToastService} from "../../../../core/services/toast/toast.service";
 import {ManagerService} from "../../../../core/services/manager/manager.service";
@@ -12,6 +12,7 @@ import {DatePipe, KeyValuePipe, NgIf} from "@angular/common";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {SafePipePipe} from "../../../../core/pipes/safe-pipe.pipe";
 import {AuthService} from "../../../../core/services/auth/auth.service";
+import {FilterService} from "../../../../core/services/filter/filter.service";
 
 @Component({
   selector: 'app-requests',
@@ -29,7 +30,7 @@ import {AuthService} from "../../../../core/services/auth/auth.service";
   ],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.scss',
-  providers: [ToastService, ManagerService, AuthService]
+  providers: [ToastService, ManagerService, AuthService, FilterService]
 })
 export class RequestsComponent implements OnDestroy {
 
@@ -37,6 +38,7 @@ export class RequestsComponent implements OnDestroy {
 
   protected isLoading: boolean = false;
   protected requests: IRequest[] = [];
+  protected requestsDisplay: IRequest[] = [];
   protected view: string = 'list';
   protected student!: IRequest;
   protected showModal: boolean = false;
@@ -45,14 +47,17 @@ export class RequestsComponent implements OnDestroy {
   protected action: string = '';
   private serviceID: number = 0;
   protected role: number = 0;
+  protected messageService: FormControl;
 
   constructor(
     private _toastService: ToastService,
     private _managerService: ManagerService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _filterService: FilterService,
   ) {
     this.getRequests();
     this.role = this._authService.getRole();
+    this.messageService = new FormControl<string>('', Validators.required);
   }
 
   ngOnDestroy() {
@@ -72,6 +77,7 @@ export class RequestsComponent implements OnDestroy {
           }
 
           this.requests = res.detalle;
+          this.requestsDisplay = res.detalle;
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);
@@ -87,8 +93,6 @@ export class RequestsComponent implements OnDestroy {
 
   protected getStudentRequest(student: IRequest): void {
     this.isLoading = true;
-
-    console.log(student)
 
     this._subscriptions.add(
       this._managerService.getStudentRequest(student.id).subscribe({
@@ -122,16 +126,31 @@ export class RequestsComponent implements OnDestroy {
     this.action = status;
     this.serviceID = service;
     this.alertModal = true;
+
+    if (status !== 'rechazado') {
+      this.messageService.clearValidators();
+      this.messageService.updateValueAndValidity();
+    } else {
+      this.messageService.setValidators(Validators.required);
+      this.messageService.updateValueAndValidity();
+    }
   }
 
   protected handleUpdateStatus(): void {
+
+    if (this.messageService.invalid) {
+      this._toastService.add({type: 'warning', message: 'Debe de ingresar el motivo del rechazo!'});
+      this.messageService.markAllAsTouched();
+      return;
+    }
 
     const data: IUpdateService = {
       solicitud_id: this.student.id,
       servicios: [
         {
           servicio_id: this.serviceID,
-          estado: this.action
+          estado: this.action,
+          detalle_rechazo: this.messageService.value.trim()
         }
       ]
     }
@@ -196,6 +215,37 @@ export class RequestsComponent implements OnDestroy {
         }
       })
     );
+  }
+
+  protected findRequest(event: any): void {
+    const dataToFilter: IRequest[] = JSON.parse(JSON.stringify(this.requests));
+    const filterValue = event.target.value;
+    if (!filterValue || !filterValue.length) {
+      this.requestsDisplay = dataToFilter
+      return;
+    }
+
+    const searchFields: string[] = [
+      'codigo_estudiante',
+      'nombres',
+      'DNI',
+      'apellido_paterno',
+      'apellido_materno',
+      'correo_institucional',
+      'correo_personal',
+      'celular_estudiante',
+      'celular_padre',
+      'facultad',
+      'escuela_profesional',
+      'modalidad_ingreso',
+      'lugar_procedencia',
+      'lugar_nacimiento',
+      'direccion',
+      'fecha_nacimiento',
+      'edad'
+    ];
+    this.requestsDisplay = this._filterService.filter(dataToFilter, searchFields, filterValue, 'contains');
+
   }
 
 }
