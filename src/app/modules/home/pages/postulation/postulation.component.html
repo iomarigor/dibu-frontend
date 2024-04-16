@@ -4,8 +4,8 @@
       <section class="container px-4 mx-auto">
         <div class="mt-6 md:flex md:items-center md:justify-between">
           <div
-            class="flex overflow-hidden bg-white divide-x text-2xl w-full font-bold text-slate-500 justify-center items-center rounded-lg rtl:flex-row-reverse">
-            <span>LISTA DE REQUISITOS PARA LA CONVOCATORIA</span>
+            class="flex overflow-hidden uppercase bg-white divide-x text-2xl w-full font-bold text-slate-500 justify-center items-center rounded-lg rtl:flex-row-reverse">
+            <span>{{ title }}</span>
           </div>
         </div>
         <div *ngIf="announcement.nombre !== ''"
@@ -203,8 +203,32 @@
                 fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
             </svg>
           </div>
-          <div class="font-bold text-slate-500 flex-wrap text-center">
-            <span>Actualmente no se cuenta con convocatorias disponibles, Consulte el calendario para ver nuevas convocatorias.</span>
+
+          <div class="w-full text-slate-500 font-bold uppercase text-xl">
+            <span>Comunicado</span>
+          </div>
+
+          <article class="w-full mt-4 text-slate-500 text-xl">
+            <p>La convocatoria para postular a los servicios de comedor y residencia estudiantil, se habilitará cuando
+              cumplan los siguientes requisitos:</p>
+          </article>
+
+          <div type="circle" class="text-slate-500 space-y-2 mt-4 w-full">
+            <li>
+              La matricula académica para el semestre 2024-I, debe estar habilitada en el Sistema Académico de la UNAS.
+            </li>
+            <li>
+              Estar matriculado (mayor a 12 créditos) en el semestre académico 2024-I, mediante el sistema académico.
+            </li>
+            <li>
+              No tener deuda de los servicios de comedor y residencia.
+            </li>
+            <li>
+              Promedio ponderado semestral APROBADO.
+            </li>
+            <li>
+              Cumplir con las fechas establecidas en la convocatoria.
+            </li>
           </div>
         </div>
 

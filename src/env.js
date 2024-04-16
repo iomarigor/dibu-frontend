@@ -1,6 +1,6 @@
 (function (window) {
   window.__env = window.__env || {};
-  window.__env.API_DBU = "https://dbu-dev.dimo-app.com/backend";
+  window.__env.API_DBU = "https://bienestar.unas.edu.pe/backend";
   window.__env.API_CAJA = "https://tesoreria.unas.edu.pe";
 
   window.__env.SECTIONS_REQUIREMENTS_ONE = [

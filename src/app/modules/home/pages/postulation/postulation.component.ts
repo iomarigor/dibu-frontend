@@ -64,6 +64,7 @@ export class PostulationComponent implements OnDestroy {
   protected errorsPostulation: IErrorPostulation[] = [];
   protected dniForm: FormControl;
   protected statusRequest: IStatusRequest[] = [];
+  protected title: string = 'LISTA DE REQUISITOS PARA LA CONVOCATORIA';
 
   constructor(
     private _managerService: ManagerService,
@@ -113,6 +114,7 @@ export class PostulationComponent implements OnDestroy {
         next: (res) => {
           this.isLoading = false;
           if (!res.detalle) {
+            this.title = 'Convocatoria no disponible';
             this._toastService.add({type: 'error', message: res.msg});
             return;
           }
