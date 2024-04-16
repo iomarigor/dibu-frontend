@@ -3,7 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IResponse} from "../../models/response";
 import {IAnnouncement} from "../../models/announcement";
-import {IBodyRequest, IFileRequest, IRequest, IResponseFile, IUpdateService} from "../../models/requests";
+import {
+  IBodyRequest,
+  IFileRequest,
+  IRequest,
+  IResponseFile,
+  IStatusRequest,
+  IUpdateService
+} from "../../models/requests";
 import {IDebtsStudent, IValidationUser} from "../../models/user";
 import {EnvServiceFactory} from "../env/env.service.provider";
 
@@ -71,5 +78,9 @@ export class ManagerService {
 
   public exportRequest(): Observable<Blob> {
     return this.http.get(this.urlRequest + '/export', {responseType: 'blob'});
+  }
+
+  public getRequestStatus(dni: string): Observable<IResponse<IStatusRequest[]>> {
+    return this.http.get<IResponse<IStatusRequest[]>>(this.urlRequest + '/servicioSolicitado/' + dni);
   }
 }

@@ -10,8 +10,8 @@
         </div>
         <div *ngIf="announcement.nombre !== ''"
              class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6 gap-4">
-          <button
-            class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-400">
+          <button (click)="showStatus = true"
+                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-400">
 
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
               <path
@@ -24,7 +24,7 @@
           </button>
 
           <button (click)="showManual = true"
-            class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-indigo-500 border rounded-md gap-x-2 hover:bg-indigo-400">
+                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-indigo-500 border rounded-md gap-x-2 hover:bg-indigo-400">
 
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 24 24">
               <g id="file-pdf">
@@ -76,7 +76,9 @@
                 [attr.aria-expanded]="accordionItem.expanded"
                 [attr.aria-controls]="'accordion-body-' + index">
                 <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c" viewBox="0 0 512 512">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c"
+                       viewBox="0 0 512 512">
                     <path
                       d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
                   </svg>
@@ -236,7 +238,9 @@
                 [attr.aria-expanded]="accordionItem.expanded"
                 [attr.aria-controls]="'accordion-body-' + index">
                 <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c" viewBox="0 0 512 512">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c"
+                       viewBox="0 0 512 512">
                     <path
                       d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
                   </svg>
@@ -513,5 +517,102 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </app-modal>
+
+<app-modal [(show)]="showStatus" [showFooter]="false">
+  <div class="space-y-4">
+    <div class="w-full flex justify-center items-center font-bold text-slate-500 text-xl uppercase">
+      <span>Constula de estado de la postulación</span>
+    </div>
+    <div class="flex gap-4 items-center flex-col">
+      <div class="text-sm text-slate-500 flex gap-4 flex-col w-full">
+        <label>DNI:</label>
+        <input type="text" [formControl]="dniForm" class="w-full border border-gray-200 rounded-md h-10 px-4">
+        <small class="text-red-500" *ngIf="dniForm.invalid && dniForm.touched">
+          El DNI es requerido
+        </small>
+      </div>
+
+      <button (click)="validateStatusRequest()" *ngIf="!statusRequest.length"
+              class="w-full h-12 bg-blue-500 hover:bg-blue-400 text-white rounded flex gap-4 items-center justify-center">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        Consultar
+      </button>
+
+      <div *ngIf="statusRequest.length" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+          <div class="w-full text-slate-500 font-bold text-xl mb-4">
+            <span>Resultados de la consulta</span>
+          </div>
+          <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  <button class="flex items-center gap-x-3 focus:outline-none">
+                    <span>Servicio</span>
+                  </button>
+                </th>
+
+                <th scope="col"
+                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Estado
+                </th>
+
+                <th scope="col"
+                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Fecha de actualización
+                </th>
+
+                <th scope="col"
+                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Fecha de revisión
+                </th>
+              </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                @for (status of statusRequest; track status) {
+                  <tr>
+                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                      <div>
+                        <h2 class="font-medium text-slate-500">{{ status.servicio.nombre }}</h2>
+                      </div>
+                    </td>
+
+                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                      <div class="flex w-full justify-center">
+                        <div
+                          class="inline px-3 py-1 text-sm font-normal select-none rounded-full gap-x-2 capitalize chip-status-{{status.estado}}">
+                          {{ status.estado }}
+                        </div>
+                      </div>
+                    </td>
+
+                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                      <div>
+                        <h2
+                          class="font-medium text-slate-500">{{ status.updated_at | date: 'mediumDate': 'UTC' }}</h2>
+                      </div>
+                    </td>
+                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                      <div>
+                        <h2
+                          class="font-medium text-slate-500">{{ status.fecha_revision | date: 'mediumDate': 'UTC' || '-' }}</h2>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-modal>
+
 <app-block-ui [show]="isLoading"></app-block-ui>
 <app-toast></app-toast>

@@ -7,7 +7,7 @@ import {ToastService} from "../../../../core/services/toast/toast.service";
 import {ManagerService} from "../../../../core/services/manager/manager.service";
 import {Subscription} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {IRequest, IUpdateService} from "../../../../core/models/requests";
+import {IRequest, IStatusRequest, IUpdateService} from "../../../../core/models/requests";
 import {DatePipe, KeyValuePipe, NgIf} from "@angular/common";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {SafePipePipe} from "../../../../core/pipes/safe-pipe.pipe";
@@ -35,6 +35,7 @@ import {FilterService} from "../../../../core/services/filter/filter.service";
 export class RequestsComponent implements OnDestroy {
 
   private _subscriptions: Subscription = new Subscription();
+  private serviceID: number = 0;
 
   protected isLoading: boolean = false;
   protected requests: IRequest[] = [];
@@ -45,9 +46,9 @@ export class RequestsComponent implements OnDestroy {
   protected fileUrl: string = '';
   protected alertModal: boolean = false;
   protected action: string = '';
-  private serviceID: number = 0;
   protected role: number = 0;
   protected messageService: FormControl;
+
 
   constructor(
     private _toastService: ToastService,

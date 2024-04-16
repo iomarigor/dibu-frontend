@@ -10,7 +10,7 @@ import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component"
 import {HttpErrorResponse} from "@angular/common/http";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ToastComponent} from "../../../../core/ui/toast/toast.component";
-import {IBodyRequest, IErrorPostulation, IFileRequest} from "../../../../core/models/requests";
+import {IBodyRequest, IErrorPostulation, IFileRequest, IStatusRequest} from "../../../../core/models/requests";
 import {IDebtsStudent, IValidationUser} from "../../../../core/models/user";
 import {FILE_MAX_SIZE, ValidateFileType} from "../../../../core/utils/statics/statics";
 
@@ -59,8 +59,11 @@ export class PostulationComponent implements OnDestroy {
   protected showErrors: boolean = false;
   protected showManual: boolean = false;
   protected showVideo: boolean = false;
+  protected showStatus: boolean = false;
   protected debts: IDebtsStudent[] = [];
   protected errorsPostulation: IErrorPostulation[] = [];
+  protected dniForm: FormControl;
+  protected statusRequest: IStatusRequest[] = [];
 
   constructor(
     private _managerService: ManagerService,
@@ -74,6 +77,7 @@ export class PostulationComponent implements OnDestroy {
       eat_service: [false, Validators.required,],
       resident_service: [false, Validators.required],
     });
+    this.dniForm = new FormControl<string>('', Validators.required);
   }
 
   ngOnDestroy() {
@@ -380,6 +384,40 @@ export class PostulationComponent implements OnDestroy {
           this._toastService.add({
             type: 'error',
             message: 'No se pudo validar las deudas del estudiante, intente nuevamente'
+          });
+        }
+      })
+    );
+  }
+
+  protected validateStatusRequest(): void {
+
+    if (this.dniForm.invalid) {
+      this._toastService.add({type: 'warning', message: 'Debe de ingresar un DNI válido!'});
+      this.dniForm.markAllAsTouched();
+      return;
+    }
+
+    this.isLoading = true;
+
+    this._subscriptions.add(
+      this._managerService.getRequestStatus(this.dniForm.value).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (!res.detalle) {
+            this._toastService.add({type: 'info', message: res.msg});
+            return;
+          }
+
+          console.log(res.detalle)
+          this.statusRequest = res.detalle;
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.isLoading = false;
+          this._toastService.add({
+            type: 'error',
+            message: 'No se pudo obtener la solicitud del estudiante, intente de nuevo'
           });
         }
       })

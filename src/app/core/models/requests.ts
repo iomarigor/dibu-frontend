@@ -127,3 +127,18 @@ export interface IErrorPostulation {
   tipo: string;
   msg: string;
 }
+
+export interface IStatusRequest {
+  id: number;
+  estado: string;
+  fecha_revision: string;
+  servicio_id: number;
+  solicitud_id: number;
+  detalle_rechazo: string;
+  created_at: string;
+  updated_at: string;
+  servicio: {
+    id: number;
+    nombre: string;
+  }
+}
