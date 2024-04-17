@@ -7,7 +7,7 @@ import {ToastService} from "../../../../core/services/toast/toast.service";
 import {ManagerService} from "../../../../core/services/manager/manager.service";
 import {Subscription} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
-import {IRequest, IStatusRequest, IUpdateService} from "../../../../core/models/requests";
+import {IRequest, IUpdateService} from "../../../../core/models/requests";
 import {DatePipe, KeyValuePipe, NgIf} from "@angular/common";
 import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {SafePipePipe} from "../../../../core/pipes/safe-pipe.pipe";
@@ -49,6 +49,11 @@ export class RequestsComponent implements OnDestroy {
   protected role: number = 0;
   protected messageService: FormControl;
 
+  protected currentPage: number = 1;
+  protected leftLimit: number = 0;
+  protected rightLimit: number = 10;
+  protected totalPage: number = 0;
+
 
   constructor(
     private _toastService: ToastService,
@@ -77,8 +82,19 @@ export class RequestsComponent implements OnDestroy {
             return;
           }
 
-          this.requests = res.detalle;
-          this.requestsDisplay = res.detalle;
+          for (const re of res.detalle) {
+            const index = this.requests.findIndex(r => r.alumno.DNI === re.alumno.DNI);
+            if (index === -1) {
+              this.requests.push(re);
+              continue;
+            }
+
+            if (re.id > this.requests[index].id) {
+              this.requests[index] = re;
+            }
+          }
+
+          this.initPagination();
         },
         error: (err: HttpErrorResponse) => {
           console.error(err);
@@ -222,7 +238,8 @@ export class RequestsComponent implements OnDestroy {
     const dataToFilter: IRequest[] = JSON.parse(JSON.stringify(this.requests));
     const filterValue = event.target.value;
     if (!filterValue || !filterValue.length) {
-      this.requestsDisplay = dataToFilter
+      this.requestsDisplay = dataToFilter;
+      this.initPagination();
       return;
     }
 
@@ -245,8 +262,36 @@ export class RequestsComponent implements OnDestroy {
       'fecha_nacimiento',
       'edad'
     ];
-    this.requestsDisplay = this._filterService.filter(dataToFilter, searchFields, filterValue, 'contains');
+    const data = this._filterService.filter(dataToFilter, searchFields, filterValue, 'contains');
+    this.initPagination(data);
+  }
 
+  protected initPagination(data?: IRequest[]): void {
+    this.leftLimit = 0;
+    this.rightLimit = 10;
+    this.currentPage = 1;
+    const totalRegister = data ? data.length : this.requests.length;
+    this.totalPage = Math.ceil(totalRegister / 10);
+    this.paginate(data);
+  }
+
+  protected paginate(data?: IRequest[]): void {
+    const requests: IRequest[] = JSON.parse(JSON.stringify(data || this.requests));
+    this.requestsDisplay = requests.slice(this.leftLimit, this.rightLimit);
+  }
+
+  protected nextPage(): void {
+    this.leftLimit = this.currentPage * 10;
+    this.rightLimit = this.leftLimit + 10;
+    this.currentPage++;
+    this.paginate();
+  }
+
+  protected previousPage(): void {
+    this.currentPage--;
+    this.leftLimit = this.leftLimit - 10;
+    this.rightLimit = this.leftLimit + 10;
+    this.paginate();
   }
 
 }

@@ -333,14 +333,12 @@ export class PostulationComponent implements OnDestroy {
   protected validateDebts(): void {
 
     if (this.formPostulation.invalid) {
-      console.log(this.formPostulation.controls)
       this._toastService.add({type: 'error', message: 'Complete todos los campos correctamente!'});
       this.formPostulation.markAllAsTouched();
       return;
     }
 
     if (!this.formPostulation.value.eat_service && !this.formPostulation.value.resident_service) {
-      console.log(this.formPostulation.controls)
       this._toastService.add({type: 'error', message: 'Seleccione al menos un servicio!'});
       return;
     }

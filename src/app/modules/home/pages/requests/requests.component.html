@@ -1,5 +1,5 @@
 @if (view === 'list') {
-  <div class="w-full h-full flex p-8 flex-col gap-8">
+  <div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
     <div class="w-full flex justify-between">
       <div class="text-slate-500 font-bold text-2xl text-center w-full">
         <span>Lista de Solicitudes Recibidas</span>
@@ -8,7 +8,7 @@
 
     @if (requests.length) {
       <section class="container mx-auto space-y-4">
-        <div class="mt-6 flex justify-end">
+        <div class="mt-4 flex justify-end">
           <div *ngIf="role === 1">
             <button type="button" (click)="exportToExcel()"
                     class="focus:outline-none h-full text-white hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 flex items-center gap-2"
@@ -86,7 +86,7 @@
                         <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                           <div>
                             <h2
-                              class="font-medium text-slate-500">{{ request.alumno.nombres + ' ' + request.alumno.apellido_materno + ' ' + request.alumno.apellido_materno }}</h2>
+                              class="font-medium text-slate-500">{{ request.alumno.nombres + ' ' + request.alumno.apellido_paterno + ' ' + request.alumno.apellido_materno }}</h2>
                           </div>
                         </td>
                         <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
@@ -123,14 +123,14 @@
             </div>
           </div>
         </div>
-        <div class="mt-6 sm:flex sm:items-center sm:justify-between" *ngIf="requestsDisplay.length > 10">
+        <div class="mt-6 sm:flex sm:items-center sm:justify-between">
           <div class="text-sm text-gray-500">
-            Página <span class="font-medium text-gray-700">1 de 10</span>
+            Página <span class="font-medium text-gray-700">{{currentPage}} de {{totalPage}}</span>
           </div>
 
           <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
-            <button
-              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+            <button (click)="previousPage()" [disabled]="currentPage <= 1"
+              class="flex items-center justify-center select-none disabled:cursor-not-allowed w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                    stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
@@ -138,8 +138,8 @@
               <span>Anterior</span>
             </button>
 
-            <button
-              class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+            <button (click)="nextPage()" [disabled]="currentPage >= this.totalPage"
+              class="flex items-center justify-center select-none w-1/2 px-5 py-2 disabled:cursor-not-allowed text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
               <span>Siguiente</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                    stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
