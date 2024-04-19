@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const _authService = inject(AuthService);
   const _router = inject(Router);
   const session = _authService.getSession();
-  const role = route.data['role'];
+  const role: number[] = route.data['role'];
 
   const publicRoutes: string[] = [
     '/home/calendar',
@@ -19,7 +19,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (publicRoutes.includes(state.url)) return true;
 
-  if (_authService.isValidSession() && session.id_level_user === role[0]) return true;
+  if (_authService.isValidSession() && role.includes(session.id_level_user)) return true;
 
   _router.navigateByUrl('/auth/login');
   return false;

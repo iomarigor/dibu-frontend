@@ -144,9 +144,6 @@ export class RequestsComponent implements OnDestroy {
     this.serviceID = service;
     this.alertModal = true;
 
-    const index = this.student.servicios_solicitados.findIndex(service => service.id === this.serviceID);
-    if (index !== -1) this.student.servicios_solicitados[index].estado = status;
-
     if (status !== 'rechazado') {
       this.messageService.clearValidators();
       this.messageService.updateValueAndValidity();
@@ -187,8 +184,8 @@ export class RequestsComponent implements OnDestroy {
           }
           this._toastService.add({type: 'info', message: "Estado actualizado correctamente"});
 
-          const service = this.student.servicios_solicitados.find(service => service.id = this.serviceID);
-          if (service) service.estado = this.action;
+          const index = this.student.servicios_solicitados.findIndex(service => service.id === this.serviceID);
+          if (index !== -1) this.student.servicios_solicitados[index].estado = this.action;
 
           this.alertModal = false;
         },
@@ -295,6 +292,11 @@ export class RequestsComponent implements OnDestroy {
     this.leftLimit = this.leftLimit - 10;
     this.rightLimit = this.leftLimit + 10;
     this.paginate();
+  }
+
+  protected backToList(): void {
+    this.view = 'list';
+    this.getRequests();
   }
 
 }

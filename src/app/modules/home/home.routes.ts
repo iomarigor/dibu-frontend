@@ -33,8 +33,9 @@ export const homesRoutes: Routes = [
   {
     path: 'requests',
     component: RequestsComponent,
+    canActivate: [authGuard],
     data: {
-      role: [2]
+      role: [1, 2, 3]
     }
   },
   {
