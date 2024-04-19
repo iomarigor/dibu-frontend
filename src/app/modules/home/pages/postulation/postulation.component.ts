@@ -13,6 +13,7 @@ import {ToastComponent} from "../../../../core/ui/toast/toast.component";
 import {IBodyRequest, IErrorPostulation, IFileRequest, IStatusRequest} from "../../../../core/models/requests";
 import {IDebtsStudent, IValidationUser} from "../../../../core/models/user";
 import {FILE_MAX_SIZE, ValidateFileType} from "../../../../core/utils/statics/statics";
+import {IModalPostulation} from "../../../../core/models/modal";
 
 @Component({
   selector: 'app-postulation',
@@ -34,7 +35,6 @@ export class PostulationComponent implements OnDestroy {
 
   private _subscriptions: Subscription = new Subscription();
 
-  protected showModal: boolean = false;
   protected view: string = 'list';
   protected announcement: IAnnouncement = {
     nombre: '',
@@ -53,13 +53,16 @@ export class PostulationComponent implements OnDestroy {
     activo: false
   };
   protected isLoading: boolean = false;
-  protected deleteModal: boolean = false;
+  protected modal: IModalPostulation = {
+    debts: false,
+    errors: false,
+    manual: false,
+    video: false,
+    status: false,
+    delete: false,
+    form: false
+  }
   protected formPostulation: FormGroup;
-  protected showDebts: boolean = false;
-  protected showErrors: boolean = false;
-  protected showManual: boolean = false;
-  protected showVideo: boolean = false;
-  protected showStatus: boolean = false;
   protected debts: IDebtsStudent[] = [];
   protected errorsPostulation: IErrorPostulation[] = [];
   protected dniForm: FormControl;
@@ -83,6 +86,19 @@ export class PostulationComponent implements OnDestroy {
 
   ngOnDestroy() {
     this._subscriptions.unsubscribe();
+    this.resetValidateStatus();
+    this.formPostulation.reset();
+    this.modal = {
+      debts: false,
+      errors: false,
+      manual: false,
+      video: false,
+      status: false,
+      delete: false,
+      form: false
+    };
+    this.debts = [];
+    this.errorsPostulation = [];
   }
 
   protected init(): void {
@@ -101,9 +117,9 @@ export class PostulationComponent implements OnDestroy {
       eat_service: [false, Validators.required,],
       resident_service: [false, Validators.required],
     });
-    this.showModal = false;
-    this.deleteModal = false;
-    this.showDebts = false;
+    this.modal.form = false;
+    this.modal.delete = false;
+    this.modal.debts = false;
   }
 
   private getCurrentAnnouncement(): void {
@@ -139,7 +155,7 @@ export class PostulationComponent implements OnDestroy {
             return;
           }
           this.view = 'postulate';
-          this.showModal = false;
+          this.modal.form = false;
           this.postulation = res.detalle;
           this.processForm(res.detalle.secciones);
         },
@@ -156,13 +172,49 @@ export class PostulationComponent implements OnDestroy {
     );
   }
 
+  private handleLoadFile(body: IFileRequest, key: string): void {
+    this.isLoading = true;
+
+    this._subscriptions.add(
+      this._managerService.uploadRequestFile(body).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (!res.detalle) {
+            this._toastService.add({type: 'error', message: res.msg});
+            return;
+          }
+
+          this._toastService.add({type: 'success', message: res.msg});
+          console.log(res)
+          this.formPostulation.get(key)?.setValue(res.detalle.url_file);
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error(err);
+          this.isLoading = false;
+          this._toastService.add({type: 'error', message: 'No se pudo subir el archivo, intente nuevamente'});
+        }
+      })
+    );
+  }
+
+  private processForm(sections: ISection[]): void {
+    for (const section of sections) {
+      for (const req of section.requisitos) {
+        const key = (req.id || 0).toString();
+        let defaultValue = req.default ? req.default : '';
+        if (req.nombre === 'Correo institutcional') defaultValue = this.formPostulation.value.email_student;
+        this.formPostulation.addControl(key, new FormControl(defaultValue, Validators.required));
+        if (defaultValue) this.formPostulation.get(key)?.disable();
+      }
+    }
+  }
+
   protected validateStudent(): void {
 
     const data: IValidationUser = {
       correo: this.formPostulation.value.email_student,
       DNI: parseInt(this.formPostulation.value.dni_student)
     };
-
 
     this._subscriptions.add(
       this._managerService.validateStudent(data).subscribe({
@@ -182,8 +234,8 @@ export class PostulationComponent implements OnDestroy {
           this._toastService.add({type: 'error', message: err.error.msg, life: 10000});
           if (err.error.detalle) {
             this.errorsPostulation = err.error.detalle;
-            this.showErrors = true;
-            this.showModal = false;
+            this.modal.errors = true;
+            this.modal.form = false;
           }
 
           this.isLoading = false;
@@ -191,18 +243,6 @@ export class PostulationComponent implements OnDestroy {
         }
       })
     );
-  }
-
-  private processForm(sections: ISection[]): void {
-    for (const section of sections) {
-      for (const req of section.requisitos) {
-        const key = (req.id || 0).toString();
-        let defaultValue = req.default ? req.default : '';
-        if (req.nombre === 'Correo institutcional') defaultValue = this.formPostulation.value.email_student;
-        this.formPostulation.addControl(key, new FormControl(defaultValue, Validators.required));
-        if (defaultValue) this.formPostulation.get(key)?.disable();
-      }
-    }
   }
 
   protected processFile(event: any, key: string, typeFile: number): void {
@@ -229,31 +269,6 @@ export class PostulationComponent implements OnDestroy {
       };
       this.handleLoadFile(body, key);
     };
-  }
-
-  private handleLoadFile(body: IFileRequest, key: string): void {
-    this.isLoading = true;
-
-    this._subscriptions.add(
-      this._managerService.uploadRequestFile(body).subscribe({
-        next: (res) => {
-          this.isLoading = false;
-          if (!res.detalle) {
-            this._toastService.add({type: 'error', message: res.msg});
-            return;
-          }
-
-          this._toastService.add({type: 'success', message: res.msg});
-          console.log(res)
-          this.formPostulation.get(key)?.setValue(res.detalle.url_file);
-        },
-        error: (err: HttpErrorResponse) => {
-          console.error(err);
-          this.isLoading = false;
-          this._toastService.add({type: 'error', message: 'No se pudo subir el archivo, intente nuevamente'});
-        }
-      })
-    );
   }
 
   protected handlePostulation(): void {
@@ -369,8 +384,8 @@ export class PostulationComponent implements OnDestroy {
                 eat_service: false,
                 resident_service: false
               });
-              this.showDebts = true;
-              this.showModal = false;
+              this.modal.debts = true;
+              this.modal.form = false;
             }
 
             return;
@@ -422,6 +437,12 @@ export class PostulationComponent implements OnDestroy {
         }
       })
     );
+  }
+
+  protected resetValidateStatus(): void {
+    this.modal.status = false;
+    this.statusRequest = [];
+    this.dniForm.reset();
   }
 
 }

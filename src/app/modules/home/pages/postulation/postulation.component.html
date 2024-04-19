@@ -10,7 +10,7 @@
         </div>
         <div *ngIf="announcement.nombre !== ''"
              class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6 gap-4">
-          <button (click)="showStatus = true"
+          <button (click)="modal.status = true"
                   class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-400">
 
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
@@ -23,7 +23,7 @@
             Estado de mi solicitud
           </button>
 
-          <button (click)="showManual = true"
+          <button (click)="modal.manual = true"
                   class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-indigo-500 border rounded-md gap-x-2 hover:bg-indigo-400">
 
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@
             Instructivo
           </button>
 
-          <button style="background: #1ABB9C" (click)="showVideo = true"
+          <button style="background: #1ABB9C" (click)="modal.video = true"
                   class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-emerald-100">
 
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
@@ -51,7 +51,7 @@
             Video instructivo
           </button>
 
-          <button (click)="showModal = true" style="background: #0F75BC"
+          <button (click)="modal.form = true" style="background: #0F75BC"
                   class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-blue-600">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
               <path
@@ -241,7 +241,7 @@
       <div class="w-3/4 mt-8">
         <div class="uppercase mb-4 text-gray-500 text-2xl font-bold flex items-center gap-6">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-               stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="deleteModal = true">
+               stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="modal.delete = true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
           </svg>
           <span>Bienvenido a la postulación</span>
@@ -329,7 +329,7 @@
   </div>
 }
 
-<app-modal [(show)]="showModal" title="Bienvenido Postulante" buttonSuccess="Siguiente"
+<app-modal [(show)]="modal.form" title="Bienvenido Postulante" buttonSuccess="Siguiente"
            (onNext)="validateDebts()">
   <div class="space-y-4">
     <div class="w-full flex justify-center items-center font-bold text-slate-500 text-xl uppercase">
@@ -377,7 +377,7 @@
   </div>
 </app-modal>
 
-<app-modal [(show)]="deleteModal" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true"
+<app-modal [(show)]="modal.delete" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true"
            (onNext)="init()">
   <div>
     <div class="flex items-center justify-center">
@@ -399,7 +399,7 @@
 
 </app-modal>
 
-<app-modal [(show)]="showDebts" [showFooter]="false">
+<app-modal [(show)]="modal.debts" [showFooter]="false">
   <div class="flex flex-col space-y-4">
     <div class="w-full text-slate-500 flex gap-4 flex-col">
       <span class="font-bold text-xl text-center uppercase">Deudas presentadas por el alumno</span>
@@ -481,7 +481,7 @@
   </div>
 </app-modal>
 
-<app-modal [(show)]="showErrors" [showFooter]="false">
+<app-modal [(show)]="modal.errors" [showFooter]="false">
   <div class="flex flex-col space-y-4">
     <div class="w-full text-slate-500 flex gap-4 flex-col">
       <span class="font-bold text-xl text-center">Requisitos no cumplidos</span>
@@ -528,21 +528,21 @@
   </div>
 </app-modal>
 
-<app-modal [(show)]="showVideo" [showFooter]="false">
+<app-modal [(show)]="modal.video" [showFooter]="false">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/ahxDR_JhgzA?si=kBHbL0rVwpArvLWH"
           title="YouTube video player" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </app-modal>
 
-<app-modal [(show)]="showManual" [showFooter]="false">
+<app-modal [(show)]="modal.manual" [showFooter]="false">
   <iframe width="760" height="715" src="assets/files/Manual.pdf"
           title="VIDEO INSTRUCTIVO SISTEMA DE GESTIÓN DOCUMENTARIA DBU" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </app-modal>
 
-<app-modal [(show)]="showStatus" [showFooter]="false">
+<app-modal [show]="modal.status" (showChange)="resetValidateStatus()" [showFooter]="false">
   <div class="space-y-4">
     <div class="w-full flex justify-center items-center font-bold text-slate-500 text-xl uppercase">
       <span>Constula de estado de la postulación</span>
@@ -588,7 +588,12 @@
 
                 <th scope="col"
                     class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  Fecha de actualización
+                  Detalle
+                </th>
+
+                <th scope="col"
+                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Fecha de postulación
                 </th>
 
                 <th scope="col"
@@ -612,6 +617,13 @@
                           class="inline px-3 py-1 text-sm font-normal select-none rounded-full gap-x-2 capitalize chip-status-{{status.estado}}">
                           {{ status.estado }}
                         </div>
+                      </div>
+                    </td>
+
+                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                      <div>
+                        <h2
+                          class="font-medium text-slate-500">{{ status.detalle_rechazo }}</h2>
                       </div>
                     </td>
 

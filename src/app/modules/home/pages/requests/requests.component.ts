@@ -144,6 +144,9 @@ export class RequestsComponent implements OnDestroy {
     this.serviceID = service;
     this.alertModal = true;
 
+    const index = this.student.servicios_solicitados.findIndex(service => service.id === this.serviceID);
+    if (index !== -1) this.student.servicios_solicitados[index].estado = status;
+
     if (status !== 'rechazado') {
       this.messageService.clearValidators();
       this.messageService.updateValueAndValidity();

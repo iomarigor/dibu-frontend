@@ -45,6 +45,12 @@
                 <table class="min-w-full divide-y divide-gray-200">
                   <thead class="bg-gray-50">
                   <tr>
+
+                    <th scope="col"
+                        class="px-4 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                      N°
+                    </th>
+
                     <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
                       <button class="flex items-center gap-x-3 focus:outline-none">
                         <span>Nombres</span>
@@ -81,8 +87,14 @@
                   </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                    @for (request of requestsDisplay; track request) {
+                    @for (request of requestsDisplay; track request; let i = $index) {
                       <tr>
+                        <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                          <div>
+                            <h2
+                              class="font-medium text-slate-500 text-center">{{ (i + 1) + leftLimit }}</h2>
+                          </div>
+                        </td>
                         <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                           <div>
                             <h2
@@ -125,12 +137,12 @@
         </div>
         <div class="mt-6 sm:flex sm:items-center sm:justify-between">
           <div class="text-sm text-gray-500">
-            Página <span class="font-medium text-gray-700">{{currentPage}} de {{totalPage}}</span>
+            Página <span class="font-medium text-gray-700">{{ currentPage }} de {{ totalPage }}</span>
           </div>
 
           <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
             <button (click)="previousPage()" [disabled]="currentPage <= 1"
-              class="flex items-center justify-center select-none disabled:cursor-not-allowed w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+                    class="flex items-center justify-center select-none disabled:cursor-not-allowed w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                    stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
@@ -139,7 +151,7 @@
             </button>
 
             <button (click)="nextPage()" [disabled]="currentPage >= this.totalPage"
-              class="flex items-center justify-center select-none w-1/2 px-5 py-2 disabled:cursor-not-allowed text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
+                    class="flex items-center justify-center select-none w-1/2 px-5 py-2 disabled:cursor-not-allowed text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100">
               <span>Siguiente</span>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                    stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
@@ -272,7 +284,7 @@
 
                               </div>
 
-                              <div *ngIf="role !== 3" (click)="updateStatusService(service.id, 'rechazado')"
+                              <div (click)="updateStatusService(service.id, 'rechazado')"
                                    class="chip-status-rechazado w-12 h-12 flex justify-center items-center rounded-md cursor-pointer group">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500"
                                      viewBox="0 0 512 512">
@@ -423,7 +435,9 @@
                 [attr.aria-expanded]="accordionItem.expanded"
                 [attr.aria-controls]="'accordion-body-' + index">
                 <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c" viewBox="0 0 512 512">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                       class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c"
+                       viewBox="0 0 512 512">
                     <path
                       d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
                   </svg>
