@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {
   ApexAxisChartSeries,
   ApexChart, ApexDataLabels, ApexFill, ApexLegend,
@@ -8,6 +8,14 @@ import {
   ChartComponent,
   NgApexchartsModule
 } from "ng-apexcharts";
+import {ManagerService} from "../../../../core/services/manager/manager.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Subscription} from "rxjs";
+import {ToastService} from "../../../../core/services/toast/toast.service";
+import {IAnnouncement} from "../../../../core/models/announcement";
+import {NgIf} from "@angular/common";
+import {IStatistics} from "../../../../core/models/statistics";
+import {BlockUiComponent} from "../../../../core/ui/block-ui/block-ui.component";
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -35,205 +43,76 @@ export type ChartOptionsBarra = {
   selector: 'app-data-statistic',
   standalone: true,
   imports: [
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgIf,
+    BlockUiComponent
   ],
   templateUrl: './data-statistic.component.html',
-  styleUrl: './data-statistic.component.scss'
+  styleUrl: './data-statistic.component.scss',
+  providers: [ManagerService, ToastService]
 })
-export class DataStatisticComponent {
+export class DataStatisticComponent implements OnDestroy {
+
+  private _subscriptions: Subscription = new Subscription();
+  private _announcement: IAnnouncement = {
+    nombre: '',
+    convocatoria_servicio: [],
+    fecha_fin: '',
+    fecha_inicio: '',
+    secciones: [],
+    activo: false
+  };
+
   @ViewChild("chart") chart!: ChartComponent;
-  public chartComedor: ChartOptions;
-  public chartInternado: ChartOptions;
-  public chartBarrasComedor: ChartOptionsBarra;
-  public chartBarrasInternado: ChartOptionsBarra;
 
   public chartBarrasHComedor: ChartOptionsBarra;
   public chartBarrasHInternado: ChartOptionsBarra;
 
-  constructor() {
-    this.chartComedor = {
-      series: [44, 55],
-      chart: {
-        width: 380,
-        type: "pie"
-      },
-      labels: ["Rechazado", "Aprobado"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ],
-      title: {
-        align: "center",
-        text: "Solicitantes de Comedor Universitario"
-      }
-    };
-    this.chartInternado = {
-      series: [44, 55],
-      chart: {
-        width: 380,
-        type: "pie"
-      },
-      labels: ["Rechazado", "Aprobado"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ],
-      title: {
-        align: "center",
-        text: "Solicitantes de Internado Universitario"
-      }
-    };
+  protected isLoading: boolean = false;
+  protected statistics: IStatistics = {
+    estados_solicitud: {
+      pendiente: 0,
+      rechazado: 0,
+      aceptado: 0,
+      aprobado: 0
+    },
+    escuelas_profesionales: {
+      "ADMINISTRACION": 0,
+      "AGRONOMIA": 0,
+      "CONTABILIDAD": 0,
+      "ECONOMIA": 0,
+      "INGENIERIA AMBIENTAL": 0,
+      "INGENIERIA EN CONSERVACION DE SUELOS Y AGUA": 0,
+      "INGENIERIA EN INDUSTRIAS ALIMENTARIAS": 0,
+      "INGENIERIA EN INFORMATICA Y SISTEMAS": 0,
+      "INGENIERIA EN RECURSOS NATURALES RENOVABLES": 0,
+      "INGENIERIA FORESTAL": 0,
+      "INGENIERIA MECANICA ELECTRICA": 0,
+      "ZOOTECNIA": 0
+    },
+    facultades: {
+      "FACULTAD DE AGRONOMIA": 0,
+      "FACULTAD DE CIENCIAS CONTABLES": 0,
+      "FACULTAD DE CIENCIAS ECONOMICAS Y ADMINISTRATIVAS": 0,
+      "FACULTAD DE INGENIERIA EN INDUSTRIAS ALIMENTARIAS": 0,
+      "FACULTAD DE INGENIERIA EN INFORMATICA Y SISTEMAS": 0,
+      "FACULTAD DE INGENIERIA MECANICA ELECTRICA": 0,
+      "FACULTAD DE RECURSOS NATURALES RENOVABLES": 0,
+      "FACULTAD DE ZOOTECNIA": 0
+    },
+    sexo: {
+      num_hombres: 0,
+      num_mujeres: 0
+    }
+  }
 
-    this.chartBarrasComedor = {
-      series: [
-        {
-          name: "Postulantes",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 60]
-        }
-      ],
-      chart: {
-        type: "bar",
-        height: 350,
-        width: 500
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%"
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"]
-      },
-      xaxis: {
-        categories: [
-          "2019 I",
-          "2019 II",
-          "2020 I",
-          "2020 II",
-          "2021 I",
-          "2021 II",
-          "2022 I",
-          "2022 II",
-          "2023 I",
-          "2023 II",
-        ]
-      },
-      yaxis: {
-      },
-      fill: {
-        opacity: 1
-      },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return val + " Postulantes";
-          }
-        }
-      },
-      legend: {
-        position: "bottom",
-        horizontalAlign: "left",
-        offsetX: 40
-      },
-      title: {
-        align: "center",
-        text: "Usuarios por Semestre del Comendor Universitario"
-      }
-    };
-    this.chartBarrasInternado = {
-      series: [
-        {
-          name: "Postulantes",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 60]
-        }
-      ],
-      chart: {
-        type: "bar",
-        height: 350,
-        width: 500
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%"
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"]
-      },
-      xaxis: {
-        categories: [
-          "2019 I",
-          "2019 II",
-          "2020 I",
-          "2020 II",
-          "2021 I",
-          "2021 II",
-          "2022 I",
-          "2022 II",
-          "2023 I",
-          "2023 II",
-        ]
-      },
-      yaxis: {
-      },
-      fill: {
-        opacity: 1
-      },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return val + " Postulantes";
-          }
-        }
-      },
-      legend: {
-        position: "bottom",
-        horizontalAlign: "left",
-        offsetX: 40
-      },
-      title: {
-        align: "center",
-        text: "Usuarios por Semestre del Internado Universitario"
-      }
-    };
+  constructor(
+    private _managerService: ManagerService,
+    private _toastService: ToastService
+  ) {
 
     this.chartBarrasHComedor = {
-      series: [
-        {
-          name: "Alumnos",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 60, 22, 26]
-        }
-      ],
+      series: [],
       chart: {
         type: "bar",
         height: 350,
@@ -255,32 +134,21 @@ export class DataStatisticComponent {
       },
       xaxis: {
         categories: [
-          "F.I.I.S",
-          "F.I.M.E",
-          "AGRONOMIA",
-          "CONTABILIDAD",
-          "ZOOTECNIA",
-          "R.N.R",
-          "C.S.A",
-          "F.I.A",
-          "AMBIENTAL",
-          "ECONOMÍA",
-          "ADMINISTRACIÓN",
-          "FORESTALES"
+          'AGRONOMIA',
+          'CIENCIAS CONTABLES',
+          'F.C.A',
+          'F.I.I.A',
+          'F.I.I.S',
+          'F.I.M.E',
+          'F.R.N.R',
+          'ZOOTECNIA'
         ]
       },
-      yaxis: {
-      },
+      yaxis: {},
       fill: {
         opacity: 1
       },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return val + " Alumnos";
-          }
-        }
-      },
+      tooltip: {},
       legend: {
         position: "bottom",
         horizontalAlign: "left",
@@ -288,16 +156,12 @@ export class DataStatisticComponent {
       },
       title: {
         align: "center",
-        text: "Beneficiarios del Comedor Universitario por Facultad"
+        text: "Beneficiarios por Facultad Profesional"
       }
     };
+
     this.chartBarrasHInternado = {
-      series: [
-        {
-          name: "Postulantes",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 60, 30, 67]
-        }
-      ],
+      series: [],
       chart: {
         type: "bar",
         height: 350,
@@ -319,32 +183,25 @@ export class DataStatisticComponent {
       },
       xaxis: {
         categories: [
-          "F.I.I.S",
-          "F.I.M.E",
+          "ADMINISTRACION",
           "AGRONOMIA",
           "CONTABILIDAD",
-          "ZOOTECNIA",
-          "R.N.R",
-          "C.S.A",
-          "F.I.A",
-          "AMBIENTAL",
-          "ECONOMÍA",
-          "ADMINISTRACIÓN",
-          "FORESTALES"
+          "ECONOMIA",
+          "E.I.A",
+          "E.I.C.S.A",
+          "E.I.I.A",
+          "E.I.I.S",
+          "E.I.R.N.R",
+          "E.I.F",
+          "E.I.M.E",
+          "ZOOTECNIA"
         ]
       },
-      yaxis: {
-      },
+      yaxis: {},
       fill: {
         opacity: 1
       },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return val + " Postulantes";
-          }
-        }
-      },
+      tooltip: {},
       legend: {
         position: "bottom",
         horizontalAlign: "left",
@@ -352,8 +209,77 @@ export class DataStatisticComponent {
       },
       title: {
         align: "center",
-        text: "Beneficiarios del Comedor Universitario por Facultad"
+        text: "Beneficiarios por Escuela Profesional"
       }
     };
+
+    this._getCurrentAnnouncement();
+  }
+
+  ngOnDestroy() {
+    this._subscriptions.unsubscribe();
+  }
+
+  private _getCurrentAnnouncement(): void {
+    this.isLoading = true;
+
+    this._subscriptions.add(
+      this._managerService.getCurrentAnnouncement().subscribe({
+        next: (res) => {
+          if (!res.detalle) {
+            this.isLoading = false;
+            this._toastService.add({type: 'error', message: res.msg});
+            return;
+          }
+
+          this._announcement = res.detalle;
+
+          this._getStatistic();
+        },
+        error: (err: HttpErrorResponse) => {
+          this.isLoading = false;
+          this._toastService.add({type: 'error', message: 'No se pudo obtener la convocatoria actual'});
+          console.error(err)
+        }
+      })
+    );
+  }
+
+  private _getStatistic(): void {
+    const code = this._announcement?.id || 0;
+    this._managerService.getStatistics(code).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        if (!res.detalle) {
+          this._toastService.add({type: 'error', message: res.msg});
+          return;
+        }
+
+        this.statistics = res.detalle;
+
+        this.chartBarrasHComedor.series = [];
+        this.chartBarrasHComedor.series.push(
+          {
+            name: 'Postulantes',
+            data: Object.values(this.statistics.facultades)
+          }
+        );
+
+        this.chartBarrasHInternado.series = [];
+        this.chartBarrasHInternado.series.push(
+          {
+            name: 'Postulantes',
+            data: Object.values(this.statistics.escuelas_profesionales)
+          }
+        );
+
+        console.log(this.chartBarrasHInternado)
+      },
+      error: (err: HttpErrorResponse) => {
+        this._toastService.add({type: 'error', message: 'No se pudo obtener las estadísticas'});
+        console.log(err);
+        this.isLoading = false;
+      }
+    });
   }
 }

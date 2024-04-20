@@ -4,66 +4,81 @@
       <span>Datos de los postulantes universitarios ciclo 2024-1</span>
     </div>
 
-    <div class="flex justify-center items-center gap-8 w-full">
-      <div>
-        <apx-chart
-          [series]="chartComedor.series"
-          [chart]="chartComedor.chart"
-          [labels]="chartComedor.labels"
-          [responsive]="chartComedor.responsive"
-          [title]="chartComedor.title"
-        ></apx-chart>
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 justify-center items-center gap-8 w-full">
+
+      <div class="chip-status-aprobado flex justify-between rounded-lg p-5 shadow-xl">
+        <div class="text-slate-500">
+          <h6 class="text-sm">Aprobados</h6>
+          <h1 class="text-2xl font-bold">{{ statistics.estados_solicitud.aprobado }}</h1>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-500"
+               viewBox="0 0 512 512">
+            <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+                  fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="32" d="M352 176L217.6 336 160 272"/>
+          </svg>
+        </div>
       </div>
-      <div>
-        <apx-chart
-          [series]="chartInternado.series"
-          [chart]="chartInternado.chart"
-          [labels]="chartInternado.labels"
-          [responsive]="chartInternado.responsive"
-          [title]="chartComedor.title"
-        ></apx-chart>
+
+      <div class="chip-status-aceptado flex justify-between rounded-lg p-5 shadow-xl">
+        <div class="text-slate-500">
+          <h6 class="text-sm">Aceptados</h6>
+          <h1 class="text-2xl font-bold">{{ statistics.estados_solicitud.aceptado }}</h1>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-sky-500"
+               viewBox="0 0 512 512">
+            <path class="stroke-sky-500"
+                  d="M384 224v184a40 40 0 01-40 40H104a40 40 0 01-40-40V168a40 40 0 0140-40h167.48"
+                  fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="32"/>
+            <path class="fill-sky-500"
+                  d="M459.94 53.25a16.06 16.06 0 00-23.22-.56L424.35 65a8 8 0 000 11.31l11.34 11.32a8 8 0 0011.34 0l12.06-12c6.1-6.09 6.67-16.01.85-22.38zM399.34 90L218.82 270.2a9 9 0 00-2.31 3.93L208.16 299a3.91 3.91 0 004.86 4.86l24.85-8.35a9 9 0 003.93-2.31L422 112.66a9 9 0 000-12.66l-9.95-10a9 9 0 00-12.71 0z"/>
+          </svg>
+        </div>
       </div>
-    </div>
-    <div class="w-full text-slate-500 text-center uppercase font-bold text-xl">
-      <span>GRAFICO DE ALUMNOS USUARIOS DE LOS SERVICIOS UNIVERSITARIO</span>
-    </div>
-    <div class="flex justify-center items-center gap-8 w-full">
-      <div>
-        <apx-chart
-          [series]="chartBarrasComedor.series"
-          [chart]="chartBarrasComedor.chart"
-          [dataLabels]="chartBarrasComedor.dataLabels"
-          [plotOptions]="chartBarrasComedor.plotOptions"
-          [yaxis]="chartBarrasComedor.yaxis"
-          [legend]="chartBarrasComedor.legend"
-          [fill]="chartBarrasComedor.fill"
-          [stroke]="chartBarrasComedor.stroke"
-          [tooltip]="chartBarrasComedor.tooltip"
-          [xaxis]="chartBarrasComedor.xaxis"
-          [title]="chartBarrasComedor.title"
-        ></apx-chart>
+
+      <div class="chip-status-pendiente flex justify-between rounded-lg p-5 shadow-xl">
+        <div class="text-slate-500">
+          <h6 class="text-sm">Pendientes</h6>
+          <h1 class="text-2xl font-bold">{{ statistics.estados_solicitud.pendiente }}</h1>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-amber-500" viewBox="0 0 512 512">
+            <path
+              d="M416.07 272a160 160 0 10-160 160 160 160 0 00160-160zM142.12 91.21A46.67 46.67 0 00112 80l-2.79.08C83.66 81.62 64 104 64.07 131c0 13.21 4.66 19.37 10.88 27.23a4.55 4.55 0 003.24 1.77h.88a3.23 3.23 0 002.54-1.31L142.38 99a5.38 5.38 0 001.55-4 5.26 5.26 0 00-1.81-3.79zM369.88 91.21A46.67 46.67 0 01400 80l2.79.08C428.34 81.62 448 104 447.93 131c0 13.21-4.66 19.37-10.88 27.23a4.55 4.55 0 01-3.24 1.76h-.88a3.23 3.23 0 01-2.54-1.31L369.62 99a5.38 5.38 0 01-1.55-4 5.26 5.26 0 011.81-3.79z"
+              fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+                  d="M256.07 160v112h-80M416.07 432l-40-40M96.07 432l40-40"/>
+          </svg>
+        </div>
       </div>
-      <div>
-        <apx-chart
-          [series]="chartBarrasInternado.series"
-          [chart]="chartBarrasInternado.chart"
-          [dataLabels]="chartBarrasInternado.dataLabels"
-          [plotOptions]="chartBarrasInternado.plotOptions"
-          [yaxis]="chartBarrasInternado.yaxis"
-          [legend]="chartBarrasInternado.legend"
-          [fill]="chartBarrasInternado.fill"
-          [stroke]="chartBarrasInternado.stroke"
-          [tooltip]="chartBarrasInternado.tooltip"
-          [xaxis]="chartBarrasInternado.xaxis"
-          [title]="chartBarrasComedor.title"
-        ></apx-chart>
+
+      <div class="chip-status-rechazado flex justify-between rounded-lg p-5 shadow-xl">
+        <div class="text-slate-500">
+          <h6 class="text-sm">Rechazados</h6>
+          <h1 class="text-2xl font-bold">{{ statistics.estados_solicitud.rechazado }}</h1>
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500"
+               viewBox="0 0 512 512">
+            <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z"
+                  fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="32" d="M320 320L192 192M192 320l128-128"/>
+          </svg>
+        </div>
       </div>
-    </div>
-    <div class="w-full text-slate-500 text-center uppercase font-bold text-xl">
-      <span>GRAFICO DE ALUMNOS USUARIOS DE LOS SERVICIOS UNIVERSITARIO POR FACULTAD</span>
+
     </div>
 
-    <div class="flex justify-center items-center gap-8 w-full">
+    <div class="w-full text-slate-500 text-center uppercase font-bold text-xl">
+      <span>GRAFICO DE ALUMNOS USUARIOS DE LOS SERVICIOS UNIVERSITARIO POR FACULTAD Y ESCUELA</span>
+    </div>
+
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 justify-center items-center gap-8 w-full">
       <div>
         <apx-chart
           [series]="chartBarrasHComedor.series"
@@ -97,3 +112,5 @@
     </div>
   </div>
 </div>
+
+<app-block-ui [show]="isLoading"></app-block-ui>

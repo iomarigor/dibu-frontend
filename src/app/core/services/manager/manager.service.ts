@@ -13,6 +13,7 @@ import {
 } from "../../models/requests";
 import {IDebtsStudent, IValidationUser} from "../../models/user";
 import {EnvServiceFactory} from "../env/env.service.provider";
+import {IStatistics} from "../../models/statistics";
 
 @Injectable({
   providedIn: 'root'
@@ -82,5 +83,9 @@ export class ManagerService {
 
   public getRequestStatus(dni: string): Observable<IResponse<IStatusRequest[]>> {
     return this.http.get<IResponse<IStatusRequest[]>>(this.urlRequest + '/servicioSolicitado/' + dni);
+  }
+
+  public getStatistics(code: number): Observable<IResponse<IStatistics>> {
+    return this.http.get<IResponse<IStatistics>>(this.urlBaseAnnouncement + '/reporte/' + code);
   }
 }

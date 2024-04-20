@@ -386,9 +386,8 @@ export class PostulationComponent implements OnDestroy {
               });
               this.modal.debts = true;
               this.modal.form = false;
+              return;
             }
-
-            return;
           }
 
           this.validateStudent();

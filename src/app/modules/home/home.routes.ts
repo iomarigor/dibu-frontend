@@ -20,7 +20,11 @@ export const homesRoutes: Routes = [
   },
   {
     path: 'statistics-data',
-    component: DataStatisticComponent
+    component: DataStatisticComponent,
+    canActivate: [authGuard],
+    data: {
+      role: [1, 2, 3]
+    }
   },
   {
     path: 'statues-regulations',
