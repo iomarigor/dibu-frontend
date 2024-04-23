@@ -1,336 +1,333 @@
 @if (view === 'list') {
-  <div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
-    <div class="flex justify-center">
-      <section class="container px-4 mx-auto">
-        <div class="mt-6 md:flex md:items-center md:justify-between">
-          <div
-            class="flex overflow-hidden uppercase bg-white divide-x text-2xl w-full font-bold text-slate-500 justify-center items-center rounded-lg rtl:flex-row-reverse">
-            <span>{{ title }}</span>
-          </div>
-        </div>
-        <div *ngIf="announcement.nombre !== ''"
-             class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6 gap-4">
-          <button (click)="modal.status = true"
-                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-400">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
-              <path
-                d="M384 80H128c-26 0-43 14-48 40L48 272v112a48.14 48.14 0 0048 48h320a48.14 48.14 0 0048-48V272l-32-152c-5-27-23-40-48-40z"
-                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
-                    d="M48 272h144M320 272h144M192 272a64 64 0 00128 0M144 144h224M128 208h256"/>
-            </svg>
-            Estado de mi solicitud
-          </button>
-
-          <button (click)="modal.manual = true"
-                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-indigo-500 border rounded-md gap-x-2 hover:bg-indigo-400">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 24 24">
-              <g id="file-pdf">
-                <path
-                  d="M18.53,9,13,3.47a.75.75,0,0,0-.53-.22H8A2.75,2.75,0,0,0,5.25,6V18A2.75,2.75,0,0,0,8,20.75h8A2.75,2.75,0,0,0,18.75,18V9.5A.75.75,0,0,0,18.53,9ZM13.25,5.81l2.94,2.94H13.25ZM16,19.25H8A1.25,1.25,0,0,1,6.75,18V6A1.25,1.25,0,0,1,8,4.75h3.75V9.5a.76.76,0,0,0,.75.75h4.75V18A1.25,1.25,0,0,1,16,19.25Z"/>
-                <path
-                  d="M13.49,14.85a3.15,3.15,0,0,1-1.31-1.66,4.44,4.44,0,0,0,.19-2A.8.8,0,0,0,10.85,11a5,5,0,0,0,.25,2.4A29,29,0,0,1,9.83,16C9.12,16.4,8.15,17,8,17.69c-.12.56.93,2,2.72-1.12a18.58,18.58,0,0,1,2.44-.72,4.72,4.72,0,0,0,2,.61.82.82,0,0,0,.62-1.38C15.36,14.65,14.11,14.77,13.49,14.85Zm-4.78,3A4.32,4.32,0,0,1,9.8,16.61C9.12,17.69,8.71,17.88,8.71,17.86Zm2.92-6.81c.26,0,.24,1.15.06,1.46A3.07,3.07,0,0,1,11.63,11.05Zm-.87,4.88A14.76,14.76,0,0,0,11.64,14a3.88,3.88,0,0,0,1.08,1.26A12.35,12.35,0,0,0,10.76,15.93Zm4.7-.18s-.18.22-1.33-.28C15.38,15.38,15.59,15.67,15.46,15.75Z"/>
-              </g>
-            </svg>
-            Instructivo
-          </button>
-
-          <button style="background: #1ABB9C" (click)="modal.video = true"
-                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-emerald-100">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
-              <path
-                d="M374.79 308.78L457.5 367a16 16 0 0022.5-14.62V159.62A16 16 0 00457.5 145l-82.71 58.22A16 16 0 00368 216.3v79.4a16 16 0 006.79 13.08z"
-                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-              <path
-                d="M268 384H84a52.15 52.15 0 01-52-52V180a52.15 52.15 0 0152-52h184.48A51.68 51.68 0 01320 179.52V332a52.15 52.15 0 01-52 52z"
-                fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
-            </svg>
-            Video instructivo
-          </button>
-
-          <button (click)="modal.form = true" style="background: #0F75BC"
-                  class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-blue-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
-              <path
-                d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
-                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-              <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none" stroke="currentColor"
-                    stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-            </svg>
-            Postular
-          </button>
-        </div>
-
-        <div class="mt-6" *ngIf="announcement.nombre !== ''">
-          <cdk-accordion-item class="accordion">
-            @for (section of announcement.secciones; track section; let index = $index) {
-              <cdk-accordion-item
-                #accordionItem="cdkAccordionItem"
-                class="example-accordion-item"
-                role="button"
-                tabindex="0"
-                [attr.id]="'accordion-header-' + index"
-                [attr.aria-expanded]="accordionItem.expanded"
-                [attr.aria-controls]="'accordion-body-' + index">
-                <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                       class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c"
-                       viewBox="0 0 512 512">
-                    <path
-                      d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
-                  </svg>
-                  {{ section.descripcion }}
-                </div>
-                <div role="region" class="my-6"
-                     [style.display]="accordionItem.expanded ? '' : 'none'"
-                     [attr.id]="'accordion-body-' + index"
-                     [attr.aria-labelledby]="'accordion-header-' + index"
-                >
-                  <section class="container px-4 mx-auto">
-                    <div class="-mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                        <div class="overflow-hidden border border-gray-200 md:rounded-lg">
-                          <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                            <tr>
-                              <th scope="col"
-                                  class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500">
-                                <button class="flex items-center gap-x-3 focus:outline-none uppercase">
-                                  <span>Nombre</span>
-
-                                  <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                      d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
-                                      fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                                    <path
-                                      d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
-                                      fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                                    <path
-                                      d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
-                                      fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
-                                  </svg>
-                                </button>
-                              </th>
-
-                              <th scope="col"
-                                  class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 flex justify-center">
-                                Descripción
-                              </th>
-
-                              <th scope="col"
-                                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                                Tipo
-                              </th>
-                              <th scope="col"
-                                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                                Guia
-                              </th>
-                            </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-
-                              @for (requirement of section.requisitos; track requirement; let index = $index) {
-                                <tr>
-                                  <td class="px-4 py-4 text-sm font-medium">
-                                    <div>
-                                      <h2 class="font-medium text-gray-500">{{ requirement.nombre }}</h2>
-                                    </div>
-                                  </td>
-                                  <td class="px-4 py-4 text-sm font-medium">
-                                    <div>
-                                      <h2
-                                        class="font-medium text-gray-500 text-center">{{ requirement.descripcion || '-' }}</h2>
-                                    </div>
-                                  </td>
-                                  <td class="px-4 py-4 text-sm font-medium text-center">
-                                    <div>
-                                      <h2 class="font-medium text-gray-500 uppercase">
-                                        {{ requirement.tipo_requisito_id === 1 ? 'Documento' : requirement.tipo_requisito_id === 2 ? 'Imagen' : 'Formulario' }}
-                                      </h2>
-                                    </div>
-                                  </td>
-                                  <td class="px-4 py-4 text-sm font-medium whitespace-nowrap flex justify-center">
-                                    <div class="text-center">
-                                      @if (requirement.url_guia) {
-                                        <a [href]="requirement.url_guia" target="_blank">
-                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
-                                            <path
-                                              d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
-                                              fill="none" stroke="currentColor" stroke-linejoin="round"
-                                              stroke-width="32"/>
-                                            <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160"
-                                                  fill="none"
-                                                  stroke="currentColor"
-                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-                                          </svg>
-                                        </a>
-                                      } @else {
-                                        <div>-</div>
-                                      }
-                                    </div>
-                                  </td>
-                                </tr>
-                              }
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                </div>
-              </cdk-accordion-item>
-            }
-          </cdk-accordion-item>
-        </div>
-
-        <div class="mt-6 flex flex-col w-full h-full items-center justify-center"
-             *ngIf="announcement.nombre === '' && !isLoading">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-slate-500" viewBox="0 0 512 512">
-              <rect x="32" y="96" width="64" height="368" rx="16" ry="16" fill="none" stroke="currentColor"
-                    stroke-linejoin="round" stroke-width="32"/>
-              <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
-                    d="M112 224h128M112 400h128"/>
-              <rect x="112" y="160" width="128" height="304" rx="16" ry="16" fill="none" stroke="currentColor"
-                    stroke-linejoin="round" stroke-width="32"/>
-              <rect x="256" y="48" width="96" height="416" rx="16" ry="16" fill="none" stroke="currentColor"
-                    stroke-linejoin="round" stroke-width="32"/>
-              <path
-                d="M422.46 96.11l-40.4 4.25c-11.12 1.17-19.18 11.57-17.93 23.1l34.92 321.59c1.26 11.53 11.37 20 22.49 18.84l40.4-4.25c11.12-1.17 19.18-11.57 17.93-23.1L445 115c-1.31-11.58-11.42-20.06-22.54-18.89z"
-                fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
-            </svg>
-          </div>
-
-          <div class="w-full text-slate-500 font-bold uppercase text-xl">
-            <span>Comunicado</span>
-          </div>
-
-          <article class="w-full mt-4 text-slate-500 text-xl">
-            <p>La convocatoria para postular a los servicios de comedor y residencia estudiantil, se habilitará cuando
-              cumplan los siguientes requisitos:</p>
-          </article>
-
-          <div type="circle" class="text-slate-500 space-y-2 mt-4 w-full">
-            <li>
-              La matricula académica para el semestre 2024-I, debe estar habilitada en el Sistema Académico de la UNAS.
-            </li>
-            <li>
-              Estar matriculado (mayor a 12 créditos) en el semestre académico 2024-I, mediante el sistema académico.
-            </li>
-            <li>
-              No tener deuda de los servicios de comedor y residencia.
-            </li>
-            <li>
-              Promedio ponderado semestral APROBADO.
-            </li>
-            <li>
-              Cumplir con las fechas establecidas en la convocatoria.
-            </li>
-          </div>
-        </div>
-
-      </section>
-    </div>
-  </div>
-} @else {
-  <div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
-    <div class="w-full flex justify-center items-center flex-col overflow-auto space-y-4">
-      <div class="w-3/4 mt-8">
-        <div class="uppercase mb-4 text-gray-500 text-2xl font-bold flex items-center gap-6">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-               stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="modal.delete = true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
-          </svg>
-          <span>Bienvenido a la postulación</span>
+<div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
+  <div class="flex justify-center">
+    <section class="container px-4 mx-auto">
+      <div class="mt-6 md:flex md:items-center md:justify-between">
+        <div
+          class="flex overflow-hidden uppercase bg-white divide-x text-2xl w-full font-bold text-slate-500 justify-center items-center rounded-lg rtl:flex-row-reverse">
+          <span>{{ title }}</span>
         </div>
       </div>
+      <div *ngIf="announcement.nombre === ''"
+        class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6 gap-4">
+        <button (click)="modal.status = true"
+          class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-400">
 
-      <div class="w-3/4">
-        <div class="flex flex-col mt-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+            <path
+              d="M384 80H128c-26 0-43 14-48 40L48 272v112a48.14 48.14 0 0048 48h320a48.14 48.14 0 0048-48V272l-32-152c-5-27-23-40-48-40z"
+              fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+              d="M48 272h144M320 272h144M192 272a64 64 0 00128 0M144 144h224M128 208h256" />
+          </svg>
+          Estado de mi solicitud
+        </button>
+      </div>
+      <div *ngIf="announcement.nombre !== ''"
+        class="inline-flex justify-end overflow-hidden bg-white w-full divide-x rounded-lg rtl:flex-row-reverse mt-6 gap-4">
+        <button (click)="modal.status = true"
+          class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-400">
 
-          <cdk-accordion-item class="accordion">
-            @for (section of postulation.secciones; track section; let index = $index) {
-              <cdk-accordion-item
-                #accordionItem="cdkAccordionItem"
-                class="example-accordion-item"
-                role="button"
-                tabindex="0"
-                [attr.id]="'accordion-header-' + index"
-                [attr.aria-expanded]="accordionItem.expanded"
-                [attr.aria-controls]="'accordion-body-' + index">
-                <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
-                  <svg xmlns="http://www.w3.org/2000/svg"
-                       class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c"
-                       viewBox="0 0 512 512">
-                    <path
-                      d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z"/>
-                  </svg>
-                  {{ section.descripcion }}
-                </div>
-                <div role="region" class="my-6"
-                     [style.display]="accordionItem.expanded ? '' : 'none'"
-                     [attr.id]="'accordion-body-' + index"
-                     [attr.aria-labelledby]="'accordion-header-' + index"
-                >
-                  <div class="grid grid-cols-2 gap-4" [formGroup]="formPostulation">
-                    @for (req of section.requisitos; track req) {
-                      <div class="text-sm text-slate-500 flex gap-4 flex-col w-full">
-                        <label>{{ req.nombre }}:</label>
-                        @if ([1, 2, 3].includes(req.tipo_requisito_id)) {
-                          <div class="flex items-end h-full">
-                            @if (req.tipo_requisito_id === 3) {
-                              <input type="text" [formControlName]="req.id || ''"
-                                     class="w-full border border-gray-200 rounded-md px-4 h-12">
-                            } @else {
-                              <input type="file" [accept]="req.tipo_requisito_id === 1 ? '.pdf': 'image/jpeg,image/png'"
-                                     class="w-full border border-gray-200 rounded-md px-4 h-12"
-                                     (change)="processFile($event, req.id?.toString() || '', req.tipo_requisito_id )">
-                            }
-                          </div>
-                        } @else {
-                          <div class="flex items-end h-full">
-                            <select [formControlName]="req.id || ''"
-                                    class="bg-gray-50 border border-gray-300 text-gray-500 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                              <option selected hidden>Seleccione una Opción</option>
-                              @for (op of req.opciones?.split("|"); track op) {
-                                <option [value]="op">{{ op }}</option>
-                              }
-                            </select>
-                          </div>
-                        }
-                        <small class="text-red-500"
-                               *ngIf="formPostulation.get(req.id?.toString() || '')?.invalid && formPostulation.get(req.id?.toString() || '')?.touched">
-                          El Campo es requerido
-                        </small>
-                      </div>
-                    }
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+            <path
+              d="M384 80H128c-26 0-43 14-48 40L48 272v112a48.14 48.14 0 0048 48h320a48.14 48.14 0 0048-48V272l-32-152c-5-27-23-40-48-40z"
+              fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+              d="M48 272h144M320 272h144M192 272a64 64 0 00128 0M144 144h224M128 208h256" />
+          </svg>
+          Estado de mi solicitud
+        </button>
+
+        <button (click)="modal.manual = true"
+          class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 bg-indigo-500 border rounded-md gap-x-2 hover:bg-indigo-400">
+
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-white" viewBox="0 0 24 24">
+            <g id="file-pdf">
+              <path
+                d="M18.53,9,13,3.47a.75.75,0,0,0-.53-.22H8A2.75,2.75,0,0,0,5.25,6V18A2.75,2.75,0,0,0,8,20.75h8A2.75,2.75,0,0,0,18.75,18V9.5A.75.75,0,0,0,18.53,9ZM13.25,5.81l2.94,2.94H13.25ZM16,19.25H8A1.25,1.25,0,0,1,6.75,18V6A1.25,1.25,0,0,1,8,4.75h3.75V9.5a.76.76,0,0,0,.75.75h4.75V18A1.25,1.25,0,0,1,16,19.25Z" />
+              <path
+                d="M13.49,14.85a3.15,3.15,0,0,1-1.31-1.66,4.44,4.44,0,0,0,.19-2A.8.8,0,0,0,10.85,11a5,5,0,0,0,.25,2.4A29,29,0,0,1,9.83,16C9.12,16.4,8.15,17,8,17.69c-.12.56.93,2,2.72-1.12a18.58,18.58,0,0,1,2.44-.72,4.72,4.72,0,0,0,2,.61.82.82,0,0,0,.62-1.38C15.36,14.65,14.11,14.77,13.49,14.85Zm-4.78,3A4.32,4.32,0,0,1,9.8,16.61C9.12,17.69,8.71,17.88,8.71,17.86Zm2.92-6.81c.26,0,.24,1.15.06,1.46A3.07,3.07,0,0,1,11.63,11.05Zm-.87,4.88A14.76,14.76,0,0,0,11.64,14a3.88,3.88,0,0,0,1.08,1.26A12.35,12.35,0,0,0,10.76,15.93Zm4.7-.18s-.18.22-1.33-.28C15.38,15.38,15.59,15.67,15.46,15.75Z" />
+            </g>
+          </svg>
+          Instructivo
+        </button>
+
+        <button style="background: #1ABB9C" (click)="modal.video = true"
+          class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-emerald-100">
+
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+            <path
+              d="M374.79 308.78L457.5 367a16 16 0 0022.5-14.62V159.62A16 16 0 00457.5 145l-82.71 58.22A16 16 0 00368 216.3v79.4a16 16 0 006.79 13.08z"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+            <path
+              d="M268 384H84a52.15 52.15 0 01-52-52V180a52.15 52.15 0 0152-52h184.48A51.68 51.68 0 01320 179.52V332a52.15 52.15 0 01-52 52z"
+              fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+          </svg>
+          Video instructivo
+        </button>
+
+        <button (click)="modal.form = true" style="background: #0F75BC"
+          class="flex items-center justify-center uppercase px-5 py-2 text-sm text-white transition-colors duration-200 border rounded-md gap-x-2 hover:bg-blue-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+            <path
+              d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
+              fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+            <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none" stroke="currentColor"
+              stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+          </svg>
+          Postular
+        </button>
+      </div>
+
+      <div class="mt-6" *ngIf="announcement.nombre !== ''">
+        <cdk-accordion-item class="accordion">
+          @for (section of announcement.secciones; track section; let index = $index) {
+          <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button"
+            tabindex="0" [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' + index">
+            <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c"
+                viewBox="0 0 512 512">
+                <path
+                  d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z" />
+              </svg>
+              {{ section.descripcion }}
+            </div>
+            <div role="region" class="my-6" [style.display]="accordionItem.expanded ? '' : 'none'"
+              [attr.id]="'accordion-body-' + index" [attr.aria-labelledby]="'accordion-header-' + index">
+              <section class="container px-4 mx-auto">
+                <div class="-mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="overflow-hidden border border-gray-200 md:rounded-lg">
+                      <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th scope="col"
+                              class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500">
+                              <button class="flex items-center gap-x-3 focus:outline-none uppercase">
+                                <span>Nombre</span>
+
+                                <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
+                                    fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                  <path
+                                    d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
+                                    fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                                  <path
+                                    d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
+                                    fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                                </svg>
+                              </button>
+                            </th>
+
+                            <th scope="col"
+                              class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 flex justify-center">
+                              Descripción
+                            </th>
+
+                            <th scope="col"
+                              class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                              Tipo
+                            </th>
+                            <th scope="col"
+                              class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                              Guia
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+
+                          @for (requirement of section.requisitos; track requirement; let index = $index) {
+                          <tr>
+                            <td class="px-4 py-4 text-sm font-medium">
+                              <div>
+                                <h2 class="font-medium text-gray-500">{{ requirement.nombre }}</h2>
+                              </div>
+                            </td>
+                            <td class="px-4 py-4 text-sm font-medium">
+                              <div>
+                                <h2 class="font-medium text-gray-500 text-center">{{ requirement.descripcion || '-' }}
+                                </h2>
+                              </div>
+                            </td>
+                            <td class="px-4 py-4 text-sm font-medium text-center">
+                              <div>
+                                <h2 class="font-medium text-gray-500 uppercase">
+                                  {{ requirement.tipo_requisito_id === 1 ? 'Documento' : requirement.tipo_requisito_id
+                                  === 2 ? 'Imagen' : 'Formulario' }}
+                                </h2>
+                              </div>
+                            </td>
+                            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap flex justify-center">
+                              <div class="text-center">
+                                @if (requirement.url_guia) {
+                                <a [href]="requirement.url_guia" target="_blank">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 512 512">
+                                    <path
+                                      d="M416 221.25V416a48 48 0 01-48 48H144a48 48 0 01-48-48V96a48 48 0 0148-48h98.75a32 32 0 0122.62 9.37l141.26 141.26a32 32 0 019.37 22.62z"
+                                      fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+                                    <path d="M256 56v120a32 32 0 0032 32h120M176 288h160M176 368h160" fill="none"
+                                      stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                      stroke-width="32" />
+                                  </svg>
+                                </a>
+                                } @else {
+                                <div>-</div>
+                                }
+                              </div>
+                            </td>
+                          </tr>
+                          }
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-              </cdk-accordion-item>
-            }
+              </section>
+            </div>
           </cdk-accordion-item>
+          }
+        </cdk-accordion-item>
+      </div>
+
+      <div class="mt-6 flex flex-col w-full h-full items-center justify-center"
+        *ngIf="announcement.nombre === '' && !isLoading">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-slate-500" viewBox="0 0 512 512">
+            <rect x="32" y="96" width="64" height="368" rx="16" ry="16" fill="none" stroke="currentColor"
+              stroke-linejoin="round" stroke-width="32" />
+            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"
+              d="M112 224h128M112 400h128" />
+            <rect x="112" y="160" width="128" height="304" rx="16" ry="16" fill="none" stroke="currentColor"
+              stroke-linejoin="round" stroke-width="32" />
+            <rect x="256" y="48" width="96" height="416" rx="16" ry="16" fill="none" stroke="currentColor"
+              stroke-linejoin="round" stroke-width="32" />
+            <path
+              d="M422.46 96.11l-40.4 4.25c-11.12 1.17-19.18 11.57-17.93 23.1l34.92 321.59c1.26 11.53 11.37 20 22.49 18.84l40.4-4.25c11.12-1.17 19.18-11.57 17.93-23.1L445 115c-1.31-11.58-11.42-20.06-22.54-18.89z"
+              fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" />
+          </svg>
         </div>
-        <div class="w-full flex justify-end items-center mt-8">
-          <button type="button" (click)="handlePostulation()"
-                  class="flex items-center justify-center capitalize px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
-              <path
-                d="M380.93 57.37A32 32 0 00358.3 48H94.22A46.21 46.21 0 0048 94.22v323.56A46.21 46.21 0 0094.22 464h323.56A46.36 46.36 0 00464 417.78V153.7a32 32 0 00-9.37-22.63zM256 416a64 64 0 1164-64 63.92 63.92 0 01-64 64zm48-224H112a16 16 0 01-16-16v-64a16 16 0 0116-16h192a16 16 0 0116 16v64a16 16 0 01-16 16z"
-                fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-            </svg>
-            Postular
-          </button>
+
+        <div class="w-full text-slate-500 font-bold uppercase text-xl">
+          <span>Comunicado</span>
         </div>
+
+        <article class="w-full mt-4 text-slate-500 text-xl">
+          <p>La convocatoria para postular a los servicios de comedor y residencia estudiantil, se habilitará cuando
+            cumplan los siguientes requisitos:</p>
+        </article>
+
+        <div type="circle" class="text-slate-500 space-y-2 mt-4 w-full">
+          <li>
+            La matricula académica para el semestre 2024-I, debe estar habilitada en el Sistema Académico de la UNAS.
+          </li>
+          <li>
+            Estar matriculado (mayor a 12 créditos) en el semestre académico 2024-I, mediante el sistema académico.
+          </li>
+          <li>
+            No tener deuda de los servicios de comedor y residencia.
+          </li>
+          <li>
+            Promedio ponderado semestral APROBADO.
+          </li>
+          <li>
+            Cumplir con las fechas establecidas en la convocatoria.
+          </li>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</div>
+} @else {
+<div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
+  <div class="w-full flex justify-center items-center flex-col overflow-auto space-y-4">
+    <div class="w-3/4 mt-8">
+      <div class="uppercase mb-4 text-gray-500 text-2xl font-bold flex items-center gap-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="modal.delete = true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        </svg>
+        <span>Bienvenido a la postulación</span>
+      </div>
+    </div>
+
+    <div class="w-3/4">
+      <div class="flex flex-col mt-6">
+
+        <cdk-accordion-item class="accordion">
+          @for (section of postulation.secciones; track section; let index = $index) {
+          <cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button"
+            tabindex="0" [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' + index">
+            <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6 transform {{accordionItem.expanded && 'rotate-90'}}" fill="#00725c"
+                viewBox="0 0 512 512">
+                <path
+                  d="M190.06 414l163.12-139.78a24 24 0 000-36.44L190.06 98c-15.57-13.34-39.62-2.28-39.62 18.22v279.6c0 20.5 24.05 31.56 39.62 18.18z" />
+              </svg>
+              {{ section.descripcion }}
+            </div>
+            <div role="region" class="my-6" [style.display]="accordionItem.expanded ? '' : 'none'"
+              [attr.id]="'accordion-body-' + index" [attr.aria-labelledby]="'accordion-header-' + index">
+              <div class="grid grid-cols-2 gap-4" [formGroup]="formPostulation">
+                @for (req of section.requisitos; track req) {
+                <div class="text-sm text-slate-500 flex gap-4 flex-col w-full">
+                  <label>{{ req.nombre }}:</label>
+                  @if ([1, 2, 3].includes(req.tipo_requisito_id)) {
+                  <div class="flex items-end h-full">
+                    @if (req.tipo_requisito_id === 3) {
+                    <input type="text" [formControlName]="req.id || ''"
+                      class="w-full border border-gray-200 rounded-md px-4 h-12">
+                    } @else {
+                    <input type="file" [accept]="req.tipo_requisito_id === 1 ? '.pdf': 'image/jpeg,image/png'"
+                      class="w-full border border-gray-200 rounded-md px-4 h-12"
+                      (change)="processFile($event, req.id?.toString() || '', req.tipo_requisito_id )">
+                    }
+                  </div>
+                  } @else {
+                  <div class="flex items-end h-full">
+                    <select [formControlName]="req.id || ''"
+                      class="bg-gray-50 border border-gray-300 text-gray-500 h-12 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                      <option selected hidden>Seleccione una Opción</option>
+                      @for (op of req.opciones?.split("|"); track op) {
+                      <option [value]="op">{{ op }}</option>
+                      }
+                    </select>
+                  </div>
+                  }
+                  <small class="text-red-500"
+                    *ngIf="formPostulation.get(req.id?.toString() || '')?.invalid && formPostulation.get(req.id?.toString() || '')?.touched">
+                    El Campo es requerido
+                  </small>
+                </div>
+                }
+              </div>
+            </div>
+          </cdk-accordion-item>
+          }
+        </cdk-accordion-item>
+      </div>
+      <div class="w-full flex justify-end items-center mt-8">
+        <button type="button" (click)="handlePostulation()"
+          class="flex items-center justify-center capitalize px-5 py-2 text-sm text-white transition-colors duration-200 bg-blue-500 border rounded-md gap-x-2 hover:bg-blue-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 512 512">
+            <path
+              d="M380.93 57.37A32 32 0 00358.3 48H94.22A46.21 46.21 0 0048 94.22v323.56A46.21 46.21 0 0094.22 464h323.56A46.36 46.36 0 00464 417.78V153.7a32 32 0 00-9.37-22.63zM256 416a64 64 0 1164-64 63.92 63.92 0 01-64 64zm48-224H112a16 16 0 01-16-16v-64a16 16 0 0116-16h192a16 16 0 0116 16v64a16 16 0 01-16 16z"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+          </svg>
+          Postular
+        </button>
       </div>
     </div>
   </div>
+</div>
 }
 
-<app-modal [(show)]="modal.form" title="Bienvenido Postulante" buttonSuccess="Siguiente"
-           (onNext)="validateDebts()">
+<app-modal [(show)]="modal.form" title="Bienvenido Postulante" buttonSuccess="Siguiente" (onNext)="validateDebts()">
   <div class="space-y-4">
     <div class="w-full flex justify-center items-center font-bold text-slate-500 text-xl uppercase">
       <span>Ingrese sus datos</span>
@@ -340,7 +337,7 @@
         <label>DNI:</label>
         <input type="text" formControlName="dni_student" class="w-full border border-gray-200 rounded-md h-10 px-4">
         <small class="text-red-500"
-               *ngIf="formPostulation.get('dni_student')?.invalid && formPostulation.get('dni_student')?.touched">
+          *ngIf="formPostulation.get('dni_student')?.invalid && formPostulation.get('dni_student')?.touched">
           El DNI es requerido
         </small>
       </div>
@@ -348,11 +345,11 @@
         <label>Correo Institucional</label>
         <input type="email" formControlName="email_student" class="w-full border border-gray-200 rounded-md h-10 px-4">
         <small class="text-red-500"
-               *ngIf="formPostulation.get('email_student')?.invalid && formPostulation.get('email_student')?.touched && formPostulation.get('email_student')?.hasError('required')">
+          *ngIf="formPostulation.get('email_student')?.invalid && formPostulation.get('email_student')?.touched && formPostulation.get('email_student')?.hasError('required')">
           El Correo Institucional es requerido
         </small>
         <small class="text-red-500"
-               *ngIf="formPostulation.get('email_student')?.invalid && formPostulation.get('email_student')?.touched && formPostulation.get('email_student')?.hasError('email')">
+          *ngIf="formPostulation.get('email_student')?.invalid && formPostulation.get('email_student')?.touched && formPostulation.get('email_student')?.hasError('email')">
           El Correo Institucional no es valido
         </small>
       </div>
@@ -366,27 +363,27 @@
       <div class="text-sm text-slate-500 flex gap-4 items-center">
         <label class="uppercase">Comedor:</label>
         <input type="checkbox" formControlName="eat_service"
-               class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+          class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
       <div class="text-sm text-slate-500 flex gap-4 items-center">
         <label class="uppercase">Residencia:</label>
         <input type="checkbox" formControlName="resident_service"
-               class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
+          class="shrink-0 cursor-pointer mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none">
       </div>
     </div>
   </div>
 </app-modal>
 
 <app-modal [(show)]="modal.delete" [showHeader]="false" buttonSuccess="Aceptar" [showButtonCancel]="true"
-           (onNext)="init()">
+  (onNext)="init()">
   <div>
     <div class="flex items-center justify-center">
       <svg xmlns="http://www.w3.org/2000/svg" class="w-28 h-28 text-amber-300" viewBox="0 0 512 512">
         <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none"
-              stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+          stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
         <path d="M250.26 166.05L256 288l5.73-121.95a5.74 5.74 0 00-5.79-6h0a5.74 5.74 0 00-5.68 6z" fill="none"
-              stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
-        <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" stroke="currentColor" class="fill-amber-300"/>
+          stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+        <path d="M256 367.91a20 20 0 1120-20 20 20 0 01-20 20z" stroke="currentColor" class="fill-amber-300" />
       </svg>
     </div>
     <div class="flex justify-center items-center text-slate-500 font-bold text-xl">
@@ -413,65 +410,62 @@
         <div class="overflow-hidden border border-gray-200 md:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
-                <button class="flex items-center gap-x-3 focus:outline-none">
-                  <span>Apellidos y Nombres</span>
+              <tr>
+                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  <button class="flex items-center gap-x-3 focus:outline-none">
+                    <span>Apellidos y Nombres</span>
 
-                  <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
-                      fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                    <path
-                      d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
-                      fill="currentColor" stroke="currentColor" stroke-width="0.1"/>
-                    <path
-                      d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
-                      fill="currentColor" stroke="currentColor" stroke-width="0.3"/>
-                  </svg>
-                </button>
-              </th>
+                    <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z"
+                        fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                      <path
+                        d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z"
+                        fill="currentColor" stroke="currentColor" stroke-width="0.1" />
+                      <path
+                        d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z"
+                        fill="currentColor" stroke="currentColor" stroke-width="0.3" />
+                    </svg>
+                  </button>
+                </th>
 
-              <th scope="col"
-                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                Monto de la deuda
-              </th>
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Monto de la deuda
+                </th>
 
-              <th scope="col"
-                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                Concepto de la deuda
-              </th>
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Concepto de la deuda
+                </th>
 
-              <th scope="col"
-                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                Fecha de la deuda
-              </th>
-            </tr>
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Fecha de la deuda
+                </th>
+              </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               @for (debt of debts; track debt) {
-                <tr>
-                  <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                    <div>
-                      <h2 class="font-medium text-slate-500">{{ debt.nombre_completo }}</h2>
-                    </div>
-                  </td>
-                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                    <div>
-                      <h2 class="font-medium text-slate-500">S/ {{ debt.monto_deuda }}</h2>
-                    </div>
-                  </td>
-                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                    <div>
-                      <h2 class="font-medium text-slate-500">{{ debt.concepto_deuda }}</h2>
-                    </div>
-                  </td>
-                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                    <div>
-                      <h2 class="font-medium text-slate-500">{{ debt.fecha_deuda | date: 'mediumDate': 'UTC' }}</h2>
-                    </div>
-                  </td>
-                </tr>
+              <tr>
+                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                  <div>
+                    <h2 class="font-medium text-slate-500">{{ debt.nombre_completo }}</h2>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                  <div>
+                    <h2 class="font-medium text-slate-500">S/ {{ debt.monto_deuda }}</h2>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                  <div>
+                    <h2 class="font-medium text-slate-500">{{ debt.concepto_deuda }}</h2>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                  <div>
+                    <h2 class="font-medium text-slate-500">{{ debt.fecha_deuda | date: 'mediumDate': 'UTC' }}</h2>
+                  </div>
+                </td>
+              </tr>
               }
             </tbody>
           </table>
@@ -492,33 +486,32 @@
         <div class="overflow-hidden border border-gray-200 md:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
-                <button class="flex items-center gap-x-3 focus:outline-none">
-                  <span>Tipo</span>
-                </button>
-              </th>
+              <tr>
+                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  <button class="flex items-center gap-x-3 focus:outline-none">
+                    <span>Tipo</span>
+                  </button>
+                </th>
 
-              <th scope="col"
-                  class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                Descripción
-              </th>
-            </tr>
+                <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                  Descripción
+                </th>
+              </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               @for (err of errorsPostulation; track err) {
-                <tr>
-                  <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                    <div>
-                      <h2 class="font-medium text-slate-500">{{ err.tipo }}</h2>
-                    </div>
-                  </td>
-                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                    <div>
-                      <h2 class="font-medium text-slate-500">{{ err.msg }}</h2>
-                    </div>
-                  </td>
-                </tr>
+              <tr>
+                <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                  <div>
+                    <h2 class="font-medium text-slate-500">{{ err.tipo }}</h2>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                  <div>
+                    <h2 class="font-medium text-slate-500">{{ err.msg }}</h2>
+                  </div>
+                </td>
+              </tr>
               }
             </tbody>
           </table>
@@ -530,16 +523,16 @@
 
 <app-modal [(show)]="modal.video" [showFooter]="false">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/ahxDR_JhgzA?si=kBHbL0rVwpArvLWH"
-          title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    title="YouTube video player" frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </app-modal>
 
 <app-modal [(show)]="modal.manual" [showFooter]="false">
   <iframe width="760" height="715" src="assets/files/Manual.pdf"
-          title="VIDEO INSTRUCTIVO SISTEMA DE GESTIÓN DOCUMENTARIA DBU" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    title="VIDEO INSTRUCTIVO SISTEMA DE GESTIÓN DOCUMENTARIA DBU" frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </app-modal>
 
 <app-modal [show]="modal.status" (showChange)="resetValidateStatus()" [showFooter]="false">
@@ -557,11 +550,11 @@
       </div>
 
       <button (click)="validateStatusRequest()" *ngIf="!statusRequest.length"
-              class="w-full h-12 bg-blue-500 hover:bg-blue-400 text-white rounded flex gap-4 items-center justify-center">
+        class="w-full h-12 bg-blue-500 hover:bg-blue-400 text-white rounded flex gap-4 items-center justify-center">
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
         Consultar
       </button>
@@ -574,72 +567,66 @@
           <div class="overflow-hidden border border-gray-200 md:rounded-lg">
             <table class="min-w-full divide-y divide-gray-200">
               <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  <button class="flex items-center gap-x-3 focus:outline-none">
-                    <span>Servicio</span>
-                  </button>
-                </th>
+                <tr>
+                  <th scope="col" class="py-3.5 px-4 text-sm font-normal text-center rtl:text-right text-gray-500">
+                    <button class="flex items-center gap-x-3 focus:outline-none">
+                      <span>Servicio</span>
+                    </button>
+                  </th>
 
-                <th scope="col"
-                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  Estado
-                </th>
+                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                    Estado
+                  </th>
 
-                <th scope="col"
-                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  Detalle
-                </th>
+                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                    Detalle
+                  </th>
 
-                <th scope="col"
-                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  Fecha de postulación
-                </th>
+                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                    Fecha de postulación
+                  </th>
 
-                <th scope="col"
-                    class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
-                  Fecha de revisión
-                </th>
-              </tr>
+                  <th scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500">
+                    Fecha de revisión
+                  </th>
+                </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
                 @for (status of statusRequest; track status) {
-                  <tr>
-                    <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                      <div>
-                        <h2 class="font-medium text-slate-500">{{ status.servicio.nombre }}</h2>
-                      </div>
-                    </td>
+                <tr>
+                  <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                    <div>
+                      <h2 class="font-medium text-slate-500">{{ status.servicio.nombre }}</h2>
+                    </div>
+                  </td>
 
-                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                      <div class="flex w-full justify-center">
-                        <div
-                          class="inline px-3 py-1 text-sm font-normal select-none rounded-full gap-x-2 capitalize chip-status-{{status.estado}}">
-                          {{ status.estado }}
-                        </div>
+                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                    <div class="flex w-full justify-center">
+                      <div
+                        class="inline px-3 py-1 text-sm font-normal select-none rounded-full gap-x-2 capitalize chip-status-{{status.estado}}">
+                        {{ status.estado }}
                       </div>
-                    </td>
+                    </div>
+                  </td>
 
-                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                      <div>
-                        <h2
-                          class="font-medium text-slate-500">{{ status.detalle_rechazo }}</h2>
-                      </div>
-                    </td>
+                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                    <div>
+                      <h2 class="font-medium text-slate-500">{{ status.detalle_rechazo }}</h2>
+                    </div>
+                  </td>
 
-                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                      <div>
-                        <h2
-                          class="font-medium text-slate-500">{{ status.updated_at | date: 'mediumDate': 'UTC' }}</h2>
-                      </div>
-                    </td>
-                    <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
-                      <div>
-                        <h2
-                          class="font-medium text-slate-500">{{ status.fecha_revision | date: 'mediumDate': 'UTC' || '-' }}</h2>
-                      </div>
-                    </td>
-                  </tr>
+                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                    <div>
+                      <h2 class="font-medium text-slate-500">{{ status.updated_at | date: 'mediumDate': 'UTC' }}</h2>
+                    </div>
+                  </td>
+                  <td class="px-4 py-4 text-sm text-center font-medium whitespace-nowrap">
+                    <div>
+                      <h2 class="font-medium text-slate-500">{{ status.fecha_revision | date: 'mediumDate': 'UTC' || '-'
+                        }}</h2>
+                    </div>
+                  </td>
+                </tr>
                 }
               </tbody>
             </table>
