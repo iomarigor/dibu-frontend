@@ -264,8 +264,8 @@ export class AnnouncementComponent implements OnDestroy {
     }
 
     this.announcement.nombre = this.formAnnouncement.value.name;
-    this.announcement.fecha_inicio = this.formAnnouncement.value.startDate;
-    this.announcement.fecha_fin = this.formAnnouncement.value.endDate;
+    this.announcement.fecha_inicio = this.formAnnouncement.value.startDate.replace('T', ' ') + ':00';
+    this.announcement.fecha_fin = this.formAnnouncement.value.endDate.replace('T', ' ') + ':00';
     this.announcement.activo = true;
 
     this.announcement.convocatoria_servicio = [
