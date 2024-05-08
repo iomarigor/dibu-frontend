@@ -40,12 +40,11 @@ export class ManagerService {
     return this.http.post<IResponse>(this.urlCreate, announcement);
   }
 
-  public getRequests(): Observable<IResponse<IRequest[]>> {
-    return this.http.get<IResponse<IRequest[]>>(this.urlRequests);
+  public getRequests(id: number): Observable<IResponse<IRequest[]>> {
+    return this.http.get<IResponse<IRequest[]>>(this.urlRequests + '/' + id);
   }
 
   public getCurrentAnnouncement(): Observable<IResponse<IAnnouncement>> {
-    console.log(this.urlBase)
     return this.http.get<IResponse<IAnnouncement>>(this.urlBaseAnnouncement + '/vigente-convocatoria');
   }
 

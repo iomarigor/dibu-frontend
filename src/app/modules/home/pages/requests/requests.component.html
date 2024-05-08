@@ -2,6 +2,80 @@
   <div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
     <div class="w-full flex justify-between">
       <div class="text-slate-500 font-bold text-2xl text-center w-full">
+        <span>Lista de postulantes por Convocatoria</span>
+      </div>
+    </div>
+
+    @if (announcements.length) {
+      <section class="container mx-auto space-y-4 mt-4">
+        <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+          @for (conv of announcements; track conv) {
+            <div class="flex-1 rounded shadow-xl flex flex-col h-full">
+              <div class="flex px-4 py-2 gap-4 flex-1">
+                <div class="flex-1 w-full h-full flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="text-slate-500 w-12 h-12" viewBox="0 0 512 512">
+                    <path
+                      d="M384 80H128c-26 0-43 14-48 40L48 272v112a48.14 48.14 0 0048 48h320a48.14 48.14 0 0048-48V272l-32-152c-5-27-23-40-48-40z"
+                      fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/>
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="32"
+                          d="M48 272h144M320 272h144M192 272a64 64 0 00128 0M144 144h224M128 208h256"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="text-slate-500 font-bold">
+                    <span>{{ conv.nombre }}</span>
+                  </div>
+                  <div>
+                    <h4></h4>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-between py-2 px-4 items-center">
+                <div class="font-bold text-sky-300 select-none">
+                  <span>{{ conv.fecha_inicio | date : 'mediumDate': 'UTC' }}</span>
+                </div>
+                <div>
+                  <button (click)="selectAnnouncement(conv)"
+                    class="rounded bg-emerald-500 text-white px-2 py-1 text-sm hover:bg-emerald-400 flex gap-1 items-center">
+                    Ver Convocatoria
+                    <svg xmlns="http://www.w3.org/2000/svg" class="text-white w-6 h-6" viewBox="0 0 512 512">
+                      <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="48" d="M268 112l144 144-144 144M392 256H100"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    } @else {
+      <div class="flex w-full h-full flex-col gap-6 items-center">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 text-slate-500" viewBox="0 0 512 512">
+            <path
+              d="M64 192v-72a40 40 0 0140-40h75.89a40 40 0 0122.19 6.72l27.84 18.56a40 40 0 0022.19 6.72H408a40 40 0 0140 40v40"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+            <path
+              d="M479.9 226.55L463.68 392a40 40 0 01-39.93 40H88.25a40 40 0 01-39.93-40L32.1 226.55A32 32 0 0164 192h384.1a32 32 0 0131.8 34.55z"
+              fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+          </svg>
+        </div>
+        <div class="font-bold text-slate-500 text-2xl">
+          <span>¡Aún no se cuenta con convocatorias!</span>
+        </div>
+      </div>
+    }
+  </div>
+} @else if (view === "request") {
+  <div class="px-8 py-12 overflow-auto w-full pb-24" style="height: calc(100vh - 64px)">
+    <div class="w-full flex justify-between">
+      <div class="text-slate-500 font-bold text-2xl text-center w-full flex justify-center items-center gap-4">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+             stroke="currentColor" class="w-8 h-8 rtl:-scale-x-100 cursor-pointer" (click)="view = 'list'">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"/>
+        </svg>
         <span>Lista de Solicitudes Recibidas</span>
       </div>
     </div>

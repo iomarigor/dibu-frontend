@@ -13,6 +13,7 @@ import {CdkAccordionItem} from "@angular/cdk/accordion";
 import {SafePipePipe} from "../../../../core/pipes/safe-pipe.pipe";
 import {AuthService} from "../../../../core/services/auth/auth.service";
 import {FilterService} from "../../../../core/services/filter/filter.service";
+import {IAnnouncement} from "../../../../core/models/announcement";
 
 @Component({
   selector: 'app-requests',
@@ -48,6 +49,8 @@ export class RequestsComponent implements OnDestroy {
   protected action: string = '';
   protected role: number = 0;
   protected messageService: FormControl;
+  protected announcements: IAnnouncement[] = [];
+  protected announcement!: IAnnouncement;
 
   protected currentPage: number = 1;
   protected leftLimit: number = 0;
@@ -61,7 +64,7 @@ export class RequestsComponent implements OnDestroy {
     private _authService: AuthService,
     private _filterService: FilterService,
   ) {
-    this.getRequests();
+    this._getAnnouncement();
     this.role = this._authService.getRole();
     this.messageService = new FormControl<string>('', Validators.required);
   }
@@ -70,11 +73,46 @@ export class RequestsComponent implements OnDestroy {
     this._subscriptions.unsubscribe();
   }
 
+  private _getAnnouncement() {
+    this.isLoading = true;
+    this._subscriptions.add(
+      this._managerService.getAnnouncement().subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (!res.detalle) {
+            this._toastService.add({
+              type: 'error',
+              message: 'No se pudo obtener el listado de convocatorias, intente nuevamente'
+            });
+            return;
+          }
+
+          this.announcements = res.detalle;
+
+          this.announcements.sort((a, b) => {
+              return new Date(b.fecha_fin).getTime() - new Date(a.fecha_fin).getTime();
+            }
+          );
+        },
+        error: (error) => {
+          console.error(error);
+          this._toastService.add({type: 'error', message: 'Error al obtener las convocatorias'});
+          this.isLoading = false;
+        }
+      })
+    );
+  }
+
+  protected selectAnnouncement(item: IAnnouncement): void {
+    this.announcement = item;
+    this.getRequests();
+  }
+
   private getRequests(): void {
     this.isLoading = true;
 
     this._subscriptions.add(
-      this._managerService.getRequests().subscribe({
+      this._managerService.getRequests(this.announcement.id || 0).subscribe({
         next: (res) => {
           this.isLoading = false;
           if (!res.detalle) {
@@ -82,6 +120,7 @@ export class RequestsComponent implements OnDestroy {
             return;
           }
 
+          this.requests = [];
           for (const re of res.detalle) {
             const index = this.requests.findIndex(r => r.alumno.DNI === re.alumno.DNI);
             if (index === -1) {
@@ -94,6 +133,7 @@ export class RequestsComponent implements OnDestroy {
             }
           }
 
+          this.view = 'request';
           this.initPagination();
         },
         error: (err: HttpErrorResponse) => {
@@ -295,7 +335,6 @@ export class RequestsComponent implements OnDestroy {
   }
 
   protected backToList(): void {
-    this.view = 'list';
     this.getRequests();
   }
 
